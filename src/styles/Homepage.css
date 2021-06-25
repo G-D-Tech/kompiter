@@ -2,7 +2,7 @@
   margin-top: 30px;
 }
 
-gruppeOverskrift {
+#groupHead {
   font-size: 50px;
   margin-left: 20px;
   margin-bottom: 20px;
@@ -10,7 +10,7 @@ gruppeOverskrift {
   font-family: "roboto";
 }
 
-gruppeTekst {
+#groupText {
   font-size: 30px;
   font-weight: bold;
   font-family: "roboto";
