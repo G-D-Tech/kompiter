@@ -32,6 +32,34 @@
   cursor: pointer;
 }
 
+/* unvisited link */
+a:link {
+  font-family: "roboto";
+  color: white;
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  font-family: "roboto";
+  color: white;
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  font-family: "roboto";
+  color: white;
+  text-decoration: none;
+}
+
+/* selected link */
+a:active {
+  font-family: "roboto";
+  color: white;
+  text-decoration: none;
+}
+
 .RedButtonStyle:hover {
   background-color: #d14646;
 }
