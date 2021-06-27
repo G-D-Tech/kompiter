@@ -23,12 +23,13 @@ const CreateGroup = () => {
         <Link to="/">
           <IoIosArrowBack class="IoIosArrowBack"></IoIosArrowBack>
         </Link>
+        <h1 id="groupHead">New Group</h1>
       </div>
 
-      <h1 id="groupHead">New Group</h1>
+    
       <div className="input-container">
         <text class="text">Group Name</text>
-        <form class="form-inline">
+        <form class="GoupNameBox">
           <div>
             <input
               class="form-control"
@@ -38,9 +39,9 @@ const CreateGroup = () => {
           </div>
         </form>
       </div>
-
+      
       <div className=" input-container">
-        <text class="text">Start date:</text>
+        <text class="text">Start date</text>
         <DatePicker
           selected={startDate}
           showTimeSelect
@@ -50,7 +51,7 @@ const CreateGroup = () => {
         />
       </div>
       <div className=" input-container">
-        <text class="text">End date:</text>
+        <text class="text">End date</text>
         <DatePicker
           selected={endDate}
           showTimeSelect
@@ -59,8 +60,9 @@ const CreateGroup = () => {
           dateFormat="MMMM d, yyyy HH:mm"
         />
       </div>
-      <div class="container">
-        <div className="form-check d-flex justify-content-center">
+      <div class="box-container">
+      <div class="t">
+        <div className="form-check ">
           <div class="CheckBoxStyle">
             <input
               class="form-check-input"
@@ -74,19 +76,20 @@ const CreateGroup = () => {
             </label>
           </div>
         </div>
-        <div className="form-check d-flex justify-content-center">
+        <div className="form-check">
           <div class="CheckBoxStyle">
-            <input
+          <input
               class="form-check-input"
               type="checkbox"
               value=""
-              id="flexCheckChecked"
+              id="flexCheckChecked1"
               unchecked
             />
-            <label class="text" for="flexCheckChecked">
+            <label class="text" for="flexCheckChecked1">
               Allow group members to confirm challenges
             </label>
           </div>
+        </div>
         </div>
       </div>
     </div>
