@@ -1,9 +1,8 @@
 .text {
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   font-size: 21px;
-  font-weight: bold;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 9px;
+  margin-right: 9px;
   padding: -10px;
 }
 
@@ -33,7 +32,7 @@
   justify-content: center;
   align-items: center;
   margin-left: 9%;
-  margin-right: 10%;
+  margin-right: 9%;
 }
 
 .box-container {
@@ -42,7 +41,14 @@
   align-items: center;
   justify-content: center;
   margin-left: 15%;
-  margin-right: 10%;
+  margin-right: 8%;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 .input-container .react-datepicker-wrapper {

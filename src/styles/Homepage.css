@@ -7,18 +7,16 @@
   margin-left: 10%;
   margin-top: 30px;
   margin-bottom: 30px;
-  font-weight: bold;
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
 }
 
 #groupText {
   font-size: 30px;
-  font-weight: bold;
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
 }
 
 .RedButtonStyle {
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
   color: white;
   letter-spacing: 1px;
   background-color: #e94e4e;
@@ -35,28 +33,28 @@
 
 /* unvisited link */
 a:link {
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
   color: white;
   text-decoration: none;
 }
 
 /* visited link */
 a:visited {
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
   color: white;
   text-decoration: none;
 }
 
 /* mouse over link */
 a:hover {
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
   color: white;
   text-decoration: none;
 }
 
 /* selected link */
 a:active {
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
   color: white;
   text-decoration: none;
 }
@@ -85,7 +83,7 @@ a:active {
 }
 
 .GroupButtonStyle {
-  font-family: "roboto";
+  font-family: "Roboto", sans-serif;
   color: white;
   letter-spacing: 1px;
   background-color: #4d85f2;

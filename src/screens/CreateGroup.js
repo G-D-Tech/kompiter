@@ -91,7 +91,10 @@ const CreateGroup = () => {
           </div>
         </div>
         </div>
-      </div>
+        <button className="RedButtonStyle button-container">
+          <Link to="/CodeGenerator">Create group</Link>
+          </button>
+      </div> 
     </div>
   );
 };
