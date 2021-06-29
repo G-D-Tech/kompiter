@@ -4,16 +4,21 @@ import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import "../styles/Homepage.css";
 import { BsFillPersonFill } from "react-icons/bs";
-
+import Modal from 'react-modal'
 import "../styles/CreateGroup.css";
-
+import { FiCopy} from "react-icons/fi";
 import "react-datepicker/dist/react-datepicker.css";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { set } from "harmony-reflect";
 
 //https://reactdatepicker.com
 //https://openbase.com/js/react-datepicker
 const CreateGroup = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [groupName, setGroupName] = useState(null);
+
   return (
     <div>
       <div class="container">
@@ -27,20 +32,21 @@ const CreateGroup = () => {
       </div>
 
     
-      <div className="input-container">
+      <div className="input-container" >
         <text class="text">Group Name</text>
-        <form class="GoupNameBox">
-          <div>
+        <form>
+          <div class="GroupNameBox">
             <input
               class="form-control"
               id="exampleFormControlInput"
-              placeholder="Feeest"
+              placeholder="17.mai fest"
+              onChange={(e) => {setGroupName(e.target.value);}}
             ></input>
           </div>
         </form>
       </div>
       
-      <div className=" input-container">
+      <div className="input-container">
         <text class="text">Start date</text>
         <DatePicker
           selected={startDate}
@@ -91,10 +97,55 @@ const CreateGroup = () => {
           </div>
         </div>
         </div>
-        <button className="RedButtonStyle button-container">
-          <Link to="/CodeGenerator">Create group</Link>
+        <button 
+        className="RedButtonStyle button-container"
+        onClick={() => setModalIsOpen(true)}>Create group
           </button>
-      </div> 
+
+        {groupName ? (<Modal 
+        isOpen={modalIsOpen}
+        className="modal-content"
+        >
+        <div class="input-container">
+        <text class="text">{groupName} has been added to your groups</text>
+        </div>
+        <div class="codeOutput">
+        
+        <input
+            className="form-control GroupNameBox"
+            value="12309420"
+            />
+          <CopyToClipboard text="12309420">
+            <FiCopy class="icon-copy" size={30}></FiCopy>
+            </CopyToClipboard>
+        </div>
+        <div class="button-container">
+        <button 
+        className="RedButtonStyle">
+          <Link to="/">Done</Link>
+          </button>
+        </div>
+        </Modal>) 
+
+        
+        : <Modal 
+        isOpen={modalIsOpen}
+        className="modal-content"
+        >
+        <div class="input-container">
+        <text class="textError">Group name is not defined</text>
+        </div>
+
+        <div class="button-container">
+        <button 
+        className="RedButtonStyle"
+        onClick={() => setModalIsOpen(false)}
+        >Back
+          </button>
+        </div>
+        </Modal>}
+
+      </div>
     </div>
   );
 };

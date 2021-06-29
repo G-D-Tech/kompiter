@@ -6,6 +6,15 @@
   padding: -10px;
 }
 
+.textError {
+  font-family: "Roboto", sans-serif;
+  font-size: 21px;
+  margin-left: 9px;
+  margin-right: 9px;
+  padding: -10px;
+  color: #e94e4e;
+}
+
 /* .CreateGroup {
   text-align: center;
   height: 100vh;
@@ -15,7 +24,7 @@
   padding: 40px;
 } */
 
-.GoupNameBox {
+.GroupNameBox {
   width: 185px;
 }
 
@@ -65,4 +74,22 @@
 
 input[type="checkbox"] {
   transform: scale(2);
+}
+
+.modal-content {
+  margin: 30% auto;
+  padding: 30px;
+  width: 80%;
+}
+
+.codeOutput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.icon-copy {
+  margin-left: -35px;
 }
