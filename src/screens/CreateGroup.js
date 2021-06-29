@@ -106,8 +106,9 @@ const CreateGroup = () => {
         isOpen={modalIsOpen}
         className="modal-content"
         >
-        <div class="input-container">
+        <div class="output-container">
         <text class="text">{groupName} has been added to your groups</text>
+        <text class="text-code">Copy the code bellow and share it with your friends</text>
         </div>
         <div class="codeOutput">
         

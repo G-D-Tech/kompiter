@@ -5,6 +5,13 @@
   margin-right: 9px;
   padding: -10px;
 }
+.text-code {
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  margin-left: 9px;
+  margin-right: 9px;
+  padding: -10px;
+}
 
 .textError {
   font-family: "Roboto", sans-serif;
@@ -38,6 +45,15 @@
 .input-container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 9%;
+  margin-right: 9%;
+}
+
+.output-container {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-left: 9%;
