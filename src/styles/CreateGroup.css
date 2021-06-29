@@ -57,7 +57,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .input-container .react-datepicker-wrapper {
@@ -76,20 +76,4 @@ input[type="checkbox"] {
   transform: scale(2);
 }
 
-.modal-content {
-  margin: 30% auto;
-  padding: 30px;
-  width: 80%;
-}
 
-.codeOutput {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.icon-copy {
-  margin-left: -35px;
-}

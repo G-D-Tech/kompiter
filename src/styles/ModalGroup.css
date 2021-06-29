@@ -1,0 +1,81 @@
+.modalGroup-content {
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #4d85f2;
+
+  border-radius: 40px;
+}
+
+.groupTextPopup {
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  opacity: 90%;
+}
+
+.dateTextPopup {
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  opacity: 90%;
+}
+
+.dateGroup-container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-left: 9%;
+}
+
+.inputGroup-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 15px;
+  margin-left: 9%;
+  margin-right: 9%;
+}
+
+.crossButtonStyle {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  background-color: #e94e4e;
+  border-color: #e94e4e;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.crossButtonStyle:hover {
+  background-color: #d14646;
+}
+
+.crossButtonStyle:active {
+  background: #fc9e9e;
+  box-shadow: inset 0px 0px 5px #fc9e9e;
+}
+
+.modal-content {
+  margin: 30% auto;
+  padding: 30px;
+  width: 80%;
+}
+
+.codeOutput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.icon-copy {
+  margin-left: -35px;
+}
+
+.icon-copy:active {
+  color: #cdcdcd;
+}

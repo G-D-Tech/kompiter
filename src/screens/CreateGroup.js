@@ -97,11 +97,13 @@ const CreateGroup = () => {
           </div>
         </div>
         </div>
+        </div>
+        <div class="button-container">
         <button 
-        className="RedButtonStyle button-container"
+        className="RedButtonStyle"
         onClick={() => setModalIsOpen(true)}>Create group
           </button>
-
+        </div>
         {groupName ? (<Modal 
         isOpen={modalIsOpen}
         className="modal-content"
@@ -145,7 +147,6 @@ const CreateGroup = () => {
         </div>
         </Modal>}
 
-      </div>
     </div>
   );
 };
