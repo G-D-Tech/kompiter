@@ -29,6 +29,15 @@ function Homepage() {
     });
   }
 
+  function deleteGroup(school) {
+    ref
+      .doc(school.id)
+      .delete()
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   useEffect(() => {
     getGroups();
   }, []);
@@ -64,17 +73,7 @@ function Homepage() {
           </button>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <button
-          class="GroupButtonStyle"
-          id="createGroupButton"
-          onClick={() => setModalIsOpen(true)}
-        >
-          <Link id="groupText" to="/GroupPage">
-            Group 1
-          </Link>
-        </button>
-      </div>
+
       {/* 
       <Modal 
         isOpen={modalIsOpen}
@@ -109,6 +108,7 @@ function Homepage() {
             <Link id="groupText" to="/GroupPage">
               {group.groupName}
             </Link>
+            <button onClick={() => deleteGroup(group)}>X</button>
           </button>
         </div>
       ))}
