@@ -1,8 +1,10 @@
 .modalGroup-content {
   padding: 20px;
+  padding-bottom: 100%;
   margin-top: 20px;
   background-color: #4d85f2;
-
+  margin-left: 2%;
+  margin-right: 2%;
   border-radius: 40px;
 }
 
