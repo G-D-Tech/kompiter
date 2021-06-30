@@ -84,6 +84,7 @@ a:active {
 
 .GroupButtonStyle {
   font-family: "Roboto", sans-serif;
+  width: 90%;
   color: white;
   letter-spacing: 1px;
   background-color: #4d85f2;
@@ -92,6 +93,7 @@ a:active {
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.6);
   transition-duration: 0.2s;
   cursor: pointer;
+  margin: 30px;
 }
 
 .GroupButtonStyle:hover {
