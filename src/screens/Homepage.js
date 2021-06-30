@@ -2,10 +2,10 @@ import { BsFillPersonFill } from "react-icons/bs";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
-import Modal from 'react-modal';
-import "../styles/ModalGroup.css"
+import Modal from "react-modal";
+import "../styles/ModalGroup.css";
 import { IoIosClose } from "react-icons/io";
-import { FiCopy} from "react-icons/fi";
+import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const Homepage = () => {
@@ -17,8 +17,7 @@ const Homepage = () => {
       </div>
 
       <h1 id="groupHead">Group</h1>
-      <div class="d-flex justify-content-center"
-      >
+      <div class="d-flex justify-content-center">
         <form class="form-inline">
           <div>
             <input
@@ -36,14 +35,17 @@ const Homepage = () => {
         </button>
       </div>
       <div class="d-flex justify-content-center">
-        <button 
-        class="GroupButtonStyle" 
-        id="createGroupButton"
-        onClick={() => setModalIsOpen(true)}>
-          <Link id="groupText" to="/GroupPage">Group 1</Link>
+        <button
+          class="GroupButtonStyle"
+          id="createGroupButton"
+          onClick={() => setModalIsOpen(true)}
+        >
+          <Link id="groupText" to="/GroupPage">
+            Group 1
+          </Link>
         </button>
       </div>
-{/* 
+      {/* 
       <Modal 
         isOpen={modalIsOpen}
         className="modalGroup-content"
