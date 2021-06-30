@@ -11,20 +11,25 @@ import firebase from "../firebase";
 
 const GroupPage = () => {
   //const [modalIsOpen, setModalIsOpen] = useState(false);
-  //const [group, setGroup] = useState(null);
   const location = useLocation();
   const { groupId } = location.state;
-  const ref = firebase.firestore().collection("groups");
 
-  function getGroup() {
-    //setGroup(ref.where("id", "==", CreateGroup.groupId).get());
-  }
+  const [groupName, setGroupName] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-  useEffect(() => {
-    getGroup();
-  });
+  const ref = firebase.firestore().collection("groups").doc(groupId);
 
-  console.log(groupId);
+  firebase
+    .firestore()
+    .collection("groups")
+    .doc(groupId)
+    .get()
+    .then((snapshot) => {
+      setGroupName(snapshot.data().groupName);
+      //setStartDate(snapshot.data().startDate);
+      //setEndDate(snapshot.data().endDate);
+    });
 
   return (
     <div className="modalGroup-content">
@@ -34,10 +39,10 @@ const GroupPage = () => {
         </Link>
       </button>
       <div class="inputGroup-container">
-        <text class="groupTextPopup"> Hei</text>
+        <text class="groupTextPopup"> {groupName}</text>
       </div>
       <div class="dateGroup-container">
-        <text class="dateTextPopup"> 12.08.21</text>
+        <text class="dateTextPopup"> {startDate}</text>
         <text class="dateTextPopup"> 09:00 - 00:00</text>
       </div>
       <div class="inputGroup-container">
