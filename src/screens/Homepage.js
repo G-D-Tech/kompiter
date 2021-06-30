@@ -105,7 +105,10 @@ function Homepage() {
       {groups.map((group) => (
         <div key={group.id} class="d-flex justify-content-center">
           <button class="GroupButtonStyle" id="createGroupButton">
-            <Link id="groupText" to="/GroupPage">
+            <Link
+              id="groupText"
+              to={{ pathname: "/GroupPage", state: { groupId: group.id } }}
+            >
               {group.groupName}
             </Link>
             <button onClick={() => deleteGroup(group)}>X</button>
