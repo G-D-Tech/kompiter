@@ -43,7 +43,7 @@ const GroupPage = () => {
         <text class="groupTextPopup"> {groupName}</text>
       </div>
       <div class="dateGroup-container">
-        <text class="dateTextPopup"> {startDate}</text>
+        <text class="dateTextPopup"> 17.05</text>
         <text class="dateTextPopup"> 09:00 - 00:00</text>
       </div>
       <div class="inputGroup-container">
