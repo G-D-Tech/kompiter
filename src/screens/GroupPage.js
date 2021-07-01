@@ -12,24 +12,24 @@ import firebase from "../firebase";
 const GroupPage = () => {
   //const [modalIsOpen, setModalIsOpen] = useState(false);
   const location = useLocation();
-  const { groupId } = location.state;
+  const { groupId, groupName, startDate, endDate } = location.state;
 
-  const [groupName, setGroupName] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  //const [groupName, setGroupName] = useState("");
+  //const [startDate, setStartDate] = useState("");
+  //const [endDate, setEndDate] = useState("");
 
   const ref = firebase.firestore().collection("groups").doc(groupId);
 
-  firebase
+  /*   firebase
     .firestore()
     .collection("groups")
     .doc(groupId)
     .get()
     .then((snapshot) => {
       setGroupName(snapshot.data().groupName);
-      //setStartDate(snapshot.data().startDate);
-      //setEndDate(snapshot.data().endDate);
-    });
+      setStartDate(snapshot.data().startDate);
+      setEndDate(snapshot.data().endDate);
+    }); */
 
   return (
     <div className="modalGroup-content">
