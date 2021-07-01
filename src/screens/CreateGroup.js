@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useReducer } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
@@ -12,7 +12,7 @@ import "../styles/CreateGroup.css";
 import { FiCopy } from "react-icons/fi";
 import "react-datepicker/dist/react-datepicker.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { set } from "harmony-reflect";
+//import { set } from "harmony-reflect";
 
 import firebase from "../firebase";
 

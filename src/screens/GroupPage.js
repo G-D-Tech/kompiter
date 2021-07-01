@@ -1,5 +1,5 @@
 import { BsFillPersonFill } from "react-icons/bs";
-import React, { useState, useEffect } from "react";
+
 import { Link, useLocation } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
@@ -18,6 +18,9 @@ const GroupPage = () => {
   //const [groupName, setGroupName] = useState("");
   //const [startDate, setStartDate] = useState("");
   //const [endDate, setEndDate] = useState("");
+
+  console.log(startDate);
+  console.log(endDate.toDateString());
 
   const ref = firebase.firestore().collection("groups").doc(groupId);
 
@@ -43,8 +46,19 @@ const GroupPage = () => {
         <text class="groupTextPopup"> {groupName}</text>
       </div>
       <div class="dateGroup-container">
-        <text class="dateTextPopup"> 17.05</text>
-        <text class="dateTextPopup"> 09:00 - 00:00</text>
+        {startDate.toDateString() === endDate.toDateString() ? (
+          <text class="dateTextPopup">
+            {startDate.toDateString()}
+            <br />
+            {startDate.toTimeString().substring(0, 5)} -
+            {endDate.toTimeString().substring(0, 5)}
+          </text>
+        ) : (
+          <text class="dateTextPopup">
+            {startDate.toString().substring(0, 21)} -
+            {endDate.toString().substring(0, 21)}
+          </text>
+        )}
       </div>
       <div class="inputGroup-container">
         <input className="form-control GroupNameBox" value="12309420" />
@@ -95,13 +109,6 @@ const GroupPage = () => {
           <text class="display-score"> Score: 11/20</text>
         </div>
       </div>
-
-      {/* <div class="inputGroup-container">
-        <input className="form-control GroupNameBox" value="12309420" />
-        <CopyToClipboard text="12309420">
-          <FiCopy class="icon-copy" size={30}></FiCopy>
-        </CopyToClipboard>
-      </div> */}
     </div>
   );
 };
