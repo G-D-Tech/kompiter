@@ -1,17 +1,13 @@
 import { BsFillPersonFill } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
-/* import { IoIosClose } from "react-icons/io";
-import { FiCopy } from "react-icons/fi";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { propTypes } from "react-bootstrap/esm/Image";
-import Modal from "react-modal"; */
 import firebase from "../firebase";
 
-function Homepage() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+import { GroupContext } from "../screens/Context";
+
+const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -30,20 +26,27 @@ function Homepage() {
   }
 
   function deleteGroup(school) {
+    setLoading(true);
     ref
       .doc(school.id)
       .delete()
       .catch((err) => {
         console.error(err);
       });
+    setLoading(false);
   }
 
   useEffect(() => {
     getGroups();
   }, []);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
+  const history = useHistory();
+
+  const { setGroup } = useContext(GroupContext);
+
+  function setGroupToContext(props) {
+    setGroup(props);
+    history.push("/GroupPage");
   }
 
   return (
@@ -76,27 +79,18 @@ function Homepage() {
 
       {groups.map((group) => (
         <div key={group.id} class="d-flex justify-content-center">
-          <button class="GroupButtonStyle" id="createGroupButton">
-            <Link
-              id="groupText"
-              to={{
-                pathname: "/GroupPage",
-                state: {
-                  groupId: group.id,
-                  groupName: group.groupName,
-                  startDate: group.startDate.toDate(),
-                  endDate: group.endDate.toDate(),
-                },
-              }}
-            >
-              {group.groupName}
-            </Link>
+          <button
+            class="GroupButtonStyle"
+            id="createGroupButton"
+            onClick={() => setGroupToContext(group)}
+          >
+            {group.groupName}
             <button onClick={() => deleteGroup(group)}>X</button>
           </button>
         </div>
       ))}
     </div>
   );
-}
+};
 
 export default Homepage;

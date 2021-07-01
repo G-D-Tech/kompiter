@@ -1,6 +1,6 @@
-import { BsFillPersonFill } from "react-icons/bs";
+import React, { useContext } from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import { IoIosClose } from "react-icons/io";
@@ -8,32 +8,12 @@ import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { BsListCheck, BsListOl, BsPlus, BsThreeDots } from "react-icons/bs";
 
-import firebase from "../firebase";
+import { GroupContext } from "../screens/Context";
 
 const GroupPage = () => {
-  //const [modalIsOpen, setModalIsOpen] = useState(false);
-  const location = useLocation();
-  const { groupId, groupName, startDate, endDate } = location.state;
-
-  //const [groupName, setGroupName] = useState("");
-  //const [startDate, setStartDate] = useState("");
-  //const [endDate, setEndDate] = useState("");
-
-  console.log(startDate);
-  console.log(endDate.toDateString());
-
-  const ref = firebase.firestore().collection("groups").doc(groupId);
-
-  /*   firebase
-    .firestore()
-    .collection("groups")
-    .doc(groupId)
-    .get()
-    .then((snapshot) => {
-      setGroupName(snapshot.data().groupName);
-      setStartDate(snapshot.data().startDate);
-      setEndDate(snapshot.data().endDate);
-    }); */
+  const { group } = useContext(GroupContext);
+  const startDate = group.startDate.toDate();
+  const endDate = group.startDate.toDate();
 
   return (
     <div className="modalGroup-content">
@@ -43,7 +23,7 @@ const GroupPage = () => {
         </Link>
       </button>
       <div class="inputGroup-container">
-        <text class="groupTextPopup"> {groupName}</text>
+        <text class="groupTextPopup">{group.groupName} </text>
       </div>
       <div class="dateGroup-container">
         {startDate.toDateString() === endDate.toDateString() ? (
