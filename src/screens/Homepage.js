@@ -107,7 +107,15 @@ function Homepage() {
           <button class="GroupButtonStyle" id="createGroupButton">
             <Link
               id="groupText"
-              to={{ pathname: "/GroupPage", state: { groupId: group.id } }}
+              to={{
+                pathname: "/GroupPage",
+                state: {
+                  groupId: group.id,
+                  groupName: group.groupName,
+                  startDate: group.startDate,
+                  endDate: group.endDate,
+                },
+              }}
             >
               {group.groupName}
             </Link>
