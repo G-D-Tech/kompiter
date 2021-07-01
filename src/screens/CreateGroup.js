@@ -24,7 +24,6 @@ const CreateGroup = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const ref = firebase.firestore().collection("groups");
 
   // ADD FUNCTION
