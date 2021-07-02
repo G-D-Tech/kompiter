@@ -3,17 +3,6 @@ import "../styles/ModalGroup.css";
 
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 
-/* import { IoIosClose } from "react-icons/io";
-import { FiCopy } from "react-icons/fi";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import {
-  BsListCheck,
-  BsListOl,
-  BsPlus,
-  BsThreeDots,
-  BsToggleOn,
-} from "react-icons/bs";
- */
 const GroupPageSetting = () => {
   const settings = [
     "Allow group members to confirm challenges",
