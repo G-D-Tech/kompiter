@@ -1,21 +1,44 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import { IoIosClose } from "react-icons/io";
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { BsListCheck, BsListOl, BsPlus, BsThreeDots } from "react-icons/bs";
+import {
+  BsListCheck,
+  BsListOl,
+  BsPlus,
+  BsThreeDots,
+  BsCheck,
+  BsTrash,
+} from "react-icons/bs";
 
 import { GroupContext } from "../screens/Context";
 
 const GroupPageAdd = () => {
   const { group } = useContext(GroupContext);
+  const [addIsOpen, setAddIsOpen] = useState(false);
+
+  const challenges = ["hva som helst", "hva som helst to", "hva som helst 3"];
+  const listChallenges = challenges.map((challenge) => (
+    <div class="display-challenges">
+      <text class="uncompletedChallengesText">{challenge}</text>
+      <div>
+        <IoIosClose
+          onClick={() => {}}
+          class="unchecked-circle"
+          size={40}
+        ></IoIosClose>
+      </div>
+    </div>
+  ));
+
   return (
     <div className="modalGroup-content">
       <button className="crossButtonStyle">
         <Link to="/">
-          <IoIosClose size={20}></IoIosClose>
+          <IoIosClose size={25}></IoIosClose>
         </Link>
       </button>
       <div class="inputGroup-container">
@@ -48,24 +71,30 @@ const GroupPageAdd = () => {
       <div>
         <div class="navbar-line"></div>
 
-        <div class="crossPlusButtonStyle">
+        <div onClick={() => setAddIsOpen(true)} class="crossPlusButtonStyle">
           <BsPlus size={40}></BsPlus>
         </div>
-        <div class="display-challenges">
-          <text class="uncompletedChallengesText"> Hva som helst</text>
-        </div>
-        <div class="display-challenges">
-          <text class="uncompletedChallengesText"> Hva som helst</text>
-        </div>
-        <div class="display-challenges">
-          <text class="uncompletedChallengesText"> Hva som helst</text>
-        </div>
-        <div class="display-challenges">
-          <text class="uncompletedChallengesText">
-            {" "}
-            Hva som helst, bare litt lenger for å sjekke
-          </text>
-        </div>
+        {addIsOpen ? (
+          <div class="addBox">
+            <input class="form-control" placeholder="Ring din nummernabo" />
+            <div>
+              <div class="addAndCheckBox">
+                <div className="crossButtonStyle">
+                  <IoIosClose
+                    onClick={() => setAddIsOpen(false)}
+                    size={40}
+                  ></IoIosClose>
+                </div>
+                <div className="checkButtonStyle">
+                  <BsCheck size={40}></BsCheck>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div></div>
+        )}
+        <div>{listChallenges}</div>
       </div>
     </div>
   );
