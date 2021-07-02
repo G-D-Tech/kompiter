@@ -5,7 +5,7 @@ import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import firebase from "../firebase";
 
-import { GroupContext } from "../screens/Context";
+import { GroupContext } from "../contexts/GroupContext";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
@@ -41,9 +41,7 @@ const Homepage = () => {
   }, []);
 
   const history = useHistory();
-
   const { setGroup } = useContext(GroupContext);
-
   function setGroupToContext(props) {
     setGroup(props);
     history.push("/GroupPage");

@@ -6,7 +6,7 @@ import GroupPageList from "./screens/GroupPageList";
 import GroupPageAdd from "./screens/GroupPageAdd";
 import GroupPageSetting from "./screens/GroupPageSetting";
 
-import { GroupProvider } from "../src/screens/Context";
+import { GroupProvider } from "./contexts/GroupContext";
 
 function App() {
   return (
