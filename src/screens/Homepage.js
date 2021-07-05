@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import firebase from "../firebase";
+import { IoIosClose } from "react-icons/io";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
@@ -91,7 +92,11 @@ const Homepage = () => {
           >
             <button class="GroupButtonStyle" id="createGroupButton">
               {group.groupName}
-              <button onClick={() => deleteGroup(group)}>X</button>
+              <IoIosClose
+                onClick={() => deleteGroup(group)}
+                class="crossButton"
+                size={40}
+              ></IoIosClose>
             </button>
           </Link>
         </div>
