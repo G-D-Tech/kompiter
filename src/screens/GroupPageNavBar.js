@@ -1,5 +1,3 @@
-import React, { useContext } from "react";
-import { GroupContext } from "../contexts/GroupContext";
 import { Link, NavLink } from "react-router-dom";
 import "../styles/NavBar.css";
 
@@ -8,13 +6,9 @@ import { BsListCheck, BsListOl, BsPlus, BsThreeDots } from "react-icons/bs";
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const GroupPageNavBar = () => {
-  const { group } = useContext(GroupContext);
-  const startDate = group.startDate.toDate();
-  const endDate = group.startDate.toDate();
-
+function GroupPageNavBar(group, startDate, endDate) {
   return (
-    <div>
+    <div className="modalGroup-content" key={group.id}>
       <button className="crossButtonStyle">
         <Link to="/">
           <IoIosClose size={20}></IoIosClose>
@@ -45,25 +39,43 @@ const GroupPageNavBar = () => {
         </CopyToClipboard>
       </div>
       <div class="navbar">
-        <NavLink exact to="/GroupPage">
+        <NavLink
+          exact
+          to={{
+            pathname: "/GroupPage",
+            state: { group: group, startDate: startDate, endDate: endDate },
+          }}
+        >
           <BsListOl size={40} className="icon"></BsListOl>
         </NavLink>
-        <NavLink to="/GroupPageList">
+        <NavLink
+          to={{
+            pathname: "/GroupPageList",
+            state: { group: group, startDate: startDate, endDate: endDate },
+          }}
+        >
           <BsListCheck size={40} className="icon"></BsListCheck>
         </NavLink>
-        <NavLink to="/GroupPageAdd">
+        <NavLink
+          to={{
+            pathname: "/GroupPageAdd",
+            state: { group: group, startDate: startDate, endDate: endDate },
+          }}
+        >
           <BsPlus size={40} className="icon"></BsPlus>
         </NavLink>
-        <NavLink to="/GroupPageSetting">
+        <NavLink
+          to={{
+            pathname: "/GroupPageSetting",
+            state: { group: group, startDate: startDate, endDate: endDate },
+          }}
+        >
           <BsThreeDots size={40} className="icon"></BsThreeDots>
         </NavLink>
       </div>
-
-      <div>
-        <div class="navbar-line"></div>
-      </div>
+      <div class="navbar-line"></div>
     </div>
   );
-};
+}
 
 export default GroupPageNavBar;

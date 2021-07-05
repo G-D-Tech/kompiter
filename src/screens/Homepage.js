@@ -1,11 +1,9 @@
 import { BsFillPersonFill } from "react-icons/bs";
-import React, { useEffect, useState, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import firebase from "../firebase";
-
-import { GroupContext } from "../contexts/GroupContext";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
@@ -40,13 +38,13 @@ const Homepage = () => {
     getGroups();
   }, []);
 
-  const history = useHistory();
+  /*  const history = useHistory();
   const { setGroup } = useContext(GroupContext);
   function setGroupToContext(props) {
     setGroup(props);
     history.push("/GroupPage");
   }
-
+ */
   return (
     <div>
       <div id="d-flex justify-content-center"></div>
@@ -80,15 +78,22 @@ const Homepage = () => {
       </div>
 
       {groups.map((group) => (
-        <div key={group.id} class="d-flex justify-content-center">
-          <button
-            class="GroupButtonStyle"
-            id="createGroupButton"
-            onClick={() => setGroupToContext(group)}
+        <div class="d-flex justify-content-center" key={group.id}>
+          <Link
+            to={{
+              pathname: "/GroupPage",
+              state: {
+                group: group,
+                startDate: group.startDate.toDate(),
+                endDate: group.endDate.toDate(),
+              },
+            }}
           >
-            {group.groupName}
-            <button onClick={() => deleteGroup(group)}>X</button>
-          </button>
+            <button class="GroupButtonStyle" id="createGroupButton">
+              {group.groupName}
+              <button onClick={() => deleteGroup(group)}>X</button>
+            </button>
+          </Link>
         </div>
       ))}
     </div>

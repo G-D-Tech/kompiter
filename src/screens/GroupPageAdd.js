@@ -1,17 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import { BsPlus, BsCheck } from "react-icons/bs";
 
 import { IoIosClose } from "react-icons/io";
 
-import { GroupContext } from "../contexts/GroupContext";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 
-const GroupPageAdd = () => {
-  const { group } = useContext(GroupContext);
-  const [addIsOpen, setAddIsOpen] = useState(false);
+function GroupPageAdd() {
+  const location = useLocation();
+  const { group, startDate, endDate } = location.state;
 
+  const [addIsOpen, setAddIsOpen] = useState(false);
   const challenges = ["hva som helst", "hva som helst to", "hva som helst 3"];
   const listChallenges = challenges.map((challenge) => (
     <div class="display-challenges">
@@ -28,7 +30,7 @@ const GroupPageAdd = () => {
 
   return (
     <div className="modalGroup-content">
-      <GroupPageNavBar />
+      {GroupPageNavBar(group, startDate, endDate)}
       <div onClick={() => setAddIsOpen(true)} class="crossPlusButtonStyle">
         <BsPlus size={40}></BsPlus>
       </div>
@@ -53,6 +55,6 @@ const GroupPageAdd = () => {
       <div>{listChallenges}</div>
     </div>
   );
-};
+}
 
 export default GroupPageAdd;
