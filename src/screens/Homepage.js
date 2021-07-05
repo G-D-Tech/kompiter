@@ -8,44 +8,32 @@ import { IoIosClose } from "react-icons/io";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const ref = firebase.firestore().collection("groups");
 
   function getGroups() {
-    setLoading(true);
     ref.onSnapshot((querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
         items.push(doc.data());
       });
       setGroups(items);
-      setLoading(false);
     });
   }
 
   function deleteGroup(school) {
-    setLoading(true);
     ref
       .doc(school.id)
       .delete()
       .catch((err) => {
         console.error(err);
       });
-    setLoading(false);
   }
 
   useEffect(() => {
     getGroups();
-  }, []);
+  }, [groups]);
 
-  /*  const history = useHistory();
-  const { setGroup } = useContext(GroupContext);
-  function setGroupToContext(props) {
-    setGroup(props);
-    history.push("/GroupPage");
-  }
- */
   return (
     <div>
       <div id="d-flex justify-content-center"></div>

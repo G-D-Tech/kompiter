@@ -8,7 +8,6 @@ import GroupPageNavBar from "../screens/GroupPageNavBar";
 function GroupPage() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
-  //const { group } = useContext(GroupContext);
 
   const rankings = [
     { rank: 1, name: "Henrik", score: "19 / 30" },

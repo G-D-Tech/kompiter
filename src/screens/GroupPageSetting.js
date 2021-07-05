@@ -5,7 +5,7 @@ import GroupPageNavBar from "../screens/GroupPageNavBar";
 
 import { useLocation } from "react-router-dom";
 
-function GroupPageSetting(props) {
+function GroupPageSetting() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
 
