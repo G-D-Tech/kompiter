@@ -10,22 +10,25 @@ function GroupPageSetting() {
   const { group, startDate, endDate } = location.state;
 
   const settings = [
-    "Allow group members to confirm challenges",
-    "Allow other to add challenges",
-    "Verify challenge with picture",
+    { settingNum: 1, name: "Allow group members to confirm challenges" },
+    { settingNum: 2, name: "Allow other to add challenges" },
+    { settingNum: 3, name: "Verify challenge with picture" },
   ];
   const listSettings = settings.map((setting) => (
-    <div class="display-challenges">
-      <text class="uncompletedChallengesText">{setting}</text>
+    <div className="display-challenges" key={setting.settingNum}>
+      <label className="uncompletedChallengesText">{setting.name}</label>
       <div className="form-check">
         <input
-          class="form-check-input"
+          className="form-check-input"
           type="checkbox"
           value=""
           id="flexCheckChecked1"
-          unchecked
         />
-        <label color="white" class="text" for="flexCheckChecked1"></label>
+        <label
+          color="white"
+          className="text"
+          htmlFor="flexCheckChecked1"
+        ></label>
       </div>
     </div>
   ));

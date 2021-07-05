@@ -11,15 +11,18 @@ const Homepage = () => {
 
   const ref = firebase.firestore().collection("groups");
 
-  function getGroups() {
-    ref.onSnapshot((querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+  const getGroups = () => {
+    firebase
+      .firestore()
+      .collection("groups")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setGroups(items);
       });
-      setGroups(items);
-    });
-  }
+  };
 
   function deleteGroup(school) {
     ref
@@ -32,34 +35,34 @@ const Homepage = () => {
 
   useEffect(() => {
     getGroups();
-  }, [groups]);
+  }, []);
 
   return (
     <div>
       <div id="d-flex justify-content-center"></div>
-      <div class="container">
-        <div class="icon">
+      <div className="container">
+        <div className="icon">
           <BsFillPersonFill size={30} />
         </div>
 
         <h1 id="groupHead">Group</h1>
 
-        <div class="inputCodeStyle">
+        <div className="inputCodeStyle">
           <form>
-            <div class="GroupNameBox">
+            <div className="GroupNameBox">
               <input
-                class="form-control"
+                className="form-control"
                 id="exampleFormControlInput"
                 placeholder="123456"
               ></input>
             </div>
           </form>
-          <button class="RedButtonStyle">Join Group</button>
+          <button className="RedButtonStyle">Join Group</button>
         </div>
 
-        <div class="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
           <Link to="/CreateGroup">
-            <button class="RedButtonStyle" id="createGroupButton">
+            <button className="RedButtonStyle" id="createGroupButton">
               Create Group
             </button>
           </Link>
@@ -81,7 +84,7 @@ const Homepage = () => {
             <button className="GroupButtonStyle " id="createGroupButton">
               <IoIosClose
                 onClick={() => deleteGroup(group)}
-                class="crossButton"
+                className="crossButton"
                 size={40}
               ></IoIosClose>
               <div className="d-flex justify-content-center" id="groupText">

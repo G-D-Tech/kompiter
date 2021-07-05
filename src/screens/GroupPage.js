@@ -16,11 +16,11 @@ function GroupPage() {
     { rank: 4, name: "Hvem som helst andre", score: "11 / 30" },
   ];
   const listRankings = rankings.map((ranking) => (
-    <div class="display-scoreChallenges">
-      <text class="display-headerNumber"> {ranking.rank}. </text>
+    <div className="display-scoreChallenges" key={ranking.rank}>
+      <label className="display-headerNumber"> {ranking.rank}. </label>
       <div>
-        <text class="display-header"> {ranking.name}</text>
-        <text class="display-score"> Score: {ranking.score}</text>
+        <label className="display-header"> {ranking.name}</label>
+        <label className="display-score"> Score: {ranking.score}</label>
       </div>
     </div>
   ));
