@@ -5,6 +5,9 @@ import GroupPage from "./screens/GroupPage";
 import GroupPageList from "./screens/GroupPageList";
 import GroupPageAdd from "./screens/GroupPageAdd";
 import GroupPageSetting from "./screens/GroupPageSetting";
+import LoginPage from "./screens/LoginPage";
+import SignUpOrInPage from "./screens/SignUpOrInPage";
+import SignUpPage from "./screens/SignUpPage";
 
 import { GroupProvider } from "./contexts/GroupContext";
 
@@ -31,6 +34,15 @@ function App() {
             </Route>
             <Route exact path="/GroupPageSetting">
               <GroupPageSetting />
+            </Route>
+            <Route exact path="/LoginPage">
+              <LoginPage />
+            </Route>
+            <Route exact path="/SignUpOrInPage">
+              <SignUpOrInPage />
+            </Route>
+            <Route exact path="/SignUpPage">
+              <SignUpPage />
             </Route>
           </Switch>
         </div>

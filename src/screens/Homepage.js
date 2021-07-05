@@ -1,18 +1,26 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import React, { useEffect, useState, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import firebase from "../firebase";
 import { IoIosClose } from "react-icons/io";
 
 import { GroupContext } from "../contexts/GroupContext";
+import userEvent from "@testing-library/user-event";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = location.state;
+
+  const location = useLocation();
 
   const ref = firebase.firestore().collection("groups");
+
+  const handleLogOut = () => {
+    firebase.auth().signOut();
+  };
 
   function getGroups() {
     setLoading(true);
@@ -52,8 +60,14 @@ const Homepage = () => {
     <div>
       <div id="d-flex justify-content-center"></div>
       <div class="container">
+        <text class="loginTextSmall" onClick={handleLogOut}>
+          Logout
+        </text>
         <div class="icon">
-          <BsFillPersonFill size={30} />
+          <Link to="/SignUpOrInPage">
+            <text class="loginTextSmall">Save groups? login: </text>
+            <BsFillPersonFill color="black" size={30} />
+          </Link>
         </div>
 
         <h1 id="groupHead">Group</h1>

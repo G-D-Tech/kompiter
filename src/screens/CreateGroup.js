@@ -3,7 +3,6 @@ import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import "../styles/Homepage.css";
-import { BsFillPersonFill } from "react-icons/bs";
 import Modal from "react-modal";
 
 import { v4 as uuidv4 } from "uuid";
@@ -12,12 +11,8 @@ import "../styles/CreateGroup.css";
 import { FiCopy } from "react-icons/fi";
 import "react-datepicker/dist/react-datepicker.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-//import { set } from "harmony-reflect";
 
 import firebase from "../firebase";
-
-//https://reactdatepicker.com
-//https://openbase.com/js/react-datepicker
 
 const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
@@ -43,13 +38,10 @@ const CreateGroup = () => {
   return (
     <div>
       <div class="container">
-        <div class="icon">
-          <BsFillPersonFill size={30}></BsFillPersonFill>
-        </div>
         <Link to="/">
           <IoIosArrowBack class="IoIosArrowBack"></IoIosArrowBack>
         </Link>
-        <h1 id="groupHead">New Group</h1>
+        <h1 class="groupHead">New Group</h1>
       </div>
 
       <div className="input-container">

@@ -1,0 +1,129 @@
+.container-center {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 60px;
+}
+
+.container-centerError {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+input,
+select,
+textarea {
+  color: lightslategray;
+}
+
+.usernameBox {
+  width: 250px;
+  height: 40px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background-color: #eaeaea;
+  border-color: #c4c4c4;
+}
+
+.usernameBoxError {
+  width: 250px;
+  height: 40px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background-color: #eaeaea;
+  border-color: #e94e4e;
+  border-width: 2px;
+}
+
+.loginButtonStyle {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  letter-spacing: 1px;
+  font-size: 20px;
+  background-color: #e94e4e;
+  border-color: #e94e4e;
+  border-radius: 12px;
+  text-align: center;
+  padding: 8px 23px;
+  width: 150px;
+  margin-bottom: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.signInButtonStyle {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  letter-spacing: 1px;
+  font-size: 25px;
+  background-color: #e94e4e;
+  border-color: #e94e4e;
+  border-radius: 12px;
+  text-align: center;
+  padding: 8px 23px;
+  width: 250px;
+  margin-top: 50px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.signUpButtonStyle {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  letter-spacing: 1px;
+  background-color: #e94e4e;
+  border-color: #e94e4e;
+  border-radius: 12px;
+  text-align: center;
+  padding: 8px 23px;
+  width: 150px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.loginButtonStyle:hover {
+  background-color: #d14646;
+}
+
+.loginButtonStyle:active {
+  background: #fc9e9e;
+  box-shadow: inset 0px 0px 5px #fc9e9e;
+}
+
+.signInButtonStyle:hover {
+  background-color: #d14646;
+}
+
+.signInButtonStyle:active {
+  background: #fc9e9e;
+  box-shadow: inset 0px 0px 5px #fc9e9e;
+}
+
+.signUpButtonStyle:hover {
+  background-color: #d14646;
+}
+
+.signUpButtonStyle:active {
+  background: #fc9e9e;
+  box-shadow: inset 0px 0px 5px #fc9e9e;
+}
+
+.icon-spacebetween {
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 50px;
+}
+
+.errorMsg {
+  color: red;
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  margin-right: 50px;
+}
