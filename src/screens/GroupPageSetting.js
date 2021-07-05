@@ -3,7 +3,12 @@ import "../styles/ModalGroup.css";
 
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 
-const GroupPageSetting = () => {
+import { useLocation } from "react-router-dom";
+
+function GroupPageSetting() {
+  const location = useLocation();
+  const { group, startDate, endDate } = location.state;
+
   const settings = [
     "Allow group members to confirm challenges",
     "Allow other to add challenges",
@@ -26,9 +31,9 @@ const GroupPageSetting = () => {
   ));
   return (
     <div className="modalGroup-content">
-      <GroupPageNavBar />
+      {GroupPageNavBar(group, startDate, endDate)}
       <div>{listSettings}</div>
     </div>
   );
-};
+}
 export default GroupPageSetting;

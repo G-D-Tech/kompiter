@@ -1,20 +1,13 @@
 import { BsFillPersonFill } from "react-icons/bs";
-import React, { useEffect, useState, useContext } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import firebase from "../firebase";
 import { IoIosClose } from "react-icons/io";
 
-import { GroupContext } from "../contexts/GroupContext";
-import userEvent from "@testing-library/user-event";
-
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { user } = location.state;
-
-  const location = useLocation();
 
   const ref = firebase.firestore().collection("groups");
 
@@ -23,38 +16,27 @@ const Homepage = () => {
   };
 
   function getGroups() {
-    setLoading(true);
     ref.onSnapshot((querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
         items.push(doc.data());
       });
       setGroups(items);
-      setLoading(false);
     });
   }
 
   function deleteGroup(school) {
-    setLoading(true);
     ref
       .doc(school.id)
       .delete()
       .catch((err) => {
         console.error(err);
       });
-    setLoading(false);
   }
 
   useEffect(() => {
     getGroups();
-  }, []);
-
-  const history = useHistory();
-  const { setGroup } = useContext(GroupContext);
-  function setGroupToContext(props) {
-    setGroup(props);
-    history.push("/GroupPage");
-  }
+  }, [groups]);
 
   return (
     <div>
@@ -96,20 +78,27 @@ const Homepage = () => {
 
       {groups.map((group) => (
         <div key={group.id}>
-          <div
-            class="GroupButtonStyle"
-            id="createGroupButton"
-            onClick={() => setGroupToContext(group)}
+          <Link
+            to={{
+              pathname: "/GroupPage",
+              state: {
+                group: group,
+                startDate: group.startDate.toDate(),
+                endDate: group.endDate.toDate(),
+              },
+            }}
           >
-            <IoIosClose
-              onClick={() => deleteGroup(group)}
-              class="crossButton"
-              size={40}
-            ></IoIosClose>
-            <div className="d-flex justify-content-center" id="groupText">
-              {group.groupName}
-            </div>
-          </div>
+            <button className="GroupButtonStyle " id="createGroupButton">
+              <IoIosClose
+                onClick={() => deleteGroup(group)}
+                class="crossButton"
+                size={40}
+              ></IoIosClose>
+              <div className="d-flex justify-content-center" id="groupText">
+                {group.groupName}
+              </div>
+            </button>
+          </Link>
         </div>
       ))}
     </div>

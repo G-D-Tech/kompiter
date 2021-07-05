@@ -3,9 +3,14 @@ import "../styles/ModalGroup.css";
 
 import { BsCircle, BsCheckCircle } from "react-icons/bs";
 
+import { useLocation } from "react-router-dom";
+
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 
-const GroupPageList = () => {
+function GroupPageList() {
+  const location = useLocation();
+  const { group, startDate, endDate } = location.state;
+
   const undoneChallenges = [
     "Ta en backflip fra 10 meteren",
     " Eksempel",
@@ -40,7 +45,7 @@ const GroupPageList = () => {
 
   return (
     <div className="modalGroup-content">
-      <GroupPageNavBar />
+      {GroupPageNavBar(group, startDate, endDate)}
       <text class="uncompletedChallengesText">Uncompleted challenges</text>
       <div>{listUndoneChallenges}</div>
 
@@ -48,6 +53,6 @@ const GroupPageList = () => {
       <div>{listDoneChallenges}</div>
     </div>
   );
-};
+}
 
 export default GroupPageList;

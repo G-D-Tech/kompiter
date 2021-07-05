@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import { useLocation } from "react-router-dom";
 
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 
-import { GroupContext } from "../contexts/GroupContext";
-
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 
-const GroupPage = () => {
-  const { group } = useContext(GroupContext);
+function GroupPage() {
+  const location = useLocation();
+  const { group, startDate, endDate } = location.state;
 
   const rankings = [
     { rank: 1, name: "Henrik", score: "19 / 30" },
@@ -27,10 +26,10 @@ const GroupPage = () => {
   ));
   return (
     <div className="modalGroup-content">
-      <GroupPageNavBar />
+      {GroupPageNavBar(group, startDate, endDate)}
       <div>{listRankings}</div>
     </div>
   );
-};
+}
 
 export default GroupPage;
