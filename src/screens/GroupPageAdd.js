@@ -49,9 +49,7 @@ const GroupPageAdd = () => {
             </div>
           </div>
         </div>
-      ) : (
-        <div></div>
-      )}
+      ) : null}
       <div>{listChallenges}</div>
     </div>
   );

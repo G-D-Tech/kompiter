@@ -56,22 +56,26 @@ const Homepage = () => {
         </div>
 
         <h1 id="groupHead">Group</h1>
-        <div class="d-flex justify-content-center">
-          <form class="form-inline">
-            <div>
+
+        <div class="inputCodeStyle">
+          <form>
+            <div class="GroupNameBox">
               <input
                 class="form-control"
                 id="exampleFormControlInput"
                 placeholder="123456"
               ></input>
             </div>
-            <button class="RedButtonStyle">Join Group</button>
           </form>
+          <button class="RedButtonStyle">Join Group</button>
         </div>
+
         <div class="d-flex justify-content-center">
-          <button class="RedButtonStyle" id="createGroupButton">
-            <Link to="/CreateGroup">Create Group</Link>
-          </button>
+          <Link to="/CreateGroup">
+            <button class="RedButtonStyle" id="createGroupButton">
+              Create Group
+            </button>
+          </Link>
         </div>
       </div>
 

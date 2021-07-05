@@ -59,7 +59,6 @@ const CreateGroup = () => {
               class="form-control"
               id="exampleFormControlInput"
               placeholder="Feeest"
-              type="text"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
             />
@@ -67,57 +66,61 @@ const CreateGroup = () => {
         </form>
       </div>
 
-      <div className=" input-container">
+      <div className="inputDate-container">
         <text class="text">Start date</text>
-        <DatePicker
-          selected={startDate}
-          showTimeSelect
-          timeFormat="HH:mm"
-          onChange={(date) => setStartDate(date)}
-          dateFormat="MMMM d, yyyy HH:mm"
-        />
+        <div class="dateBox">
+          <DatePicker
+            className="form-control 
+        dateInput"
+            selected={startDate}
+            showTimeSelect
+            timeFormat="HH:mm"
+            onChange={(date) => setStartDate(date)}
+            dateFormat="MMMM d, yyyy HH:mm"
+          />
+        </div>
       </div>
 
-      <div className=" input-container">
+      <div className="inputDate-container">
         <text class="text">End date</text>
-        <DatePicker
-          selected={endDate}
-          showTimeSelect
-          timeFormat="HH:mm"
-          onChange={(date) => setEndDate(date)}
-          dateFormat="MMMM d, yyyy HH:mm"
-        />
+        <div class="dateBox">
+          <DatePicker
+            className="form-control 
+        dateInput"
+            selected={endDate}
+            showTimeSelect
+            timeFormat="HH:mm"
+            onChange={(date) => setEndDate(date)}
+            dateFormat="MMMM d, yyyy HH:mm"
+          />
+        </div>
       </div>
 
       <div class="box-container">
-        <div class="t">
-          <div className="form-check ">
-            <div class="CheckBoxStyle">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckChecked"
-                unchecked
-              />
-              <label class="text" for="flexCheckChecked">
-                Allow other to add challenges
-              </label>
-            </div>
+        <div className="form-check ">
+          <div class="CheckBoxStyle">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckChecked"
+              unchecked
+            />
+            <label class="text">Allow other to add challenges</label>
           </div>
-          <div className="form-check">
-            <div class="CheckBoxStyle">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckChecked1"
-                unchecked
-              />
-              <label class="text" for="flexCheckChecked1">
-                Allow group members to confirm challenges
-              </label>
-            </div>
+        </div>
+        <div className="form-check">
+          <div class="CheckBoxStyle">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckChecked1"
+              unchecked
+            />
+            <label class="text">
+              Allow group members to confirm challenges
+            </label>
           </div>
         </div>
       </div>
