@@ -8,7 +8,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function GroupPageNavBar(group, startDate, endDate) {
   return (
-    <div className="modalGroup-content" key={group.id}>
+    <div>
       <button className="crossButtonStyle">
         <Link to="/">
           <IoIosClose size={20}></IoIosClose>

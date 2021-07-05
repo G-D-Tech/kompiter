@@ -79,7 +79,7 @@ const Homepage = () => {
       </div>
 
       {groups.map((group) => (
-        <div class="d-flex justify-content-center" key={group.id}>
+        <div key={group.id}>
           <Link
             to={{
               pathname: "/GroupPage",
@@ -90,13 +90,15 @@ const Homepage = () => {
               },
             }}
           >
-            <button class="GroupButtonStyle" id="createGroupButton">
-              {group.groupName}
+            <button className="GroupButtonStyle " id="createGroupButton">
               <IoIosClose
                 onClick={() => deleteGroup(group)}
                 class="crossButton"
                 size={40}
               ></IoIosClose>
+              <div className="d-flex justify-content-center" id="groupText">
+                {group.groupName}
+              </div>
             </button>
           </Link>
         </div>
