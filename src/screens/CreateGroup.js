@@ -25,6 +25,7 @@ const CreateGroup = () => {
   const [endDate, setEndDate] = useState(new Date());
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const ref = firebase.firestore().collection("groups");
+  const [randomNumber, setRandomNumber] = useState(0);
 
   // ADD FUNCTION
   function addGroup(newGroup) {
@@ -109,6 +110,8 @@ const CreateGroup = () => {
             <label class="text">Allow other to add challenges</label>
           </div>
         </div>
+      </div>
+      <div class="box-container">
         <div className="form-check">
           <div class="CheckBoxStyle">
             <input
@@ -130,6 +133,7 @@ const CreateGroup = () => {
           onClick={() => {
             setModalIsOpen(true);
             addGroup({ groupName, id: uuidv4(), startDate, endDate });
+            setRandomNumber(Math.floor(100000 + Math.random() * 900000));
           }}
         >
           Create group
@@ -141,8 +145,8 @@ const CreateGroup = () => {
             <text class="text">{groupName} has been added to your groups</text>
           </div>
           <div class="codeOutput">
-            <input className="form-control GroupNameBox" value="12309420" />
-            <CopyToClipboard text="12309420">
+            <input className="form-control GroupNameBox" value={randomNumber} />
+            <CopyToClipboard text={randomNumber}>
               <FiCopy class="icon-copy" size={30}></FiCopy>
             </CopyToClipboard>
           </div>

@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import firebase from "../firebase";
+import { IoIosClose } from "react-icons/io";
 
 import { GroupContext } from "../contexts/GroupContext";
 
@@ -80,15 +81,21 @@ const Homepage = () => {
       </div>
 
       {groups.map((group) => (
-        <div key={group.id} class="d-flex justify-content-center">
-          <button
+        <div key={group.id}>
+          <div
             class="GroupButtonStyle"
             id="createGroupButton"
             onClick={() => setGroupToContext(group)}
           >
-            {group.groupName}
-            <button onClick={() => deleteGroup(group)}>X</button>
-          </button>
+            <IoIosClose
+              onClick={() => deleteGroup(group)}
+              class="crossButton"
+              size={40}
+            ></IoIosClose>
+            <div className="d-flex justify-content-center" id="groupText">
+              {group.groupName}
+            </div>
+          </div>
         </div>
       ))}
     </div>
