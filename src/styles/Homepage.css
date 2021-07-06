@@ -117,10 +117,3 @@ a:active {
 html {
   scroll-behavior: smooth;
 }
-
-.crossButton {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: white;
-}
