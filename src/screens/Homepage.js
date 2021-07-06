@@ -1,44 +1,44 @@
 import { BsFillPersonFill } from "react-icons/bs";
-import React, { useEffect, useState, useLocation } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import firebase from "../firebase";
-import { IoIosClose } from "react-icons/io";
 import "firebase/auth";
 import "firebase/firestore";
-import userEvent from "@testing-library/user-event";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
 
-  const ref = firebase.firestore().collection("groups");
+  // Create Ref
+  const isMounted = useRef(false);
+  //const [error, setError] = useState("");
 
   const handleLogOut = () => {
     firebase.auth().signOut();
   };
-
-  function getGroups() {
-    ref.onSnapshot((querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+  // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
+  const getGroups = () => {
+    firebase
+      .firestore()
+      .collection("groups")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        if (isMounted.current) {
+          setGroups(items);
+        }
       });
-      setGroups(items);
-    });
-  }
-
-  function deleteGroup(group) {
-    ref
-      .doc(group.id)
-      .delete()
-      .catch((err) => {
-        console.error(err);
-      });
-  }
+    /* .catch((error) => {
+        isMounted.current && setError(error);
+      }); */
+  };
 
   useEffect(() => {
+    isMounted.current = true;
     getGroups();
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -47,7 +47,9 @@ const Homepage = () => {
         setCurrentUser("");
       }
     });
-  }, [groups]);
+    // this is run when component unmount
+    return () => (isMounted.current = false);
+  }, []);
 
   return (
     <div>
@@ -74,22 +76,22 @@ const Homepage = () => {
 
         <h1 id="groupHead">Group</h1>
 
-        <div class="inputCodeStyle">
+        <div className="inputCodeStyle">
           <form>
-            <div class="GroupNameBox">
+            <div className="GroupNameBox">
               <input
-                class="form-control"
+                className="form-control"
                 id="exampleFormControlInput"
                 placeholder="123456"
               ></input>
             </div>
           </form>
-          <button class="RedButtonStyle">Join Group</button>
+          <button className="RedButtonStyle">Join Group</button>
         </div>
 
-        <div class="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
           <Link to="/CreateGroup">
-            <button class="RedButtonStyle" id="createGroupButton">
+            <button className="RedButtonStyle" id="createGroupButton">
               Create Group
             </button>
           </Link>
@@ -97,7 +99,7 @@ const Homepage = () => {
       </div>
 
       {groups.map((group) => (
-        <div key={group.id}>
+        <div className="wrap" key={group.id}>
           <Link
             to={{
               pathname: "/GroupPage",
@@ -109,11 +111,6 @@ const Homepage = () => {
             }}
           >
             <button className="GroupButtonStyle " id="createGroupButton">
-              <IoIosClose
-                onClick={() => deleteGroup(group)}
-                class="crossButton"
-                size={40}
-              ></IoIosClose>
               <div className="d-flex justify-content-center" id="groupText">
                 {group.groupName}
               </div>

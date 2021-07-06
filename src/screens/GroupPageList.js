@@ -12,33 +12,42 @@ function GroupPageList() {
   const { group, startDate, endDate } = location.state;
 
   const undoneChallenges = [
-    "Ta en backflip fra 10 meteren",
-    " Eksempel",
-    "Eksempel som er litt lenger for å se hva som skjer da",
-    "Hva som helst",
+    { challengeNum: 1, name: "Ta en backflip fra 10 meteren" },
+    { challengeNum: 2, name: " Eksempel" },
+    {
+      challengeNum: 3,
+      name: "Eksempel som er litt lenger for å se hva som skjer da",
+    },
+    { challengeNum: 4, name: "Hva som helst" },
   ];
 
   const listUndoneChallenges = undoneChallenges.map((undoneChallenge) => (
-    <div class="display-challengesUndone">
-      <text class="display-header">{undoneChallenge}</text>
+    <div
+      className="display-challengesUndone"
+      key={undoneChallenge.challengeNum}
+    >
+      <label className="display-header">{undoneChallenge.name}</label>
       <div>
-        <BsCircle class="unchecked-circle" size={35}></BsCircle>
+        <BsCircle className="unchecked-circle" size={35}></BsCircle>
       </div>
     </div>
   ));
 
   const doneChallenges = [
-    "Ta en frontflip fra 10 meteren",
-    " Eksempel 1000213412",
-    "Eksempel som er litt lenger for å se hva som skjer da",
-    "Hva som helst",
+    { challengeNum: 5, name: "Ta en frontflip fra 10 meteren" },
+    { challengeNum: 6, name: " Eksempel 1000213412" },
+    {
+      challengeNum: 7,
+      name: "Eksempel som er litt lenger for å se hva som skjer da",
+    },
+    { challengeNum: 8, name: "Hva som helst" },
   ];
 
   const listDoneChallenges = doneChallenges.map((doneChallenge) => (
-    <div class="display-challengesDone">
-      <text class="display-header">{doneChallenge}</text>
+    <div className="display-challengesDone" key={doneChallenge.challengeNum}>
+      <label className="display-header">{doneChallenge.name}</label>
       <div>
-        <BsCheckCircle class="unchecked-circle" size={35}></BsCheckCircle>
+        <BsCheckCircle className="unchecked-circle" size={35}></BsCheckCircle>
       </div>
     </div>
   ));
@@ -46,10 +55,12 @@ function GroupPageList() {
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group, startDate, endDate)}
-      <text class="uncompletedChallengesText">Uncompleted challenges</text>
+      <label className="uncompletedChallengesText">
+        Uncompleted challenges
+      </label>
       <div>{listUndoneChallenges}</div>
 
-      <text class="uncompletedChallengesText">Completed challenges</text>
+      <label className="uncompletedChallengesText">Completed challenges</label>
       <div>{listDoneChallenges}</div>
     </div>
   );
