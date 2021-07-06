@@ -6,8 +6,6 @@ import "../styles/CreateGroup.css";
 import "../styles/LoginPage.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-import firebase from "../firebase";
-
 const SignUpOrInPage = () => {
   return (
     <div>

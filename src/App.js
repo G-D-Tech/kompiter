@@ -8,6 +8,7 @@ import GroupPageSetting from "./screens/GroupPageSetting";
 import LoginPage from "./screens/LoginPage";
 import SignUpOrInPage from "./screens/SignUpOrInPage";
 import SignUpPage from "./screens/SignUpPage";
+import ProfilePage from "./screens/ProfilePage";
 
 function App() {
   return (
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route exact path="/SignUpPage">
             <SignUpPage />
+          </Route>
+          <Route exact path="/ProfilePage">
+            <ProfilePage />
           </Route>
         </Switch>
       </div>

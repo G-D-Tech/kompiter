@@ -13,8 +13,6 @@ const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
 
-  let authData = firebase.getA;
-
   const ref = firebase.firestore().collection("groups");
 
   const handleLogOut = () => {
@@ -58,13 +56,21 @@ const Homepage = () => {
         <label class="loginTextSmall" onClick={handleLogOut}>
           Logout
         </label>
-        <div class="icon">
-          <label>{currentUser.displayName}</label>
-          <Link to="/SignUpOrInPage">
-            <label class="loginTextSmall">Save groups? login: </label>
-            <BsFillPersonFill color="black" size={30} />
-          </Link>
-        </div>
+        {currentUser ? (
+          <div class="icon">
+            <label class="loginTextSmall">{currentUser.displayName}</label>
+            <Link to="/ProfilePage">
+              <BsFillPersonFill color="black" size={30} />
+            </Link>
+          </div>
+        ) : (
+          <div class="icon">
+            <Link to="/SignUpOrInPage">
+              <label class="loginTextSmall">Save groups? login: </label>
+              <BsFillPersonFill color="black" size={30} />
+            </Link>
+          </div>
+        )}
 
         <h1 id="groupHead">Group</h1>
 
