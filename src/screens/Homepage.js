@@ -24,9 +24,9 @@ const Homepage = () => {
       });
   };
 
-  function deleteGroup(school) {
+  function deleteGroup(group) {
     ref
-      .doc(school.id)
+      .doc(group.id)
       .delete()
       .catch((err) => {
         console.error(err);
@@ -35,6 +35,10 @@ const Homepage = () => {
 
   useEffect(() => {
     getGroups();
+    console.log("Build");
+    return () => {
+      console.log("Cleanup");
+    };
   }, []);
 
   return (
