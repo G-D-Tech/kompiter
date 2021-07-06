@@ -1,13 +1,19 @@
 import { BsFillPersonFill } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLocation } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import firebase from "../firebase";
 import { IoIosClose } from "react-icons/io";
+import "firebase/auth";
+import "firebase/firestore";
+import userEvent from "@testing-library/user-event";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
+  const [currentUser, setCurrentUser] = useState("");
+
+  let authData = firebase.getA;
 
   const ref = firebase.firestore().collection("groups");
 
@@ -25,9 +31,9 @@ const Homepage = () => {
     });
   }
 
-  function deleteGroup(school) {
+  function deleteGroup(group) {
     ref
-      .doc(school.id)
+      .doc(group.id)
       .delete()
       .catch((err) => {
         console.error(err);
@@ -36,18 +42,26 @@ const Homepage = () => {
 
   useEffect(() => {
     getGroups();
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser("");
+      }
+    });
   }, [groups]);
 
   return (
     <div>
       <div id="d-flex justify-content-center"></div>
       <div class="container">
-        <text class="loginTextSmall" onClick={handleLogOut}>
+        <label class="loginTextSmall" onClick={handleLogOut}>
           Logout
-        </text>
+        </label>
         <div class="icon">
+          <label>{currentUser.displayName}</label>
           <Link to="/SignUpOrInPage">
-            <text class="loginTextSmall">Save groups? login: </text>
+            <label class="loginTextSmall">Save groups? login: </label>
             <BsFillPersonFill color="black" size={30} />
           </Link>
         </div>

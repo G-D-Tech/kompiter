@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, NavLink, Redirect } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import "../styles/Homepage.css";
 import "../styles/CreateGroup.css";
@@ -67,7 +67,7 @@ const LoginPage = () => {
   return (
     <div>
       {user ? (
-          <Link  exact to={{pathName: "/", state: {user: user}}}></Link>
+        <Redirect to="/" />
       ) : (
         <div>
           <div class="container">
@@ -76,7 +76,6 @@ const LoginPage = () => {
             </Link>
           </div>
           <div class="container-center ">
-
             <section class="container-center">
               <label className="loginTextSmall">
                 Login to your existing account

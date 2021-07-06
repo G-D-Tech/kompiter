@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import "../styles/Homepage.css";
 import "../styles/CreateGroup.css";
@@ -75,7 +75,7 @@ const SignUpPage = () => {
   return (
     <div>
       {user ? (
-        <Homepage />
+        <Redirect to="/" />
       ) : (
         <div>
           <div class="container">
