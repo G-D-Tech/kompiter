@@ -142,3 +142,31 @@ textarea {
   margin-left: 50px;
   margin-right: 50px;
 }
+
+.renameBox {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+}
+
+.saveButtonStyle {
+  font-size: 22px;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  background-color: #75da85;
+  border-color: #75da85;
+  border-radius: 10px;
+  margin-left: 10px;
+  padding: 3px;
+  text-align: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.checkButtonStyle:active {
+  background: #c2ffcc;
+  box-shadow: inset 0px 0px 5px #c2ffcc;
+}

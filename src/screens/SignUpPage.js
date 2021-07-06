@@ -102,6 +102,7 @@ const SignUpPage = () => {
               <input
                 class="usernameBox"
                 placeholder="password"
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

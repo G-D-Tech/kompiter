@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
@@ -18,9 +18,11 @@ const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [randomNumber, setRandomNumber] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const ref = firebase.firestore().collection("groups");
-  const [randomNumber, setRandomNumber] = useState(0);
+  const [ex, setEx] = useState(false);
+  //const randomNumber = "" + Math.floor(100000 + Math.random() * 900000);
 
   // ADD FUNCTION
   function addGroup(newGroup) {
@@ -35,13 +37,16 @@ const CreateGroup = () => {
 
   return (
     <div>
+      {!ex
+        ? (setEx(true),
+          setRandomNumber("" + Math.floor(100000 + Math.random() * 900000)))
+        : null}
       <div className="container">
         <Link to="/">
           <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
         </Link>
         <h1 class="groupHead">New Group</h1>
       </div>
-
       <div className="input-container">
         <label className="text">Group Name</label>
         <form>
@@ -56,7 +61,6 @@ const CreateGroup = () => {
           </div>
         </form>
       </div>
-
       <div className="inputDate-container">
         <label className="text">Start date</label>
         <div className="dateBox">
@@ -71,7 +75,6 @@ const CreateGroup = () => {
           />
         </div>
       </div>
-
       <div className="inputDate-container">
         <label className="text">End date</label>
         <div className="dateBox">
@@ -86,7 +89,6 @@ const CreateGroup = () => {
           />
         </div>
       </div>
-
       <div className="box-container">
         <div className="form-check ">
           <div className="CheckBoxStyle">
@@ -120,8 +122,12 @@ const CreateGroup = () => {
           className="RedButtonStyle"
           onClick={() => {
             setModalIsOpen(true);
-            addGroup({ groupName, id: uuidv4(), startDate, endDate });
-            setRandomNumber(Math.floor(100000 + Math.random() * 900000));
+            addGroup({
+              groupName,
+              id: randomNumber,
+              startDate,
+              endDate,
+            }); //id: uuid4()
           }}
         >
           Create group
