@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BsFillPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import "../styles/Homepage.css";
@@ -35,7 +36,8 @@ const SignUpOrInPage = () => {
           <IoIosArrowBack class="IoIosArrowBack"></IoIosArrowBack>
         </Link>
       </div>
-      <div class="container-center ">
+      <div class="container-centerProfile ">
+        <BsFillPersonFill color="black" size={70} />
         <label class="displayNameHeader">{currentUser.displayName}</label>
       </div>
     </div>
