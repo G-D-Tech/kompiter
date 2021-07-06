@@ -19,8 +19,9 @@ const Homepage = () => {
     firebase.auth().signOut();
   };
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
-  const getGroups = () => {
-    firebase
+
+  useEffect(() => {
+    const unsubscribe = firebase
       .firestore()
       .collection("groups")
       .onSnapshot((querySnapshot) => {
@@ -28,36 +29,40 @@ const Homepage = () => {
         querySnapshot.forEach((doc) => {
           items.push(doc.data());
         });
-        if (isMounted.current) {
-          setGroups(items);
-        }
+        console.log("hmm");
+        setGroups(items);
       });
-    /* .catch((error) => {
-        isMounted.current && setError(error);
-      }); */
-  };
+    return () => {
+      unsubscribe();
+      console.log("Unsubscribe");
+    };
+  }, []);
 
   useEffect(() => {
-    isMounted.current = true;
-    getGroups();
-    firebase.auth().onAuthStateChanged((user) => {
+    const unlisten = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
+        console.log("currentUser");
       } else {
         setCurrentUser("");
+        console.log("empty");
       }
     });
+    console.log("Building user");
     // this is run when component unmount
-    return () => (isMounted.current = false);
+    return () => {
+      unlisten();
+      console.log("Clean up user");
+    };
   }, []);
 
   return (
     <div>
       <div id="d-flex justify-content-center"></div>
       <div class="container">
-        <label class="loginTextSmall" onClick={handleLogOut}>
+        <button class="loginTextSmall" onClick={handleLogOut}>
           Logout
-        </label>
+        </button>
         {currentUser ? (
           <div class="icon">
             <label class="loginTextSmall">{currentUser.displayName}</label>
