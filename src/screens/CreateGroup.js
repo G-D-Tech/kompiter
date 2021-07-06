@@ -33,23 +33,21 @@ const CreateGroup = () => {
       });
   }
 
-  //const [groupName, setGroupName] = useState(null);
-
   return (
     <div>
-      <div class="container">
+      <div className="container">
         <Link to="/">
-          <IoIosArrowBack class="IoIosArrowBack"></IoIosArrowBack>
+          <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
         </Link>
         <h1 class="groupHead">New Group</h1>
       </div>
 
       <div className="input-container">
-        <text class="text">Group Name</text>
+        <label className="text">Group Name</label>
         <form>
-          <div class="GroupNameBox">
+          <div className="GroupNameBox">
             <input
-              class="form-control"
+              className="form-control"
               id="exampleFormControlInput"
               placeholder="Feeest"
               value={groupName}
@@ -60,8 +58,8 @@ const CreateGroup = () => {
       </div>
 
       <div className="inputDate-container">
-        <text class="text">Start date</text>
-        <div class="dateBox">
+        <label className="text">Start date</label>
+        <div className="dateBox">
           <DatePicker
             className="form-control 
         dateInput"
@@ -75,8 +73,8 @@ const CreateGroup = () => {
       </div>
 
       <div className="inputDate-container">
-        <text class="text">End date</text>
-        <div class="dateBox">
+        <label className="text">End date</label>
+        <div className="dateBox">
           <DatePicker
             className="form-control 
         dateInput"
@@ -89,37 +87,35 @@ const CreateGroup = () => {
         </div>
       </div>
 
-      <div class="box-container">
+      <div className="box-container">
         <div className="form-check ">
-          <div class="CheckBoxStyle">
+          <div className="CheckBoxStyle">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
-              value=""
+              placeholder=""
               id="flexCheckChecked"
-              unchecked
             />
-            <label class="text">Allow other to add challenges</label>
+            <label className="text">Allow other to add challenges</label>
           </div>
         </div>
       </div>
-      <div class="box-container">
+      <div className="box-container">
         <div className="form-check">
-          <div class="CheckBoxStyle">
+          <div className="CheckBoxStyle">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
-              value=""
+              placeholder=""
               id="flexCheckChecked1"
-              unchecked
             />
-            <label class="text">
+            <label className="text">
               Allow group members to confirm challenges
             </label>
           </div>
         </div>
       </div>
-      <div class="button-container">
+      <div className="button-container">
         <button
           className="RedButtonStyle"
           onClick={() => {
@@ -132,29 +128,42 @@ const CreateGroup = () => {
         </button>
       </div>
       {groupName ? (
-        <Modal isOpen={modalIsOpen} className="modal-content">
-          <div class="input-container">
-            <text class="text">{groupName} has been added to your groups</text>
+        <Modal
+          isOpen={modalIsOpen}
+          className="modal-content"
+          ariaHideApp={false}
+        >
+          <div className="input-container">
+            <label className="text">
+              {groupName} has been added to your groups
+            </label>
           </div>
-          <div class="codeOutput">
-            <input className="form-control GroupNameBox" value={randomNumber} />
+          <div className="codeOutput">
+            <input
+              className="form-control GroupNameBox"
+              placeholder={randomNumber}
+            />
             <CopyToClipboard text={randomNumber}>
-              <FiCopy class="icon-copy" size={30}></FiCopy>
+              <FiCopy className="icon-copy" size={30}></FiCopy>
             </CopyToClipboard>
           </div>
-          <div class="button-container">
+          <div className="button-container">
             <button className="RedButtonStyle">
               <Link to="/">Done</Link>
             </button>
           </div>
         </Modal>
       ) : (
-        <Modal isOpen={modalIsOpen} className="modal-content">
-          <div class="input-container">
-            <text class="textError">Group name is not defined</text>
+        <Modal
+          isOpen={modalIsOpen}
+          className="modal-content"
+          ariaHideApp={false}
+        >
+          <div className="input-container">
+            <label className="textError">Group name is not defined</label>
           </div>
 
-          <div class="button-container">
+          <div className="button-container">
             <button
               className="RedButtonStyle"
               onClick={() => setModalIsOpen(false)}

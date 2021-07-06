@@ -14,31 +14,31 @@ function GroupPageNavBar(group, startDate, endDate) {
           <IoIosClose size={20}></IoIosClose>
         </Link>
       </button>
-      <div class="inputGroup-container">
-        <text class="groupTextPopup">{group.groupName} </text>
+      <div className="inputGroup-container">
+        <label className="groupTextPopup">{group.groupName} </label>
       </div>
-      <div class="dateGroup-container">
+      <div className="dateGroup-container">
         {startDate.toDateString() === endDate.toDateString() ? (
-          <text class="dateTextPopup">
+          <label className="dateTextPopup">
             {startDate.toDateString()}
             <br />
             {startDate.toTimeString().substring(0, 5)} -
             {endDate.toTimeString().substring(0, 5)}
-          </text>
+          </label>
         ) : (
-          <text class="dateTextPopup">
+          <label className="dateTextPopup">
             {startDate.toString().substring(0, 21)} -
             {endDate.toString().substring(0, 21)}
-          </text>
+          </label>
         )}
       </div>
-      <div class="inputGroup-container">
-        <input className="form-control GroupNameBox" value="12309420" />
+      <div className="inputGroup-container">
+        <input className="form-control GroupNameBox" defaultValue="12309420" />
         <CopyToClipboard text="12309420">
-          <FiCopy class="icon-copy" size={30}></FiCopy>
+          <FiCopy className="icon-copy" size={30}></FiCopy>
         </CopyToClipboard>
       </div>
-      <div class="navbar">
+      <div className="navbar">
         <NavLink
           exact
           to={{
@@ -73,7 +73,7 @@ function GroupPageNavBar(group, startDate, endDate) {
           <BsThreeDots size={40} className="icon"></BsThreeDots>
         </NavLink>
       </div>
-      <div class="navbar-line"></div>
+      <div className="navbar-line"></div>
     </div>
   );
 }
