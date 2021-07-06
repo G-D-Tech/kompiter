@@ -10,14 +10,12 @@ import "firebase/firestore";
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
+  const [groupCode, setGroupCode] = useState("");
 
   // Create Ref
   const isMounted = useRef(false);
   //const [error, setError] = useState("");
 
-  const handleLogOut = () => {
-    firebase.auth().signOut();
-  };
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
 
   useEffect(() => {
@@ -60,9 +58,6 @@ const Homepage = () => {
     <div>
       <div id="d-flex justify-content-center"></div>
       <div class="container">
-        <button class="loginTextSmall" onClick={handleLogOut}>
-          Logout
-        </button>
         {currentUser ? (
           <div class="icon">
             <label class="loginTextSmall">{currentUser.displayName}</label>
@@ -79,7 +74,7 @@ const Homepage = () => {
           </div>
         )}
 
-        <h1 id="groupHead">Group</h1>
+        <h1 id="groupHead">Groups</h1>
 
         <div className="inputCodeStyle">
           <form>
@@ -88,6 +83,10 @@ const Homepage = () => {
                 className="form-control"
                 id="exampleFormControlInput"
                 placeholder="123456"
+                value={groupCode}
+                onChange={(e) => {
+                  setGroupCode(e.target.value);
+                }}
               ></input>
             </div>
           </form>

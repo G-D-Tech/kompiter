@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BsFillPersonFill } from "react-icons/bs";
-import { Link, NavLink, Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import "../styles/Homepage.css";
 import "../styles/CreateGroup.css";
@@ -11,7 +10,6 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import firebase from "../firebase";
 import "firebase/auth";
 import "firebase/firestore";
-import Homepage from "./Homepage";
 
 const LoginPage = () => {
   const [user, setUser] = useState("");
@@ -98,6 +96,7 @@ const LoginPage = () => {
                   placeholder="password"
                   required
                   value={password}
+                  type="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <div class="container-centerError">
