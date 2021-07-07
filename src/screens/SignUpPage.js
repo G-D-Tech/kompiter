@@ -11,7 +11,6 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import firebase from "../firebase";
 import "firebase/auth";
 import "firebase/firestore";
-import Homepage from "./Homepage";
 
 const SignUpPage = () => {
   const [user, setUser] = useState("");

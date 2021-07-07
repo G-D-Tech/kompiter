@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import "../styles/Homepage.css";
 import Modal from "react-modal";
-
-import { v4 as uuidv4 } from "uuid";
 
 import "../styles/CreateGroup.css";
 import { FiCopy } from "react-icons/fi";

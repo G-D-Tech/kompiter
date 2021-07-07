@@ -1,5 +1,5 @@
 import { BsFillPersonFill } from "react-icons/bs";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
@@ -11,10 +11,6 @@ const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
-
-  // Create Ref
-  const isMounted = useRef(false);
-  //const [error, setError] = useState("");
 
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
 

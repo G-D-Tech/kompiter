@@ -15,8 +15,6 @@ const SignUpOrInPage = () => {
   const [renameIsOpen, setRenameIsOpen] = useState(false);
   const [rename, setRename] = useState("");
 
-  const ref = firebase.firestore().collection("groups");
-
   const handleLogOut = () => {
     firebase.auth().signOut();
     setCurrentUser("");
