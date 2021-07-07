@@ -23,12 +23,12 @@ const Homepage = () => {
         querySnapshot.forEach((doc) => {
           items.push(doc.data());
         });
-        console.log("hmm");
+        //console.log("hmm");
         setGroups(items);
       });
     return () => {
       unsubscribe();
-      console.log("Unsubscribe");
+      //console.log("Unsubscribe");
     };
   }, []); */
 
@@ -56,17 +56,17 @@ const Homepage = () => {
     const unlisten = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
-        console.log("currentUser");
+        //console.log("currentUser");
       } else {
         setCurrentUser("");
-        console.log("empty");
+        //console.log("empty");
       }
     });
-    console.log("Building user");
+    //console.log("Building user");
     // this is run when component unmount
     return () => {
       unlisten();
-      console.log("Clean up user");
+      //console.log("Clean up user");
     };
   }, []);
 
