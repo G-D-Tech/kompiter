@@ -14,7 +14,7 @@ const Homepage = () => {
 
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const unsubscribe = firebase
       .firestore()
       .collection("groups")
@@ -30,7 +30,27 @@ const Homepage = () => {
       unsubscribe();
       console.log("Unsubscribe");
     };
-  }, []);
+  }, []); */
+
+  const loadGroup = () => {
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(groupCode)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const items = [];
+          items.push(doc.data());
+          setGroups(items);
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  };
 
   useEffect(() => {
     const unlisten = firebase.auth().onAuthStateChanged((user) => {
@@ -86,7 +106,9 @@ const Homepage = () => {
               ></input>
             </div>
           </form>
-          <button className="RedButtonStyle">Join Group</button>
+          <button className="RedButtonStyle" onClick={loadGroup}>
+            Join Group
+          </button>
         </div>
 
         <div className="d-flex justify-content-center">
