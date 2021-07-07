@@ -19,6 +19,7 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [userUid, setUserUid] = useState("");
 
   const clearInputs = () => {
     setName("");
@@ -31,6 +32,11 @@ const SignUpPage = () => {
     setPasswordError("");
   };
 
+  function addUser(user) {
+    firebase.firestore().collection("users").doc(user).set({ userId: user });
+    console.log("User added");
+  }
+
   const handleSignUp = () => {
     clearErrors();
     firebase
@@ -42,6 +48,7 @@ const SignUpPage = () => {
             displayName: name,
           });
         }
+        setUserUid(userCredentials.user.uid);
       })
       .catch((err) => {
         switch (err.code) {
@@ -56,8 +63,8 @@ const SignUpPage = () => {
       });
   };
 
-  const authListener = () => {
-    firebase.auth().onAuthStateChanged((user) => {
+  useEffect(() => {
+    const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         clearInputs();
         setUser(user);
@@ -65,16 +72,35 @@ const SignUpPage = () => {
         setUser("");
       }
     });
-  };
+    return () => {
+      authListener();
+    };
+  }, []);
 
   useEffect(() => {
-    authListener();
+    const unsubscribe = firebase
+      .firestore()
+      .collection("users")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+      });
+    return () => {
+      unsubscribe();
+      console.log("Unsubscribe");
+    };
   }, []);
 
   return (
     <div>
       {user ? (
-        <Redirect to="/" />
+        <div>
+          {addUser(userUid)}
+          {console.log(userUid)}
+          <Redirect to="/" />
+        </div>
       ) : (
         <div>
           <div class="container">
