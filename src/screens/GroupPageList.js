@@ -69,7 +69,7 @@ function GroupPageList() {
     return () => {
       unsubscribe();
     };
-  });
+  }, []);
 
   function checkGroupMember(challenge) {
     var isMember = false;
