@@ -11,6 +11,7 @@ const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
+  const exampleGroups = ["788618", "964982"];
 
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
 
@@ -66,12 +67,16 @@ const Homepage = () => {
           //Har ingen reell funksjon, mulig man kan fjerne den hvis man finner en måte å unmoute på
           firebase
             .firestore()
-            .collection("groups")
+            .collection("exampleGroups")
+            .where("id", "in", exampleGroups)
             .onSnapshot((querySnapshot) => {
               const items = [];
+
               querySnapshot.forEach((doc) => {
                 items.push(doc.data());
+                console.log("hei");
               });
+              setGroups(items);
             });
         }
       });
@@ -121,9 +126,9 @@ const Homepage = () => {
 
         <div className="inputCodeStyle">
           <form>
-            <div className="GroupNameBox">
+            <div className="col-xs-2">
               <input
-                className="form-control"
+                className="form-control "
                 id="exampleFormControlInput"
                 placeholder="123456"
                 value={groupCode}

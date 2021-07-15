@@ -12,6 +12,7 @@ function GroupPageSetting() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
   const [currentUser, setCurrentUser] = useState("");
+  const [deleteOrLeave, setDeleteOrLeave] = useState("Forlat");
 
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
@@ -25,6 +26,12 @@ function GroupPageSetting() {
       authListener();
     };
   }, [currentUser]);
+
+  useEffect(() => {
+    if (group.numberOfGroupMembers == 1) {
+      setDeleteOrLeave("Slett");
+    }
+  });
 
   /* const settings = [
     { settingNum: 1, name: "Allow group members to confirm challenges" },
@@ -97,7 +104,9 @@ function GroupPageSetting() {
       {GroupPageNavBar(group, startDate, endDate)}
       {/*  <div>{listSettings}</div> */}
       <div className="display-challenges">
-        <label className="uncompletedChallengesText">Slett denne gruppa</label>
+        <label className="uncompletedChallengesText">
+          {deleteOrLeave} denne gruppa
+        </label>
         {/* <label className="deleteGroupText">
             Once you deleted a group, there is no going back
           </label> */}
@@ -106,7 +115,7 @@ function GroupPageSetting() {
             className="DeleteButtonStyle"
             onClick={() => deleteGroup(group)}
           >
-            Slett
+            {deleteOrLeave}
           </button>
         </Link>
       </div>

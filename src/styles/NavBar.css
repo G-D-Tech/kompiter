@@ -1,3 +1,7 @@
 .active .icon {
+  color: white;
+}
+
+.icon {
   color: black;
 }
