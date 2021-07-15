@@ -7,7 +7,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from "uuid";
 import firebase from "../firebase";
 import React, { useState, useEffect } from "react";
-import Feedback from "react-bootstrap/esm/Feedback";
 
 const SignUpOrInPage = () => {
   const [feedbackBool, setFeedbackBool] = useState(false);
@@ -34,7 +33,7 @@ const SignUpOrInPage = () => {
       </div>
       <div className="container-center">
         <Link to="/LoginPage">
-          <button class="signInButtonStyle">Logg inn</button>
+          <button className="signInButtonStyle">Logg inn</button>
         </Link>
         <Link to="/SignUpPage">
           <button className="signInButtonStyle">Opprett konto</button>

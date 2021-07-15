@@ -11,8 +11,6 @@ const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
-  const [groupCodes, setGroupCodes] = useState([]);
-  //const [groupCodes, setGroupCodes] = useState([]);
 
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
 
@@ -51,7 +49,7 @@ const Homepage = () => {
         querySnapshot.forEach((doc) => {
           groupCodes.push(doc.data().groupId);
         });
-        setGroupCodes(groupCodes);
+
         if (currentUser && groupCodes.length > 0) {
           firebase
             .firestore()
@@ -130,9 +128,7 @@ const Homepage = () => {
                 placeholder="123456"
                 value={groupCode}
                 onChange={(e) => {
-                  {
-                    setGroupCode(e.target.value);
-                  }
+                  setGroupCode(e.target.value);
                 }}
               ></input>
             </div>

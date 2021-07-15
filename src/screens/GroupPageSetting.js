@@ -14,21 +14,24 @@ function GroupPageSetting() {
   const [currentUser, setCurrentUser] = useState("");
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
       } else {
         setCurrentUser("");
       }
     });
+    return () => {
+      authListener();
+    };
   }, [currentUser]);
 
-  const settings = [
+  /* const settings = [
     { settingNum: 1, name: "Allow group members to confirm challenges" },
     { settingNum: 2, name: "Allow other to add challenges" },
     { settingNum: 3, name: "Verify challenge with picture" },
   ];
-  
+
   const listSettings = settings.map((setting) => (
     <div className="display-challenges" key={setting.settingNum}>
       <label className="uncompletedChallengesText">{setting.name}</label>
@@ -46,10 +49,10 @@ function GroupPageSetting() {
         ></label>
       </div>
     </div>
-  ));
+  )); */
 
   function deleteGroup(group) {
-    if (group.numberOfGroupMembers == 1) {
+    if (group.numberOfGroupMembers === 1) {
       firebase
         .firestore()
         .collection("groups")
@@ -92,9 +95,9 @@ function GroupPageSetting() {
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group, startDate, endDate)}
-      <div>{listSettings}</div>
+      {/*  <div>{listSettings}</div> */}
       <div className="display-challenges">
-        <label className="uncompletedChallengesText">Delete this group</label>
+        <label className="uncompletedChallengesText">Slett denne gruppa</label>
         {/* <label className="deleteGroupText">
             Once you deleted a group, there is no going back
           </label> */}
@@ -103,7 +106,7 @@ function GroupPageSetting() {
             className="DeleteButtonStyle"
             onClick={() => deleteGroup(group)}
           >
-            Del
+            Slett
           </button>
         </Link>
       </div>

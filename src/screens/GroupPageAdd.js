@@ -62,7 +62,7 @@ function GroupPageAdd() {
     return () => {
       unsubscribe();
     };
-  }, []);
+  });
 
   return (
     <div className="modalGroup-content">
