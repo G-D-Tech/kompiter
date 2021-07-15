@@ -90,10 +90,10 @@ function GroupPageAdd() {
                 <BsCheck
                   onClick={() => {
                     addChallenge({
-                      challengeName,
-                      completed: false,
+                      challengeName: challengeName,
                       id: uuidv4(),
-                    }); //id: uuid4()
+                      membersCompletedChallenge: [],
+                    });
                     setAddIsOpen(false);
                   }}
                   size={40}

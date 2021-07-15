@@ -10,16 +10,48 @@ function GroupPageList() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
   const [challenges, setChallenges] = useState([]);
+  const [currentUser, setCurrentUser] = useState("");
 
-  const changeBoolChallenge = (challenge) => {
-    firebase
-      .firestore()
-      .collection("groups")
-      .doc(group.id)
-      .collection("challenges")
-      .doc(challenge.id)
-      .update({ completed: !challenge.completed });
-  };
+  function changeBoolChallenge(challenge) {
+    if (checkGroupMember(challenge)) {
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("challenges")
+        .doc(challenge.id)
+        .update({
+          membersCompletedChallenge: firebase.firestore.FieldValue.arrayRemove(
+            currentUser.uid
+          ),
+        });
+    } else {
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("challenges")
+        .doc(challenge.id)
+        .update({
+          membersCompletedChallenge: firebase.firestore.FieldValue.arrayUnion(
+            currentUser.uid
+          ),
+        });
+    }
+  }
+
+  useEffect(() => {
+    const authListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser("");
+      }
+    });
+    return () => {
+      authListener();
+    };
+  }, [currentUser]);
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -39,51 +71,51 @@ function GroupPageList() {
     };
   });
 
+  function checkGroupMember(challenge) {
+    var isMember = false;
+    {
+      challenge.membersCompletedChallenge.map((member) =>
+        member === currentUser.uid ? (isMember = true) : null
+      );
+    }
+    return isMember;
+  }
+
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group, startDate, endDate)}
-
       <div>
         {challenges.map((challenge) => (
           <div key={challenge.id}>
-            {challenge.completed ? (
-              <div>
-                {/* <label className="uncompletedChallengesText">
-                  Completed challenges
-                </label> */}
-                <div className="display-challengesDone">
-                  <label className="display-header">
-                    {challenge.challengeName}
-                  </label>
-                  <div>
-                    <BsCheckCircle
-                      className="unchecked-circle"
-                      size={39}
-                      onClick={() => {
-                        changeBoolChallenge(challenge);
-                      }}
-                    ></BsCheckCircle>
-                  </div>
+            {console.log(checkGroupMember(challenge))}
+            {checkGroupMember(challenge) ? (
+              <div className="display-challengesDone">
+                <label className="display-header">
+                  {challenge.challengeName}
+                </label>
+                <div>
+                  <BsCheckCircle
+                    className="unchecked-circle"
+                    size={39}
+                    onClick={() => {
+                      changeBoolChallenge(challenge);
+                    }}
+                  ></BsCheckCircle>
                 </div>
               </div>
             ) : (
-              <div>
-                {/* <label className="uncompletedChallengesText">
-                  Uncompleted challenges
-                </label> */}
-                <div className="display-challengesUndone">
-                  <label className="display-header">
-                    {challenge.challengeName}
-                  </label>
-                  <div>
-                    <BsCircle
-                      className="unchecked-circle"
-                      size={35}
-                      onClick={() => {
-                        changeBoolChallenge(challenge);
-                      }}
-                    ></BsCircle>
-                  </div>
+              <div className="display-challengesUndone">
+                <label className="display-header">
+                  {challenge.challengeName}
+                </label>
+                <div>
+                  <BsCircle
+                    className="unchecked-circle"
+                    size={35}
+                    onClick={() => {
+                      changeBoolChallenge(challenge);
+                    }}
+                  ></BsCircle>
                 </div>
               </div>
             )}
