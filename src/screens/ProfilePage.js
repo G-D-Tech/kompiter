@@ -7,6 +7,7 @@ import "../styles/CreateGroup.css";
 import "../styles/LoginPage.css";
 import "react-datepicker/dist/react-datepicker.css";
 import firebase from "../firebase";
+import { v4 as uuidv4 } from "uuid";
 import "firebase/auth";
 import "firebase/firestore";
 
@@ -14,6 +15,21 @@ const SignUpOrInPage = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [renameIsOpen, setRenameIsOpen] = useState(false);
   const [rename, setRename] = useState("");
+  const [feedbackBool, setFeedbackBool] = useState(false);
+  const [feedback, setFeedback] = useState("");
+
+  function addFeedback(newFeedback) {
+    firebase
+      .firestore()
+      .collection("feedback")
+      .doc(newFeedback.id)
+      .set(newFeedback)
+      .catch((err) => {
+        console.error(err);
+      });
+    setFeedback("");
+    setFeedbackBool(false);
+  }
 
   const handleLogOut = () => {
     firebase.auth().signOut();
@@ -90,6 +106,49 @@ const SignUpOrInPage = () => {
             </button>
           </Link>
         </div>
+        <div className="container-center">
+          <button
+            className="tilbakemeldingButtonStyle"
+            onClick={() => {
+              setFeedbackBool(!feedbackBool);
+            }}
+          >
+            Gi oss tilbakemelding
+          </button>
+        </div>
+        {feedbackBool ? (
+          <div>
+            <div>
+              <label class="feedbackText" line-height="20">
+                Denne tilbakemeldingen er anonym. Vi setter pris på konstruktiv
+                tilbakemelding, ideer og tips, som vil bli brukt for å forbedre
+                appen.
+              </label>
+            </div>
+            <textarea
+              className="form-control feedbackBox"
+              name="Text1"
+              cols="40"
+              rows="5"
+              placeholder="Skriv her.."
+              value={feedback}
+              onChange={(e) => setFeedback(e.target.value)}
+            ></textarea>
+            <div className="container-center">
+              <button
+                className="sendInnButtonStyle"
+                onClick={() => {
+                  addFeedback({
+                    feedback: feedback,
+                    id: uuidv4(),
+                  });
+                }}
+              >
+                Send inn
+              </button>
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

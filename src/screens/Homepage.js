@@ -112,7 +112,7 @@ const Homepage = () => {
           <div className="icon">
             <Link to="/SignUpOrInPage">
               <label className="loginTextSmall">
-                Lagre grupper? logg inn:{" "}
+                Lagre gruppe? logg inn:{" "}
               </label>
               <BsFillPersonFill color="black" size={30} />
             </Link>
@@ -123,7 +123,7 @@ const Homepage = () => {
 
         <div className="inputCodeStyle">
           <form>
-            <div className="GroupNameBox">
+            <div className="leggtilBox">
               <input
                 className="form-control"
                 id="exampleFormControlInput"
