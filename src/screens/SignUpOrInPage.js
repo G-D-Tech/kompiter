@@ -5,20 +5,23 @@ import "../styles/CreateGroup.css";
 import "../styles/LoginPage.css";
 import "react-datepicker/dist/react-datepicker.css";
 
+import firebase from "../firebase";
+import React, { useState, useEffect } from "react";
+
 const SignUpOrInPage = () => {
   return (
     <div>
-      <div class="container">
+      <div className="container">
         <Link to="/">
-          <IoIosArrowBack class="IoIosArrowBack"></IoIosArrowBack>
+          <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
         </Link>
       </div>
-      <div class="container-center ">
+      <div className="container-center ">
         <Link to="/LoginPage">
-          <button class="signInButtonStyle">Log in</button>
+          <button className="signInButtonStyle">Log in</button>
         </Link>
         <Link to="/SignUpPage">
-          <button class="signInButtonStyle">Sign up</button>
+          <button className="signInButtonStyle">Sign up</button>
         </Link>
       </div>
     </div>

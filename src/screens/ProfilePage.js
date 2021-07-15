@@ -31,26 +31,29 @@ const SignUpOrInPage = () => {
   };
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
       } else {
         setCurrentUser("");
       }
     });
+    return () => {
+      authListener();
+    };
   }, []);
 
   return (
     <div>
       <div>
-        <div class="container">
+        <div className="container">
           <Link to="/">
-            <IoIosArrowBack class="IoIosArrowBack"></IoIosArrowBack>
+            <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
           </Link>
         </div>
-        <div class="container-centerProfile ">
+        <div className="container-centerProfile ">
           <BsFillPersonFill color="black" size={70} />
-          <label class="displayNameHeader">{currentUser.displayName}</label>
+          <label className="displayNameHeader">{currentUser.displayName}</label>
           {renameIsOpen ? (
             <div className="renameBox">
               <input
@@ -73,7 +76,7 @@ const SignUpOrInPage = () => {
             </div>
           ) : null}
           <button
-            class="signInButtonStyle"
+            className="signInButtonStyle"
             onClick={() => {
               setRenameIsOpen(!renameIsOpen);
             }}
@@ -82,7 +85,7 @@ const SignUpOrInPage = () => {
           </button>
 
           <Link to="/">
-            <button class="signInButtonStyle" onClick={handleLogOut}>
+            <button className="signInButtonStyle" onClick={handleLogOut}>
               Sign out
             </button>
           </Link>

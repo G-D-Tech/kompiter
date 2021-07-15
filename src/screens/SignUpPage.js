@@ -103,50 +103,50 @@ const SignUpPage = () => {
         </div>
       ) : (
         <div>
-          <div class="container">
+          <div className="container">
             <Link to="/SignUpOrInPage">
-              <IoIosArrowBack class="IoIosArrowBack"></IoIosArrowBack>
+              <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
             </Link>
           </div>
-          <div class="container-center">
-            <section class="container-center">
-              <text className="loginTextSmall">Create a new acount</text>
+          <div className="container-center">
+            <section className="container-center">
+              <label className="loginTextSmall">Create a new acount</label>
               <input
-                class="usernameBox"
+                className="usernameBox"
                 placeholder="full name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <input
-                class="usernameBox"
+                className="usernameBox"
                 placeholder="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <p className="errorMsg">{emailError}</p>
               <input
-                class="usernameBox"
+                className="usernameBox"
                 placeholder="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p className="errorMsg">{passwordError}</p>
-              <text className="loginTextSmall">forgot password?</text>
-              <button class="loginButtonStyle" onClick={handleSignUp}>
+              <label className="loginTextSmall">forgot password?</label>
+              <button className="loginButtonStyle" onClick={handleSignUp}>
                 Create
               </button>
             </section>
-            <text className="loginTextSmall">or login with</text>
-            <div class="icon-spacebetween">
+            <label className="loginTextSmall">or login with</label>
+            <div className="icon-spacebetween">
               <div>
                 <IoLogoFacebook
-                  class="icon-spacebetween"
+                  className="icon-spacebetween"
                   color="#4267b2"
                   size={54}
                 />
                 <AiFillGoogleCircle
-                  class="icon-spacebetween"
+                  className="icon-spacebetween"
                   color="#DB4437"
                   size={55}
                 />

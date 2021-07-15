@@ -11,80 +11,107 @@ const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
+  const [groupCodes, setGroupCodes] = useState([]);
+  //const [groupCodes, setGroupCodes] = useState([]);
 
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
 
-  /*  useEffect(() => {
-    const unsubscribe = firebase
+  function addGroup(groupCode) {
+    firebase
       .firestore()
-      .collection("groups")
-      .onSnapshot((querySnapshot) => {
-        const items = [];
-        querySnapshot.forEach((doc) => {
-          items.push(doc.data());
-        });
-        //console.log("hmm");
-        setGroups(items);
-      });
-    return () => {
-      unsubscribe();
-      //console.log("Unsubscribe");
-    };
-  }, []); */
-
-  const loadGroup = () => {
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("groupCodes")
+      .doc(groupCode)
+      .set({ groupId: groupCode });
     firebase
       .firestore()
       .collection("groups")
       .doc(groupCode)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const items = [];
-          items.push(doc.data());
-          setGroups(items);
-        } else {
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
+      .collection("groupMembers")
+      .doc(currentUser.uid)
+      .set({ userId: currentUser.uid });
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(groupCode)
+      .update({
+        numberOfGroupMembers: firebase.firestore.FieldValue.increment(1),
       });
-  };
+  }
 
   useEffect(() => {
-    const unlisten = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("groupCodes")
+      .onSnapshot((querySnapshot) => {
+        const groupCodes = [];
+        querySnapshot.forEach((doc) => {
+          groupCodes.push(doc.data().groupId);
+        });
+        setGroupCodes(groupCodes);
+        if (currentUser && groupCodes.length > 0) {
+          firebase
+            .firestore()
+            .collection("groups")
+            .where("id", "in", groupCodes)
+            .onSnapshot((querySnapshot) => {
+              const items = [];
+              querySnapshot.forEach((doc) => {
+                items.push(doc.data());
+              });
+              setGroups(items);
+            });
+        } else {
+          //Har ingen reell funksjon, mulig man kan fjerne den hvis man finner en måte å unmoute på
+          firebase
+            .firestore()
+            .collection("groups")
+            .onSnapshot((querySnapshot) => {
+              const items = [];
+              querySnapshot.forEach((doc) => {
+                items.push(doc.data());
+              });
+            });
+        }
+      });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [currentUser]);
+
+  useEffect(() => {
+    const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
-        //console.log("currentUser");
       } else {
         setCurrentUser("");
-        //console.log("empty");
       }
     });
-    //console.log("Building user");
-    // this is run when component unmount
     return () => {
-      unlisten();
-      //console.log("Clean up user");
+      authListener();
     };
-  }, []);
+  }, [currentUser]);
 
   return (
     <div>
       <div id="d-flex justify-content-center"></div>
-      <div class="container">
+      <div className="container">
         {currentUser ? (
-          <div class="icon">
-            <label class="loginTextSmall">{currentUser.displayName}</label>
+          <div className="icon">
+            <label className="loginTextSmall">{currentUser.displayName}</label>
+
             <Link to="/ProfilePage">
               <BsFillPersonFill color="black" size={30} />
             </Link>
           </div>
         ) : (
-          <div class="icon">
+          <div className="icon">
             <Link to="/SignUpOrInPage">
-              <label class="loginTextSmall">Save groups? login: </label>
+              <label className="loginTextSmall">Save groups? login: </label>
               <BsFillPersonFill color="black" size={30} />
             </Link>
           </div>
@@ -101,12 +128,19 @@ const Homepage = () => {
                 placeholder="123456"
                 value={groupCode}
                 onChange={(e) => {
-                  setGroupCode(e.target.value);
+                  {
+                    setGroupCode(e.target.value);
+                  }
                 }}
               ></input>
             </div>
           </form>
-          <button className="RedButtonStyle" onClick={loadGroup}>
+          <button
+            className="RedButtonStyle"
+            onClick={() => {
+              addGroup(groupCode);
+            }}
+          >
             Join Group
           </button>
         </div>

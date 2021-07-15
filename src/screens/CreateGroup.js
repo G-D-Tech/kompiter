@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
@@ -18,20 +18,49 @@ const CreateGroup = () => {
   const [endDate, setEndDate] = useState(new Date());
   const [randomNumber, setRandomNumber] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const ref = firebase.firestore().collection("groups");
+  const ref = firebase.firestore();
   const [ex, setEx] = useState(false);
+  const [currentUser, setCurrentUser] = useState("");
   //const randomNumber = "" + Math.floor(100000 + Math.random() * 900000);
 
   // ADD FUNCTION
   function addGroup(newGroup) {
     ref
-      //.doc() use if for some reason you want that firestore generates the id
+      .collection("groups")
       .doc(newGroup.id)
       .set(newGroup)
       .catch((err) => {
         console.error(err);
       });
+    ref
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("groupCodes")
+      .doc(newGroup.id)
+      .set({ groupId: newGroup.id })
+      .catch((err) => {
+        console.error(err);
+      });
+    ref
+      .collection("groups")
+      .doc(newGroup.id)
+      .collection("groupMembers")
+      .doc(currentUser.uid)
+      .set({ userId: currentUser.uid })
+      .catch((err) => {
+        console.error(err);
+      });
   }
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser("");
+      }
+    });
+  }, [currentUser]);
 
   return (
     <div>
@@ -43,7 +72,7 @@ const CreateGroup = () => {
         <Link to="/">
           <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
         </Link>
-        <h1 class="groupHead">New Group</h1>
+        <h1 className="groupHead">New Group</h1>
       </div>
       <div className="input-container">
         <label className="text">Group Name</label>
@@ -121,10 +150,11 @@ const CreateGroup = () => {
           onClick={() => {
             setModalIsOpen(true);
             addGroup({
-              groupName,
+              groupName: groupName,
               id: randomNumber,
-              startDate,
-              endDate,
+              startDate: startDate,
+              endDate: endDate,
+              numberOfGroupMembers: 1,
             }); //id: uuid4()
           }}
         >

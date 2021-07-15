@@ -47,79 +47,64 @@ const LoginPage = () => {
       });
   };
 
-  const authListener = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        clearInputs();
-        setUser(user);
-      } else {
-        setUser("");
-      }
-    });
-  };
-
-  useEffect(() => {
-    authListener();
-  }, []);
-
   return (
     <div>
       {user ? (
         <Redirect to="/" />
       ) : (
         <div>
-          <div class="container">
+          <div className="container">
             <Link to="/SignUpOrInPage">
-              <IoIosArrowBack class="IoIosArrowBack"></IoIosArrowBack>
+              <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
             </Link>
           </div>
-          <div class="container-center ">
-            <section class="container-center">
+          <div className="container-center ">
+            <section className="container-center">
               <label className="loginTextSmall">
                 Login to your existing account
               </label>
               <div>
                 <input
-                  class="usernameBox"
+                  className="usernameBox"
                   placeholder="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <div class="container-centerError">
+                <div className="container-centerError">
                   <p className="errorMsg">{emailError}</p>
                 </div>
               </div>
               <div>
                 <input
-                  class="usernameBox"
+                  className="usernameBox"
                   placeholder="password"
                   required
                   value={password}
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <div class="container-centerError">
+                <div className="container-centerError">
                   <p className="errorMsg">{passwordError}</p>
                 </div>
               </div>
 
-              <text className="loginTextSmall">forgot password?</text>
-              <button class="loginButtonStyle" onClick={handleSignIn}>
+              <label className="loginTextSmall">forgot password?</label>
+              <button className="loginButtonStyle" onClick={handleSignIn}>
                 Login
               </button>
             </section>
 
-            <text className="loginTextSmall">or login with</text>
-            <div class="icon-spacebetween">
+            <label className="loginTextSmall">or login with</label>
+            <div className="icon-spacebetween">
               <div>
                 <IoLogoFacebook
-                  class="icon-spacebetween"
+                  className="icon-spacebetween"
                   color="#4267b2"
                   size={54}
                 />
                 <AiFillGoogleCircle
-                  class="icon-spacebetween"
+                  className="icon-spacebetween"
                   color="#DB4437"
                   size={55}
                 />

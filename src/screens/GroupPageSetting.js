@@ -3,6 +3,7 @@ import "../styles/ModalGroup.css";
 
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import { useLocation } from "react-router-dom";
 import firebase from "../firebase";
@@ -10,6 +11,17 @@ import firebase from "../firebase";
 function GroupPageSetting() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
+  const [currentUser, setCurrentUser] = useState("");
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser("");
+      }
+    });
+  }, [currentUser]);
 
   const settings = [
     { settingNum: 1, name: "Allow group members to confirm challenges" },
@@ -35,10 +47,40 @@ function GroupPageSetting() {
     </div>
   ));
 
-  const ref = firebase.firestore().collection("groups");
-
   function deleteGroup(group) {
-    ref
+    if (group.numberOfGroupMembers == 1) {
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .delete()
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("groupMembers")
+        .doc(currentUser.uid)
+        .delete()
+        .catch((err) => {
+          console.error(err);
+        });
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .update({
+          numberOfGroupMembers: firebase.firestore.FieldValue.increment(-1),
+        });
+    }
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("groupCodes")
       .doc(group.id)
       .delete()
       .catch((err) => {
