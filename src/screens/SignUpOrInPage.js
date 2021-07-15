@@ -5,9 +5,6 @@ import "../styles/CreateGroup.css";
 import "../styles/LoginPage.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-import firebase from "../firebase";
-import React, { useState, useEffect } from "react";
-
 const SignUpOrInPage = () => {
   return (
     <div>
@@ -18,7 +15,7 @@ const SignUpOrInPage = () => {
       </div>
       <div className="container-center ">
         <Link to="/LoginPage">
-          <button class="signInButtonStyle">Logg inn</button>
+          <button className="signInButtonStyle">Logg inn</button>
         </Link>
         <Link to="/SignUpPage">
           <button className="signInButtonStyle">Opprett konto</button>

@@ -67,7 +67,7 @@ const SignUpPage = () => {
   };
 
   const handleLogIn = async (provider) => {
-    const res = await firebase
+    await firebase
       .auth()
       .signInWithPopup(provider)
       .then((userCredentials) => {
@@ -147,7 +147,7 @@ const SignUpPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p className="errorMsg">{passwordError}</p>
-              <button class="opprettButtonStyle" onClick={handleSignUp}>
+              <button className="opprettButtonStyle" onClick={handleSignUp}>
                 Opprett konto
               </button>
             </section>

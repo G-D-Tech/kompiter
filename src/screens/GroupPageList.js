@@ -37,7 +37,7 @@ function GroupPageList() {
     return () => {
       unsubscribe();
     };
-  }, []);
+  });
 
   return (
     <div className="modalGroup-content">

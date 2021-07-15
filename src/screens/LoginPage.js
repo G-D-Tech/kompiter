@@ -12,7 +12,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 const LoginPage = () => {
-  const [user, setUser] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -50,19 +50,21 @@ const LoginPage = () => {
       });
   };
 
-  const authListener = () => {
-    firebase.auth().onAuthStateChanged((user) => {
+  useEffect(() => {
+    const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        clearInputs();
-        setUser(user);
+        setCurrentUser(user);
       } else {
-        setUser("");
+        setCurrentUser("");
       }
     });
-  };
+    return () => {
+      authListener();
+    };
+  }, [currentUser]);
 
   const handleLogIn = async (provider) => {
-    const res = await firebase
+    await firebase
       .auth()
       .signInWithPopup(provider)
       .catch((er) => {
@@ -70,13 +72,9 @@ const LoginPage = () => {
       });
   };
 
-  useEffect(() => {
-    authListener();
-  }, []);
-
   return (
     <div>
-      {user ? (
+      {currentUser ? (
         <Redirect to="/" />
       ) : (
         <div>
@@ -122,7 +120,7 @@ const LoginPage = () => {
               </button>
             </section>
 
-            <text className="loginTextSmall">eller logg inn med</text>
+            <label className="loginTextSmall">eller logg inn med</label>
             <div className="icon-spacebetween">
               <div>
                 <IoLogoFacebook

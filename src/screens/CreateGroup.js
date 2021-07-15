@@ -53,13 +53,16 @@ const CreateGroup = () => {
   }
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
       } else {
         setCurrentUser("");
       }
     });
+    return () => {
+      authListener();
+    };
   }, [currentUser]);
 
   return (
@@ -84,6 +87,7 @@ const CreateGroup = () => {
               placeholder="Sommerfest 2021"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
+              autoComplete="off"
             />
           </div>
         </form>
