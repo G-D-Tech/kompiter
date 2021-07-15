@@ -28,6 +28,7 @@ function GroupPageSetting() {
     { settingNum: 2, name: "Allow other to add challenges" },
     { settingNum: 3, name: "Verify challenge with picture" },
   ];
+  
   const listSettings = settings.map((setting) => (
     <div className="display-challenges" key={setting.settingNum}>
       <label className="uncompletedChallengesText">{setting.name}</label>

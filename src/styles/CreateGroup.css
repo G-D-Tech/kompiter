@@ -4,6 +4,11 @@
   margin-left: 5%;
   margin-right: 5%;
 }
+
+.textGruppe {
+  font-family: "Roboto", sans-serif;
+  font-size: 21px;
+}
 .text-code {
   font-family: "Roboto", sans-serif;
   font-size: 13px;
@@ -15,9 +20,6 @@
 .textError {
   font-family: "Roboto", sans-serif;
   font-size: 21px;
-  margin-left: 9px;
-  margin-right: 9px;
-  padding: -10px;
   color: #e94e4e;
 }
 
@@ -31,7 +33,7 @@
 } */
 
 .GroupNameBox {
-  width: 150px;
+  width: 200px;
 }
 
 .dateBox {
@@ -56,7 +58,7 @@
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 45px;
 }
 
 .dateBox {
@@ -85,7 +87,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 45px;
 }
 
 .input-container .react-datepicker-wrapper {

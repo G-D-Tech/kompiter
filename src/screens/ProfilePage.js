@@ -71,7 +71,7 @@ const SignUpOrInPage = () => {
                   })
                 }
               >
-                Save
+                Lagre
               </div>
             </div>
           ) : null}
@@ -81,12 +81,12 @@ const SignUpOrInPage = () => {
               setRenameIsOpen(!renameIsOpen);
             }}
           >
-            Change name
+            Endre navn
           </button>
 
           <Link to="/">
             <button className="signInButtonStyle" onClick={handleLogOut}>
-              Sign out
+              Logg ut
             </button>
           </Link>
         </div>

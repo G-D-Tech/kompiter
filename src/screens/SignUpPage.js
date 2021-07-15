@@ -21,6 +21,9 @@ const SignUpPage = () => {
   const [passwordError, setPasswordError] = useState("");
   const [userUid, setUserUid] = useState("");
 
+  const facebookProvider = new firebase.auth.FacebookAuthProvider();
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+
   const clearInputs = () => {
     setName("");
     setEmail("");
@@ -60,6 +63,18 @@ const SignUpPage = () => {
             setPasswordError(err.message);
             break;
         }
+      });
+  };
+
+  const handleLogIn = async (provider) => {
+    const res = await firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((userCredentials) => {
+        setUserUid(userCredentials.user.uid);
+      })
+      .catch((er) => {
+        return er;
       });
   };
 
@@ -110,7 +125,7 @@ const SignUpPage = () => {
           </div>
           <div className="container-center">
             <section className="container-center">
-              <label className="loginTextSmall">Create a new acount</label>
+              <label className="loginTextSmall">Opprett en ny konto</label>
               <input
                 className="usernameBox"
                 placeholder="full name"
@@ -132,23 +147,24 @@ const SignUpPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p className="errorMsg">{passwordError}</p>
-              <label className="loginTextSmall">forgot password?</label>
-              <button className="loginButtonStyle" onClick={handleSignUp}>
-                Create
+              <button class="opprettButtonStyle" onClick={handleSignUp}>
+                Opprett konto
               </button>
             </section>
-            <label className="loginTextSmall">or login with</label>
+            <label className="loginTextSmall">eller logg inn med</label>
             <div className="icon-spacebetween">
               <div>
                 <IoLogoFacebook
                   className="icon-spacebetween"
                   color="#4267b2"
                   size={54}
+                  onClick={() => handleLogIn(facebookProvider)}
                 />
                 <AiFillGoogleCircle
                   className="icon-spacebetween"
                   color="#DB4437"
                   size={55}
+                  onClick={() => handleLogIn(googleProvider)}
                 />
               </div>
             </div>

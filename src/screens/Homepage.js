@@ -111,13 +111,15 @@ const Homepage = () => {
         ) : (
           <div className="icon">
             <Link to="/SignUpOrInPage">
-              <label className="loginTextSmall">Save groups? login: </label>
+              <label className="loginTextSmall">
+                Lagre grupper? logg inn:{" "}
+              </label>
               <BsFillPersonFill color="black" size={30} />
             </Link>
           </div>
         )}
 
-        <h1 id="groupHead">Groups</h1>
+        <h1 id="groupHead">Grupper</h1>
 
         <div className="inputCodeStyle">
           <form>
@@ -141,14 +143,14 @@ const Homepage = () => {
               addGroup(groupCode);
             }}
           >
-            Join Group
+            Legg til gruppe
           </button>
         </div>
 
         <div className="d-flex justify-content-center">
           <Link to="/CreateGroup">
             <button className="RedButtonStyle" id="createGroupButton">
-              Create Group
+              opprett gruppe
             </button>
           </Link>
         </div>
