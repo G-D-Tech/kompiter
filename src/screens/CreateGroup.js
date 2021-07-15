@@ -43,16 +43,16 @@ const CreateGroup = () => {
         <Link to="/">
           <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
         </Link>
-        <h1 class="groupHead">New Group</h1>
+        <h1 class="groupHead">Ny gruppe</h1>
       </div>
       <div className="input-container">
-        <label className="text">Group Name</label>
+        <label className="text">Gruppenavn</label>
         <form>
           <div className="GroupNameBox">
             <input
               className="form-control"
               id="exampleFormControlInput"
-              placeholder="Feeest"
+              placeholder="Sommerfest 2021"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
             />
@@ -60,7 +60,7 @@ const CreateGroup = () => {
         </form>
       </div>
       <div className="inputDate-container">
-        <label className="text">Start date</label>
+        <label className="text">Startdato</label>
         <div className="dateBox">
           <DatePicker
             className="form-control 
@@ -74,7 +74,7 @@ const CreateGroup = () => {
         </div>
       </div>
       <div className="inputDate-container">
-        <label className="text">End date</label>
+        <label className="text">Sluttdato</label>
         <div className="dateBox">
           <DatePicker
             className="form-control 
@@ -87,7 +87,7 @@ const CreateGroup = () => {
           />
         </div>
       </div>
-      <div className="box-container">
+      {/*       <div className="box-container">
         <div className="form-check ">
           <div className="CheckBoxStyle">
             <input
@@ -114,7 +114,7 @@ const CreateGroup = () => {
             </label>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="button-container">
         <button
           className="RedButtonStyle"
@@ -128,7 +128,7 @@ const CreateGroup = () => {
             }); //id: uuid4()
           }}
         >
-          Create group
+          Opprett gruppe
         </button>
       </div>
       {groupName ? (
@@ -138,8 +138,8 @@ const CreateGroup = () => {
           ariaHideApp={false}
         >
           <div className="input-container">
-            <label className="text">
-              {groupName} has been added to your groups
+            <label className="textGruppe">
+              {groupName} har blitt lagt til i grupper
             </label>
           </div>
           <div className="codeOutput">
@@ -153,7 +153,7 @@ const CreateGroup = () => {
           </div>
           <div className="button-container">
             <button className="RedButtonStyle">
-              <Link to="/">Done</Link>
+              <Link to="/">ferdig</Link>
             </button>
           </div>
         </Modal>
@@ -164,7 +164,7 @@ const CreateGroup = () => {
           ariaHideApp={false}
         >
           <div className="input-container">
-            <label className="textError">Group name is not defined</label>
+            <label className="textError">Gruppenavn er ikke definert</label>
           </div>
 
           <div className="button-container">
@@ -172,7 +172,7 @@ const CreateGroup = () => {
               className="RedButtonStyle"
               onClick={() => setModalIsOpen(false)}
             >
-              Back
+              tilbake
             </button>
           </div>
         </Modal>

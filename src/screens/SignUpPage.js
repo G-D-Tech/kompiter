@@ -21,6 +21,9 @@ const SignUpPage = () => {
   const [passwordError, setPasswordError] = useState("");
   const [userUid, setUserUid] = useState("");
 
+  const facebookProvider = new firebase.auth.FacebookAuthProvider();
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+
   const clearInputs = () => {
     setName("");
     setEmail("");
@@ -60,6 +63,18 @@ const SignUpPage = () => {
             setPasswordError(err.message);
             break;
         }
+      });
+  };
+
+  const handleLogIn = async (provider) => {
+    const res = await firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((userCredentials) => {
+        setUserUid(userCredentials.user.uid);
+      })
+      .catch((er) => {
+        return er;
       });
   };
 
@@ -110,10 +125,10 @@ const SignUpPage = () => {
           </div>
           <div class="container-center">
             <section class="container-center">
-              <text className="loginTextSmall">Create a new acount</text>
+              <text className="loginTextSmall">Opprett en ny konto</text>
               <input
                 class="usernameBox"
-                placeholder="full name"
+                placeholder="Navn"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -126,29 +141,30 @@ const SignUpPage = () => {
               <p className="errorMsg">{emailError}</p>
               <input
                 class="usernameBox"
-                placeholder="password"
+                placeholder="passord"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p className="errorMsg">{passwordError}</p>
-              <text className="loginTextSmall">forgot password?</text>
-              <button class="loginButtonStyle" onClick={handleSignUp}>
-                Create
+              <button class="opprettButtonStyle" onClick={handleSignUp}>
+                Opprett konto
               </button>
             </section>
-            <text className="loginTextSmall">or login with</text>
+            <text className="loginTextSmall">eller logg inn med</text>
             <div class="icon-spacebetween">
               <div>
                 <IoLogoFacebook
                   class="icon-spacebetween"
                   color="#4267b2"
                   size={54}
+                  onClick={() => handleLogIn(facebookProvider)}
                 />
                 <AiFillGoogleCircle
                   class="icon-spacebetween"
                   color="#DB4437"
                   size={55}
+                  onClick={() => handleLogIn(googleProvider)}
                 />
               </div>
             </div>

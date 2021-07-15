@@ -1,67 +1,95 @@
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
-
-import { BsCircle, BsCheckCircle } from "react-icons/bs";
-
-import { useLocation } from "react-router-dom";
-
+import firebase from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
+import { BsCircle, BsCheckCircle } from "react-icons/bs";
 
 function GroupPageList() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
+  const [challenges, setChallenges] = useState([]);
 
-  const undoneChallenges = [
-    { challengeNum: 1, name: "Ta en backflip fra 10 meteren" },
-    { challengeNum: 2, name: " Eksempel" },
-    {
-      challengeNum: 3,
-      name: "Eksempel som er litt lenger for å se hva som skjer da",
-    },
-    { challengeNum: 4, name: "Hva som helst" },
-  ];
+  const changeBoolChallenge = (challenge) => {
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("challenges")
+      .doc(challenge.id)
+      .update({ completed: !challenge.completed });
+  };
 
-  const listUndoneChallenges = undoneChallenges.map((undoneChallenge) => (
-    <div
-      className="display-challengesUndone"
-      key={undoneChallenge.challengeNum}
-    >
-      <label className="display-header">{undoneChallenge.name}</label>
-      <div>
-        <BsCircle className="unchecked-circle" size={35}></BsCircle>
-      </div>
-    </div>
-  ));
-
-  const doneChallenges = [
-    { challengeNum: 5, name: "Ta en frontflip fra 10 meteren" },
-    { challengeNum: 6, name: " Eksempel 1000213412" },
-    {
-      challengeNum: 7,
-      name: "Eksempel som er litt lenger for å se hva som skjer da",
-    },
-    { challengeNum: 8, name: "Hva som helst" },
-  ];
-
-  const listDoneChallenges = doneChallenges.map((doneChallenge) => (
-    <div className="display-challengesDone" key={doneChallenge.challengeNum}>
-      <label className="display-header">{doneChallenge.name}</label>
-      <div>
-        <BsCheckCircle className="unchecked-circle" size={35}></BsCheckCircle>
-      </div>
-    </div>
-  ));
+  useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("challenges")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setChallenges(items);
+      });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group, startDate, endDate)}
-      <label className="uncompletedChallengesText">
-        Uncompleted challenges
-      </label>
-      <div>{listUndoneChallenges}</div>
 
-      <label className="uncompletedChallengesText">Completed challenges</label>
-      <div>{listDoneChallenges}</div>
+      <div>
+        {challenges.map((challenge) => (
+          <div key={challenge.id}>
+            {challenge.completed ? (
+              <div>
+                {/* <label className="uncompletedChallengesText">
+                  Completed challenges
+                </label> */}
+                <div className="display-challengesDone">
+                  <label className="display-header">
+                    {challenge.challengeName}
+                  </label>
+                  <div>
+                    <BsCheckCircle
+                      className="unchecked-circle"
+                      size={39}
+                      onClick={() => {
+                        changeBoolChallenge(challenge);
+                      }}
+                    ></BsCheckCircle>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div>
+                {/* <label className="uncompletedChallengesText">
+                  Uncompleted challenges
+                </label> */}
+                <div className="display-challengesUndone">
+                  <label className="display-header">
+                    {challenge.challengeName}
+                  </label>
+                  <div>
+                    <BsCircle
+                      className="unchecked-circle"
+                      size={35}
+                      onClick={() => {
+                        changeBoolChallenge(challenge);
+                      }}
+                    ></BsCircle>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

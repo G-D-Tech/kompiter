@@ -15,11 +15,13 @@ const SignUpOrInPage = () => {
       </div>
       <div class="container-center ">
         <Link to="/LoginPage">
-          <button class="signInButtonStyle">Log in</button>
+          <button class="signInButtonStyle">Logg inn</button>
         </Link>
         <Link to="/SignUpPage">
-          <button class="signInButtonStyle">Sign up</button>
+          <button class="signInButtonStyle">Opprett konto</button>
         </Link>
+
+        <button class="tilbakemeldingButtonStyle">Gi oss tilbakemelding</button>
       </div>
     </div>
   );

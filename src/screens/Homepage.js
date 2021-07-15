@@ -14,7 +14,7 @@ const Homepage = () => {
 
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
 
-  /*  useEffect(() => {
+  useEffect(() => {
     const unsubscribe = firebase
       .firestore()
       .collection("groups")
@@ -30,9 +30,9 @@ const Homepage = () => {
       unsubscribe();
       //console.log("Unsubscribe");
     };
-  }, []); */
+  }, []);
 
-  const loadGroup = () => {
+  /*   useEffect(() => {
     firebase
       .firestore()
       .collection("groups")
@@ -50,7 +50,7 @@ const Homepage = () => {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
-  };
+  }); */
 
   useEffect(() => {
     const unlisten = firebase.auth().onAuthStateChanged((user) => {
@@ -84,13 +84,13 @@ const Homepage = () => {
         ) : (
           <div class="icon">
             <Link to="/SignUpOrInPage">
-              <label class="loginTextSmall">Save groups? login: </label>
+              <label class="loginTextSmall">Lagre grupper? logg inn: </label>
               <BsFillPersonFill color="black" size={30} />
             </Link>
           </div>
         )}
 
-        <h1 id="groupHead">Groups</h1>
+        <h1 id="groupHead">Grupper</h1>
 
         <div className="inputCodeStyle">
           <form>
@@ -106,15 +106,13 @@ const Homepage = () => {
               ></input>
             </div>
           </form>
-          <button className="RedButtonStyle" onClick={loadGroup}>
-            Join Group
-          </button>
+          <button className="RedButtonStyle">join gruppe</button>
         </div>
 
         <div className="d-flex justify-content-center">
           <Link to="/CreateGroup">
             <button className="RedButtonStyle" id="createGroupButton">
-              Create Group
+              opprett gruppe
             </button>
           </Link>
         </div>
@@ -129,6 +127,7 @@ const Homepage = () => {
                 group: group,
                 startDate: group.startDate.toDate(),
                 endDate: group.endDate.toDate(),
+
               },
             }}
           >
