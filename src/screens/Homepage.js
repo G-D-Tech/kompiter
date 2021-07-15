@@ -114,9 +114,7 @@ const Homepage = () => {
         ) : (
           <div className="icon">
             <Link to="/SignUpOrInPage">
-              <label className="loginTextSmall">
-                Lagre grupper? logg inn:{" "}
-              </label>
+              <label className="loginTextSmall">Lagre gruppe? logg inn: </label>
               <BsFillPersonFill color="black" size={30} />
             </Link>
           </div>

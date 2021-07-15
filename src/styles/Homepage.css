@@ -135,3 +135,7 @@ a:active {
 html {
   scroll-behavior: smooth;
 }
+
+.leggtilBox {
+  width: 100px;
+}
