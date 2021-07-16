@@ -21,9 +21,8 @@ const CreateGroup = () => {
   const ref = firebase.firestore();
   const [ex, setEx] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
-  //const randomNumber = "" + Math.floor(100000 + Math.random() * 900000);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // ADD FUNCTION
   function addGroup(newGroup) {
     ref
       .collection("groups")
@@ -46,11 +45,17 @@ const CreateGroup = () => {
       .doc(newGroup.id)
       .collection("groupMembers")
       .doc(currentUser.uid)
-      .set({ userId: currentUser.uid, score: 0 })
+      .set({ userId: currentUser.uid, score: 0, name: currentUser.displayName })
       .catch((err) => {
         console.error(err);
       });
   }
+
+  const groupOrUser = () => {
+    !currentUser
+      ? setErrorMessage("Har du logget inn?")
+      : setErrorMessage("Gruppenavn er ikke definert.");
+  };
 
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
@@ -120,52 +125,18 @@ const CreateGroup = () => {
           />
         </div>
       </div>
-      {/*       <div className="box-container">
-        <div className="form-check ">
-          <div className="CheckBoxStyle">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              placeholder=""
-              id="flexCheckChecked"
-            />
-            <label className="text">Allow other to add challenges</label>
-          </div>
-        </div>
-      </div>
-      <div className="box-container">
-        <div className="form-check">
-          <div className="CheckBoxStyle">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              placeholder=""
-              id="flexCheckChecked1"
-            />
-            <label className="text">
-              Allow group members to confirm challenges
-            </label>
-          </div>
-        </div>
-      </div> */}
       <div className="button-container">
         <button
           className="RedButtonStyle"
           onClick={() => {
             setModalIsOpen(true);
-            addGroup({
-              groupName: groupName,
-              id: randomNumber,
-              startDate: startDate,
-              endDate: endDate,
-              numberOfGroupMembers: 1,
-            }); //id: uuid4()
+            groupOrUser();
           }}
         >
           Opprett gruppe
         </button>
       </div>
-      {groupName ? (
+      {groupName && currentUser ? (
         <Modal
           isOpen={modalIsOpen}
           className="modal-content"
@@ -186,7 +157,19 @@ const CreateGroup = () => {
             </CopyToClipboard>
           </div>
           <div className="button-container">
-            <button className="RedButtonStyle">
+            <button
+              className="RedButtonStyle"
+              onClick={() => {
+                addGroup({
+                  groupName: groupName,
+                  id: randomNumber,
+                  startDate: startDate,
+                  endDate: endDate,
+                  numberOfGroupMembers: 1,
+                  numberOfChallenges: 0,
+                });
+              }}
+            >
               <Link to="/">ferdig</Link>
             </button>
           </div>
@@ -198,7 +181,7 @@ const CreateGroup = () => {
           ariaHideApp={false}
         >
           <div className="input-container">
-            <label className="textError">Gruppenavn er ikke definert</label>
+            <label className="textError">{errorMessage}</label>
           </div>
 
           <div className="button-container">

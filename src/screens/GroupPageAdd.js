@@ -29,6 +29,13 @@ function GroupPageAdd() {
       .catch((err) => {
         console.error(err);
       });
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .update({
+        numberOfChallenges: firebase.firestore.FieldValue.increment(1),
+      });
     setChallengeName("");
   }
 
@@ -43,6 +50,14 @@ function GroupPageAdd() {
       .catch((err) => {
         console.error(err);
       });
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .update({
+        numberOfChallenges: firebase.firestore.FieldValue.increment(-1),
+      });
+    setChallengeName("");
     console.log(challenge.id);
   }
 

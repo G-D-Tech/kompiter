@@ -33,31 +33,6 @@ function GroupPageSetting() {
     }
   });
 
-  /* const settings = [
-    { settingNum: 1, name: "Allow group members to confirm challenges" },
-    { settingNum: 2, name: "Allow other to add challenges" },
-    { settingNum: 3, name: "Verify challenge with picture" },
-  ];
-
-  const listSettings = settings.map((setting) => (
-    <div className="display-challenges" key={setting.settingNum}>
-      <label className="uncompletedChallengesText">{setting.name}</label>
-      <div className="form-check">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          value=""
-          id="flexCheckChecked1"
-        />
-        <label
-          color="white"
-          className="text"
-          htmlFor="flexCheckChecked1"
-        ></label>
-      </div>
-    </div>
-  )); */
-
   function deleteGroup(group) {
     if (group.numberOfGroupMembers === 1) {
       firebase
@@ -102,14 +77,10 @@ function GroupPageSetting() {
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group, startDate, endDate)}
-      {/*  <div>{listSettings}</div> */}
       <div className="display-challenges">
         <label className="uncompletedChallengesText">
           {deleteOrLeave} denne gruppa
         </label>
-        {/* <label className="deleteGroupText">
-            Once you deleted a group, there is no going back
-          </label> */}
         <Link to="/">
           <button
             className="DeleteButtonStyle"
