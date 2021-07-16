@@ -25,6 +25,13 @@ function GroupPageList() {
             currentUser.uid
           ),
         });
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("groupMembers")
+        .doc(currentUser.uid)
+        .update({ score: firebase.firestore.FieldValue.increment(-1) });
     } else {
       firebase
         .firestore()
@@ -37,6 +44,13 @@ function GroupPageList() {
             currentUser.uid
           ),
         });
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("groupMembers")
+        .doc(currentUser.uid)
+        .update({ score: firebase.firestore.FieldValue.increment(1) });
     }
   }
 

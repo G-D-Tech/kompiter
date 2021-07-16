@@ -5,9 +5,13 @@ import "../styles/ModalGroup.css";
 
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 
+import React, { useEffect, useState } from "react";
+import firebase from "../firebase";
+
 function GroupPage() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
+  const [groupMembers, setGroupMembers] = useState([]);
 
   const rankings = [
     { rank: 1, name: "Henrik", score: "19 / 30" },
@@ -24,10 +28,38 @@ function GroupPage() {
       </div>
     </div>
   ));
+
+  useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("groupMembers")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setGroupMembers(items);
+      });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group, startDate, endDate)}
-      <div>{listRankings}</div>
+      {groupMembers.map((groupMember) => (
+        <div className="display-scoreChallenges" key={groupMember}>
+          <label className="display-header">
+            {console.log(
+              firebase.firestore().collection("users").doc(groupMember.uid)
+                .displayName
+            )}
+          </label>
+        </div>
+      ))}
     </div>
   );
 }

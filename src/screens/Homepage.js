@@ -29,7 +29,7 @@ const Homepage = () => {
       .doc(groupCode)
       .collection("groupMembers")
       .doc(currentUser.uid)
-      .set({ userId: currentUser.uid });
+      .set({ userId: currentUser.uid, score: 0 });
     firebase
       .firestore()
       .collection("groups")
