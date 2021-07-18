@@ -52,7 +52,7 @@ const SignUpOrInPage = () => {
             <div>
               <label class="feedbackText" line-height="20">
                 Denne tilbakemeldingen er anonym. Vi setter pris på konstruktiv
-                tilbakemelding, ideer og tips, som vil bli brukt for å forbedre
+                tilbakemelding, ideer og tips. Det vil bli brukt for å forbedre
                 appen.
               </label>
             </div>

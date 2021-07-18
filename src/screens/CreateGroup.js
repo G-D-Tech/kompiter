@@ -129,7 +129,7 @@ const CreateGroup = () => {
         <button
           className="RedButtonStyle"
           onClick={() => {
-            setModalIsOpen(true);
+            setModalIsOpen(!modalIsOpen);
             groupOrUser();
           }}
         >
@@ -181,7 +181,7 @@ const CreateGroup = () => {
           ariaHideApp={false}
         >
           <div className="input-container">
-            <label className="textError">{errorMessage}</label>
+            <label className="textGruppe">{errorMessage}</label>
           </div>
 
           <div className="button-container">

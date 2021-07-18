@@ -6,14 +6,35 @@ import "../styles/ModalGroup.css";
 import firebase from "../firebase";
 import "firebase/auth";
 import "firebase/firestore";
+import Modal from "react-modal";
+import { HiUserGroup } from "react-icons/hi";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
-  const exampleGroups = ["788618", "964982"];
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const exampleGroups = ["788618" /*  "964982" */];
 
   // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
+
+  const checkGroup = () => {
+    groupCode
+      ? firebase
+          .firestore()
+          .collection("groups")
+          .doc(groupCode)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              addGroup(groupCode);
+              setGroupCode("");
+            } else {
+              setGroupCode("");
+            }
+          })
+      : setGroupCode("");
+  };
 
   function addGroup(groupCode) {
     firebase
@@ -67,7 +88,7 @@ const Homepage = () => {
               });
               setGroups(items);
             });
-        } else {
+        } /* else {
           //Har ingen reell funksjon, mulig man kan fjerne den hvis man finner en måte å unmoute på
           firebase
             .firestore()
@@ -82,7 +103,7 @@ const Homepage = () => {
               });
               setGroups(items);
             });
-        }
+        } */
       });
 
     return () => {
@@ -143,11 +164,32 @@ const Homepage = () => {
           <button
             className="RedButtonStyle"
             onClick={() => {
-              addGroup(groupCode);
+              {
+                currentUser ? checkGroup() : setModalIsOpen(true);
+              }
             }}
           >
             Legg til gruppe
           </button>
+          <Modal
+            isOpen={modalIsOpen}
+            className="modal-content"
+            ariaHideApp={false}
+          >
+            <div className="input-container">
+              <label className="textGruppe">Har du logget inn?</label>
+            </div>
+            <div className="button-container">
+              <button
+                className="RedButtonStyle"
+                onClick={() => {
+                  setModalIsOpen(false);
+                }}
+              >
+                tilbake
+              </button>
+            </div>
+          </Modal>
         </div>
 
         <div className="d-flex justify-content-center">
@@ -172,6 +214,10 @@ const Homepage = () => {
             }}
           >
             <button className="GroupButtonStyle " id="createGroupButton">
+              <div className="members">
+                <HiUserGroup color="white" size={20} />
+                <div className="memberNumber">{group.numberOfGroupMembers}</div>
+              </div>
               <div className="d-flex justify-content-center" id="groupText">
                 {group.groupName}
               </div>
