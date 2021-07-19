@@ -52,6 +52,7 @@ function GroupPageList() {
         .doc(currentUser.uid)
         .update({ score: firebase.firestore.FieldValue.increment(1) });
     }
+    console.log("ChangeBoolChallenge GroupPageList");
   }
 
   useEffect(() => {

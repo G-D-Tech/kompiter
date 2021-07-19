@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 function GroupPageAdd() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
-
+  const [currentUser, setCurrentUser] = useState("");
   const [addIsOpen, setAddIsOpen] = useState(false);
   const [challengeName, setChallengeName] = useState();
   const [challenges, setChallenges] = useState([]);
@@ -37,6 +37,7 @@ function GroupPageAdd() {
         numberOfChallenges: firebase.firestore.FieldValue.increment(1),
       });
     setChallengeName("");
+    console.log("Add challenge GroupPageAdd");
   }
 
   function deleteChallenge(challenge) {
@@ -50,6 +51,7 @@ function GroupPageAdd() {
       .catch((err) => {
         console.error(err);
       });
+    console.log("Delete challenge GroupPageAdd");
     firebase
       .firestore()
       .collection("groups")
@@ -57,6 +59,23 @@ function GroupPageAdd() {
       .update({
         numberOfChallenges: firebase.firestore.FieldValue.increment(-1),
       });
+    firebase
+      .firestore()
+      .collection("groups")
+      .update({
+        numberOfChallenges: firebase.firestore.FieldValue.increment(-1),
+      });
+
+    if (checkGroupMember(currentUser)) {
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("groupMembers")
+        .doc(currentUser.uid)
+        .update({ score: firebase.firestore.FieldValue.increment(-1) });
+    }
+    console.log("Delete challenge GroupPageAdd");
     setChallengeName("");
     console.log(challenge.id);
   }
@@ -76,8 +95,33 @@ function GroupPageAdd() {
       });
     return () => {
       unsubscribe();
+      console.log("UseEffect1 GroupPageAdd");
     };
-  });
+  }, []);
+
+  useEffect(() => {
+    const authListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser("");
+      }
+    });
+    return () => {
+      authListener();
+      console.log("UseEffect2 GroupPageAdd");
+    };
+  }, [currentUser]);
+
+  function checkGroupMember(challenge) {
+    var isMember = false;
+    {
+      challenge.membersCompletedChallenge.map((member) =>
+        member === currentUser.uid ? (isMember = true) : null
+      );
+    }
+    return isMember;
+  }
 
   return (
     <div className="modalGroup-content">

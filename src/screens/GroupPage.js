@@ -12,6 +12,7 @@ function GroupPage() {
   const location = useLocation();
   const { group, startDate, endDate } = location.state;
   const [groupMembers, setGroupMembers] = useState([]);
+  const [totalChallenges, setTotalChallenges] = useState("0");
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -26,8 +27,18 @@ function GroupPage() {
         });
         setGroupMembers(items);
       });
+    const unsubscribe2 = firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .onSnapshot((snapshot) =>
+        setTotalChallenges(snapshot.data().numberOfChallenges)
+      );
     return () => {
       unsubscribe();
+      unsubscribe2();
+      console.log("UseEffect1 GroupPage");
+      console.log("Kjør");
     };
   }, []);
 
@@ -43,7 +54,7 @@ function GroupPage() {
               <label className="display-header"> {groupMember.name}</label>
               <label className="display-score">
                 {" "}
-                Score: {groupMember.score} / {group.numberOfChallenges}
+                Score: {groupMember.score} / {totalChallenges}
               </label>
             </div>
           </div>

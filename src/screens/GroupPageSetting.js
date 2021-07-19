@@ -24,6 +24,7 @@ function GroupPageSetting() {
     });
     return () => {
       authListener();
+      console.log("UseEffect 2 GroupPagesetting");
     };
   }, [currentUser]);
 
@@ -31,6 +32,7 @@ function GroupPageSetting() {
     if (group.numberOfGroupMembers == 1) {
       setDeleteOrLeave("Slett");
     }
+    console.log("UseEffect 1 GroupPageSetting");
   });
 
   function deleteGroup(group) {
