@@ -75,7 +75,6 @@ const Homepage = () => {
         querySnapshot.forEach((doc) => {
           groupCodes.push(doc.data().groupId);
         });
-
         if (currentUser && groupCodes.length > 0) {
           firebase
             .firestore()
@@ -108,6 +107,7 @@ const Homepage = () => {
 
     return () => {
       unsubscribe();
+      console.log("UseEffect1 Homepage");
     };
   }, [currentUser]);
 
