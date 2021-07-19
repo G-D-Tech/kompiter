@@ -120,7 +120,7 @@ const SignUpOrInPage = () => {
         {feedbackBool ? (
           <div>
             <div>
-              <label class="feedbackText" line-height="20">
+              <label className="feedbackText" line-height="20">
                 Denne tilbakemeldingen er anonym. Vi setter pris på konstruktiv
                 tilbakemelding, ideer og tips. Det vil bli brukt for å forbedre
                 appen.

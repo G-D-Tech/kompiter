@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import { BsPlus, BsCheck } from "react-icons/bs";
-
 import { IoIosClose } from "react-icons/io";
 import firebase from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
@@ -37,6 +35,7 @@ function GroupPageAdd() {
         numberOfChallenges: firebase.firestore.FieldValue.increment(1),
       });
     setChallengeName("");
+    setAddIsOpen(false);
   }
 
   function deleteChallenge(challenge) {
@@ -58,7 +57,6 @@ function GroupPageAdd() {
         numberOfChallenges: firebase.firestore.FieldValue.increment(-1),
       });
     setChallengeName("");
-    console.log(challenge.id);
   }
 
   useEffect(() => {
@@ -77,7 +75,7 @@ function GroupPageAdd() {
     return () => {
       unsubscribe();
     };
-  });
+  }, []);
 
   return (
     <div className="modalGroup-content">
@@ -104,12 +102,15 @@ function GroupPageAdd() {
               <div className="checkButtonStyle">
                 <BsCheck
                   onClick={() => {
-                    addChallenge({
-                      challengeName: challengeName,
-                      id: uuidv4(),
-                      membersCompletedChallenge: [],
-                    });
-                    setAddIsOpen(false);
+                    {
+                      challengeName
+                        ? addChallenge({
+                            challengeName: challengeName,
+                            id: uuidv4(),
+                            membersCompletedChallenge: [],
+                          })
+                        : setAddIsOpen(false);
+                    }
                   }}
                   size={40}
                 ></BsCheck>

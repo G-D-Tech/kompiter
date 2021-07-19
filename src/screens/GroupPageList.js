@@ -103,7 +103,12 @@ function GroupPageList() {
           <div key={challenge.id}>
             {console.log(checkGroupMember(challenge))}
             {checkGroupMember(challenge) ? (
-              <div className="display-challengesDone">
+              <div
+                className="display-challengesDone"
+                onClick={() => {
+                  changeBoolChallenge(challenge);
+                }}
+              >
                 <label className="display-header">
                   {challenge.challengeName}
                 </label>
@@ -111,25 +116,21 @@ function GroupPageList() {
                   <BsCheckCircle
                     className="unchecked-circle"
                     size={39}
-                    onClick={() => {
-                      changeBoolChallenge(challenge);
-                    }}
                   ></BsCheckCircle>
                 </div>
               </div>
             ) : (
-              <div className="display-challengesUndone">
+              <div
+                className="display-challengesUndone"
+                onClick={() => {
+                  changeBoolChallenge(challenge);
+                }}
+              >
                 <label className="display-header">
                   {challenge.challengeName}
                 </label>
                 <div>
-                  <BsCircle
-                    className="unchecked-circle"
-                    size={35}
-                    onClick={() => {
-                      changeBoolChallenge(challenge);
-                    }}
-                  ></BsCircle>
+                  <BsCircle className="unchecked-circle" size={35}></BsCircle>
                 </div>
               </div>
             )}
