@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import { BsPlus, BsCheck } from "react-icons/bs";
-
 import { IoIosClose } from "react-icons/io";
 import firebase from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
@@ -38,6 +36,7 @@ function GroupPageAdd() {
       });
     setChallengeName("");
     console.log("Add challenge GroupPageAdd");
+    setAddIsOpen(false);
   }
 
   function deleteChallenge(challenge) {
@@ -77,7 +76,6 @@ function GroupPageAdd() {
     }
     console.log("Delete challenge GroupPageAdd");
     setChallengeName("");
-    console.log(challenge.id);
   }
 
   useEffect(() => {
@@ -99,6 +97,7 @@ function GroupPageAdd() {
     };
   }, []);
 
+  //For updateing total score
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -148,12 +147,15 @@ function GroupPageAdd() {
               <div className="checkButtonStyle">
                 <BsCheck
                   onClick={() => {
-                    addChallenge({
-                      challengeName: challengeName,
-                      id: uuidv4(),
-                      membersCompletedChallenge: [],
-                    });
-                    setAddIsOpen(false);
+                    {
+                      challengeName
+                        ? addChallenge({
+                            challengeName: challengeName,
+                            id: uuidv4(),
+                            membersCompletedChallenge: [],
+                          })
+                        : setAddIsOpen(false);
+                    }
                   }}
                   size={40}
                 ></BsCheck>
