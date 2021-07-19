@@ -15,6 +15,7 @@ function GroupPage() {
   const [totalChallenges, setTotalChallenges] = useState("0");
 
   useEffect(() => {
+    //Gets groupmembers
     const unsubscribe = firebase
       .firestore()
       .collection("groups")
@@ -27,6 +28,7 @@ function GroupPage() {
         });
         setGroupMembers(items);
       });
+    //Gets total number of challenges for each group
     const unsubscribe2 = firebase
       .firestore()
       .collection("groups")
@@ -38,7 +40,6 @@ function GroupPage() {
       unsubscribe();
       unsubscribe2();
       console.log("UseEffect1 GroupPage");
-      console.log("Kjør");
     };
   }, []);
 
@@ -53,7 +54,6 @@ function GroupPage() {
             <div>
               <label className="display-header"> {groupMember.name}</label>
               <label className="display-score">
-                {" "}
                 Score: {groupMember.score} / {totalChallenges}
               </label>
             </div>
