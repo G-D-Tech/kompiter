@@ -14,6 +14,7 @@ function GroupPageSetting() {
   const [currentUser, setCurrentUser] = useState("");
   const [deleteOrLeave, setDeleteOrLeave] = useState("Forlat");
 
+  //Gets current user
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -28,6 +29,7 @@ function GroupPageSetting() {
     };
   }, [currentUser]);
 
+  //Sets correct grammar when deleting or leaving grouå
   useEffect(() => {
     if (group.numberOfGroupMembers == 1) {
       setDeleteOrLeave("Slett");
@@ -35,6 +37,7 @@ function GroupPageSetting() {
     console.log("UseEffect 1 GroupPageSetting");
   });
 
+  //Deletes group if groupmember is the only member in group, else the groupmember leaves the group
   function deleteGroup(group) {
     if (group.numberOfGroupMembers === 1) {
       firebase

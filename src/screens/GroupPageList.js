@@ -12,6 +12,7 @@ function GroupPageList() {
   const [challenges, setChallenges] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
 
+  //Checks if challenge is finnished and updates firestore
   function changeBoolChallenge(challenge) {
     if (checkGroupMember(challenge)) {
       firebase
@@ -55,6 +56,7 @@ function GroupPageList() {
     console.log("ChangeBoolChallenge GroupPageList");
   }
 
+  //Gets current user
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -68,6 +70,7 @@ function GroupPageList() {
     };
   }, [currentUser]);
 
+  //Gets current challenges
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
@@ -86,6 +89,7 @@ function GroupPageList() {
     };
   }, []);
 
+  //Checks if groupmember has accomblished challenge
   function checkGroupMember(challenge) {
     var isMember = false;
     {

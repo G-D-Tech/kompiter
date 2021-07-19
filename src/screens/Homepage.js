@@ -16,9 +16,8 @@ const Homepage = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const exampleGroups = ["788618" /*  "964982" */];
 
-  // Create a function for fetching your data   See: https://dev.to/olimpioadolfo/how-to-cleanup-firestore-data-fetch-on-useeffect-18ed
-
-  const checkGroup = () => {
+  //Checks if groupCode exists
+  function checkGroup() {
     groupCode
       ? firebase
           .firestore()
@@ -34,8 +33,9 @@ const Homepage = () => {
             }
           })
       : setGroupCode("");
-  };
+  }
 
+  //Adds new group to current user
   function addGroup(groupCode) {
     firebase
       .firestore()
@@ -64,6 +64,7 @@ const Homepage = () => {
       });
   }
 
+  //Gets groups where current user is part of
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
@@ -104,13 +105,13 @@ const Homepage = () => {
             });
         } */
       });
-
     return () => {
       unsubscribe();
       console.log("UseEffect1 Homepage");
     };
   }, [currentUser]);
 
+  //Get current user
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {

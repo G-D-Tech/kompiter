@@ -12,6 +12,7 @@ const SignUpOrInPage = () => {
   const [feedbackBool, setFeedbackBool] = useState(false);
   const [feedback, setFeedback] = useState("");
 
+  //Adds feedback for users not logged in
   function addFeedback(newFeedback) {
     firebase
       .firestore()

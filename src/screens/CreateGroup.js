@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import { Link } from "react-router-dom";
-import { IoIosArrowBack } from "react-icons/io";
-import "../styles/Homepage.css";
-import Modal from "react-modal";
 
-import "../styles/CreateGroup.css";
-import { FiCopy } from "react-icons/fi";
+import { Link } from "react-router-dom";
+
+import Modal from "react-modal";
+import DatePicker from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
+import "../styles/CreateGroup.css";
+import "../styles/Homepage.css";
+
+import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { IoIosArrowBack } from "react-icons/io";
 
 import firebase from "../firebase";
 
@@ -19,10 +22,11 @@ const CreateGroup = () => {
   const [randomNumber, setRandomNumber] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const ref = firebase.firestore();
-  const [ex, setEx] = useState(false);
+  const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  //Adds a new group to current user
   function addGroup(newGroup) {
     ref
       .collection("groups")
@@ -51,12 +55,14 @@ const CreateGroup = () => {
       });
   }
 
+  //Checks if user is logged in or if group name is undefined
   const groupOrUser = () => {
     !currentUser
       ? setErrorMessage("Har du logget inn?")
       : setErrorMessage("Gruppenavn er ikke definert.");
   };
 
+  //Gets current user
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -72,8 +78,8 @@ const CreateGroup = () => {
 
   return (
     <div>
-      {!ex
-        ? (setEx(true),
+      {firstRun
+        ? (setFirstRun(false),
           setRandomNumber("" + Math.floor(100000 + Math.random() * 900000)))
         : null}
       <div className="container">

@@ -18,6 +18,7 @@ const SignUpOrInPage = () => {
   const [feedbackBool, setFeedbackBool] = useState(false);
   const [feedback, setFeedback] = useState("");
 
+  //Adds feedback for users logged in
   function addFeedback(newFeedback) {
     firebase
       .firestore()
@@ -28,6 +29,7 @@ const SignUpOrInPage = () => {
         console.error(err);
       });
     setFeedback("");
+    console.log("addFeedback ProfilePage");
     setFeedbackBool(false);
   }
 

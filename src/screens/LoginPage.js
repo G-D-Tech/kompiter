@@ -31,7 +31,8 @@ const LoginPage = () => {
     setPasswordError("");
   };
 
-  const handleSignIn = () => {
+  //Handles sign in using email
+  function handleSignIn() {
     clearErrors();
     firebase
       .auth()
@@ -48,8 +49,9 @@ const LoginPage = () => {
             break;
         }
       });
-  };
+  }
 
+  //Gets current user
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -63,6 +65,7 @@ const LoginPage = () => {
     };
   }, [currentUser]);
 
+  //Used to handle log in with facebook or google accounts
   const handleLogIn = async (provider) => {
     await firebase
       .auth()
@@ -114,7 +117,6 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              {/* <text className="loginTextSmall">forgot password?</text> */}
               <button className="loginButtonStyle" onClick={handleSignIn}>
                 Logg inn
               </button>

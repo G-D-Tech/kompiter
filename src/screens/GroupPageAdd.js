@@ -16,6 +16,7 @@ function GroupPageAdd() {
   const [challengeName, setChallengeName] = useState();
   const [challenges, setChallenges] = useState([]);
 
+  //Adds challenge to current group
   function addChallenge(newChallenge) {
     firebase
       .firestore()
@@ -35,10 +36,11 @@ function GroupPageAdd() {
         numberOfChallenges: firebase.firestore.FieldValue.increment(1),
       });
     setChallengeName("");
-    console.log("Add challenge GroupPageAdd");
     setAddIsOpen(false);
+    console.log("Add challenge GroupPageAdd");
   }
 
+  //Deletes challenge from group
   function deleteChallenge(challenge) {
     firebase
       .firestore()
@@ -58,14 +60,15 @@ function GroupPageAdd() {
       .update({
         numberOfChallenges: firebase.firestore.FieldValue.increment(-1),
       });
-    firebase
+    /* firebase
       .firestore()
       .collection("groups")
       .update({
         numberOfChallenges: firebase.firestore.FieldValue.increment(-1),
-      });
+      }); */
 
-    if (checkGroupMember(currentUser)) {
+    //Checks if current user has accomplished the challenge. If yes, delete current user from challenge
+    /* if (checkGroupMember(currentUser)) {  //MÅ FIKSES
       firebase
         .firestore()
         .collection("groups")
@@ -73,11 +76,12 @@ function GroupPageAdd() {
         .collection("groupMembers")
         .doc(currentUser.uid)
         .update({ score: firebase.firestore.FieldValue.increment(-1) });
-    }
+    } */
     console.log("Delete challenge GroupPageAdd");
     setChallengeName("");
   }
 
+  //Gets all challenges belonging to current group
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
@@ -112,7 +116,7 @@ function GroupPageAdd() {
     };
   }, [currentUser]);
 
-  function checkGroupMember(challenge) {
+  /*   function checkGroupMember(challenge) {
     var isMember = false;
     {
       challenge.membersCompletedChallenge.map((member) =>
@@ -120,7 +124,7 @@ function GroupPageAdd() {
       );
     }
     return isMember;
-  }
+  } */
 
   return (
     <div className="modalGroup-content">
