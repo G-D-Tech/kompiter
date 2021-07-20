@@ -62,9 +62,9 @@ const Homepage = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              return false;
+              setGroupCode("");
             } else {
-              return true;
+              addGroup(groupCode);
             }
           })
       : setGroupCode("");
@@ -72,7 +72,8 @@ const Homepage = () => {
 
   //Checks if groupCode exists
   function checkGroup() {
-    groupCode && checkUserInGroup()
+    console.log(checkUserInGroup());
+    groupCode
       ? firebase
           .firestore()
           .collection("groups")
@@ -80,9 +81,7 @@ const Homepage = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              addGroup(groupCode);
-              setGroupCode("");
-            } else {
+              checkUserInGroup();
               setGroupCode("");
             }
           })
