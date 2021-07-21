@@ -247,15 +247,15 @@ textarea {
   font-size: 22px;
   font-family: "Roboto", sans-serif;
   color: white;
-  background-color: #28a81d;
-  border-color: #28a81d;
+  background-color: #75da85;
+  border-color: #75da85;
   border-radius: 10px;
   margin-left: 10px;
   padding: 3px;
   text-align: center;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
-.checkButtonStyle:active {
+.saveButtonStyle:active {
   background: #c2ffcc;
   box-shadow: inset 0px 0px 5px #c2ffcc;
 }

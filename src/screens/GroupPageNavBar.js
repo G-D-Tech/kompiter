@@ -33,7 +33,11 @@ function GroupPageNavBar(group, startDate, endDate) {
         )}
       </div>
       <div className="inputGroup-container">
-        <input className="form-control GroupNameBox" defaultValue={group.id} />
+        <input
+          className="form-control GroupNameBox"
+          value={group.id}
+          defaultValue={group.id}
+        />
         <CopyToClipboard text={group.id}>
           <FiCopy className="icon-copy" size={30}></FiCopy>
         </CopyToClipboard>

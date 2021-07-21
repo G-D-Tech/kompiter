@@ -77,7 +77,7 @@ const SignUpOrInPage = () => {
             <div className="renameBox">
               <input
                 className="form-control"
-                placeholder={currentUser.displayName}
+                defaultValue={currentUser.displayName}
                 value={rename}
                 onChange={(e) => setRename(e.target.value)}
               />
