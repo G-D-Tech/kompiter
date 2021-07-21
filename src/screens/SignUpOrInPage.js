@@ -34,10 +34,10 @@ const SignUpOrInPage = () => {
       </div>
       <div className="container-center">
         <Link to="/LoginPage">
-          <button className="signInButtonStyle">Logg inn</button>
+          <button className="LogInButtonStyle">Logg inn</button>
         </Link>
         <Link to="/SignUpPage">
-          <button className="signInButtonStyle">Opprett konto</button>
+          <button className="SignInButtonStyle">Opprett konto</button>
         </Link>
 
         <button

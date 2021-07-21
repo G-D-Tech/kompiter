@@ -95,7 +95,7 @@ const SignUpOrInPage = () => {
             </div>
           ) : null}
           <button
-            className="signInButtonStyle"
+            className="LogInButtonStyle"
             onClick={() => {
               setRenameIsOpen(!renameIsOpen);
             }}
@@ -104,7 +104,7 @@ const SignUpOrInPage = () => {
           </button>
 
           <Link to="/">
-            <button className="signInButtonStyle" onClick={handleLogOut}>
+            <button className="LogInButtonStyle" onClick={handleLogOut}>
               Logg ut
             </button>
           </Link>
