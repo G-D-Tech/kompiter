@@ -12,14 +12,14 @@
   font-size: 30px;
   font-family: "Roboto", sans-serif;
   color: white;
-  opacity: 90%;
+  opacity: 0.9;
 }
 
 .dateTextPopup {
   font-size: 15px;
   font-family: "Roboto", sans-serif;
   color: white;
-  opacity: 90%;
+  opacity: 0.9;
 }
 
 .dateGroup-container {

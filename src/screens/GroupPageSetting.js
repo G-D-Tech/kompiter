@@ -77,6 +77,7 @@ function GroupPageSetting() {
       .catch((err) => {
         console.error(err);
       });
+    console.log("Delete group");
   }
 
   return (
