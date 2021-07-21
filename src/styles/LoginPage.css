@@ -216,14 +216,18 @@ textarea {
 }
 
 .feedbackBox {
-  display: flex;
-  margin-top: 10px;
-  margin-left: 5%;
-  margin-right: 5%;
-  align-items: center;
-  justify-content: top;
-  width: 90%;
-  height: 50%;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  letter-spacing: 1px;
+  background-color: #4d85f2;
+  border-color: #4d85f2;
+  border-radius: 12px;
+  text-align: center;
+  padding: 8px 23px;
+  width: 150px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.2s;
+  cursor: pointer;
 }
 
 .saveButtonStyle {
@@ -246,7 +250,7 @@ textarea {
 .feedbackText {
   font-family: "Roboto", sans-serif;
   font-size: 15px;
-  opacity: 60%;
+  opacity: 0.6;
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 10px;
