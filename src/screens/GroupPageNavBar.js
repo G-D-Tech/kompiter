@@ -50,7 +50,7 @@ function GroupPageNavBar(group, startDate, endDate) {
             state: { group: group, startDate: startDate, endDate: endDate },
           }}
         >
-          <BsListOl size={40} className="icon"></BsListOl>
+          <BsListOl size={40}></BsListOl>
         </NavLink>
         <NavLink
           to={{
@@ -58,7 +58,7 @@ function GroupPageNavBar(group, startDate, endDate) {
             state: { group: group, startDate: startDate, endDate: endDate },
           }}
         >
-          <BsListCheck size={40} className="icon"></BsListCheck>
+          <BsListCheck size={40}></BsListCheck>
         </NavLink>
         <NavLink
           to={{
@@ -66,7 +66,7 @@ function GroupPageNavBar(group, startDate, endDate) {
             state: { group: group, startDate: startDate, endDate: endDate },
           }}
         >
-          <BsPlus size={40} className="icon"></BsPlus>
+          <BsPlus size={40}></BsPlus>
         </NavLink>
         <NavLink
           to={{
@@ -74,7 +74,7 @@ function GroupPageNavBar(group, startDate, endDate) {
             state: { group: group, startDate: startDate, endDate: endDate },
           }}
         >
-          <BsThreeDots size={40} className="icon"></BsThreeDots>
+          <BsThreeDots size={40}></BsThreeDots>
         </NavLink>
       </div>
       <div className="navbar-line"></div>
