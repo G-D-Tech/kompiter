@@ -37,7 +37,6 @@ const SignUpPage = () => {
 
   function addUser(user) {
     firebase.firestore().collection("users").doc(user).set({ userId: user });
-    console.log("User added");
   }
 
   const handleSignUp = () => {
@@ -62,6 +61,8 @@ const SignUpPage = () => {
           case "auth/weak-password":
             setPasswordError(err.message);
             break;
+          default:
+            console.log("Unknown error");
         }
       });
   };
@@ -104,7 +105,6 @@ const SignUpPage = () => {
       });
     return () => {
       unsubscribe();
-      console.log("Unsubscribe");
     };
   }, []);
 
@@ -113,7 +113,6 @@ const SignUpPage = () => {
       {user ? (
         <div>
           {addUser(userUid)}
-          {console.log(userUid)}
           <Redirect to="/" />
         </div>
       ) : (

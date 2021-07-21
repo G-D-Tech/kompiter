@@ -10,7 +10,7 @@ import firebase from "../firebase";
 
 function GroupPage() {
   const location = useLocation();
-  const { group, startDate, endDate } = location.state;
+  const { group /* , startDate, endDate */ } = location.state;
   const [groupMembers, setGroupMembers] = useState([]);
   const [totalChallenges, setTotalChallenges] = useState("0");
 
@@ -23,8 +23,13 @@ function GroupPage() {
       .collection("groupMembers")
       .onSnapshot((querySnapshot) => {
         const items = [];
+
         querySnapshot.forEach((doc) => {
-          items.push(doc.data());
+          items.push({
+            id: doc.data().userId,
+            name: doc.data().name,
+            score: doc.data().score,
+          });
         });
         setGroupMembers(items);
       });
@@ -39,17 +44,16 @@ function GroupPage() {
     return () => {
       unsubscribe();
       unsubscribe2();
-      console.log("UseEffect1 GroupPage");
     };
-  }, []);
+  }, [group.id]);
 
   return (
     <div className="modalGroup-content">
-      {GroupPageNavBar(group, startDate, endDate)}
+      {GroupPageNavBar(group /* , startDate, endDate */)}
       {groupMembers
         .sort((a, b) => b.score - a.score)
         .map((groupMember, index) => (
-          <div className="display-scoreChallenges" key={groupMember}>
+          <div className="display-scoreChallenges" key={index + 1}>
             <label className="display-headerNumber"> {index + 1}.</label>
             <div>
               <label className="display-header"> {groupMember.name}</label>

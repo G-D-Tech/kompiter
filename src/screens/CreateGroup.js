@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Modal from "react-modal";
-import DatePicker from "react-datepicker";
+//import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/CreateGroup.css";
@@ -17,8 +17,8 @@ import firebase from "../firebase";
 
 const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  //const [startDate, setStartDate] = useState(new Date());
+  //const [endDate, setEndDate] = useState(new Date());
   const [randomNumber, setRandomNumber] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const ref = firebase.firestore();
@@ -49,7 +49,7 @@ const CreateGroup = () => {
       .doc(newGroup.id)
       .collection("groupMembers")
       .doc(currentUser.uid)
-      .set({ userId: currentUser.uid, score: 0, name: currentUser.displayName })
+      .set({ id: currentUser.uid, score: 0, name: currentUser.displayName })
       .catch((err) => {
         console.error(err);
       });
@@ -103,7 +103,7 @@ const CreateGroup = () => {
           </div>
         </form>
       </div>
-      <div className="inputDate-container">
+      {/* <div className="inputDate-container">
         <label className="text">Startdato</label>
         <div className="dateBox">
           <DatePicker
@@ -130,7 +130,7 @@ const CreateGroup = () => {
             dateFormat="MMMM d, yyyy HH:mm"
           />
         </div>
-      </div>
+      </div> */}
       <div className="button-container">
         <button
           className="RedButtonStyle"
@@ -169,8 +169,8 @@ const CreateGroup = () => {
                 addGroup({
                   groupName: groupName,
                   id: randomNumber,
-                  startDate: startDate,
-                  endDate: endDate,
+                  //startDate: startDate,
+                  //endDate: endDate,
                   numberOfGroupMembers: 1,
                   numberOfChallenges: 0,
                 });

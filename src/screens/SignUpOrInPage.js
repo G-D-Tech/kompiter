@@ -6,7 +6,7 @@ import "../styles/LoginPage.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from "uuid";
 import firebase from "../firebase";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const SignUpOrInPage = () => {
   const [feedbackBool, setFeedbackBool] = useState(false);

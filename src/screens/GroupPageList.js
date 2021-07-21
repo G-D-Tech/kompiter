@@ -8,7 +8,7 @@ import { BsCircle, BsCheckCircle } from "react-icons/bs";
 
 function GroupPageList() {
   const location = useLocation();
-  const { group, startDate, endDate } = location.state;
+  const { group /* , startDate, endDate  */ } = location.state;
   const [challenges, setChallenges] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
 
@@ -53,7 +53,6 @@ function GroupPageList() {
         .doc(currentUser.uid)
         .update({ score: firebase.firestore.FieldValue.increment(1) });
     }
-    console.log("ChangeBoolChallenge GroupPageList");
   }
 
   //Gets current user
@@ -87,26 +86,25 @@ function GroupPageList() {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [group.id]);
 
   //Checks if groupmember has accomblished challenge
   function checkGroupMember(challenge) {
     var isMember = false;
-    {
-      challenge.membersCompletedChallenge.map((member) =>
-        member === currentUser.uid ? (isMember = true) : null
-      );
-    }
+
+    challenge.membersCompletedChallenge.map((member) =>
+      member === currentUser.uid ? (isMember = true) : null
+    );
+
     return isMember;
   }
 
   return (
     <div className="modalGroup-content">
-      {GroupPageNavBar(group, startDate, endDate)}
+      {GroupPageNavBar(group /* , startDate, endDate */)}
       <div>
         {challenges.map((challenge) => (
           <div key={challenge.id}>
-            {console.log(checkGroupMember(challenge))}
             {checkGroupMember(challenge) ? (
               <div
                 className="display-challengesDone"

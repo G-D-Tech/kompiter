@@ -10,7 +10,7 @@ import firebase from "../firebase";
 
 function GroupPageSetting() {
   const location = useLocation();
-  const { group, startDate, endDate } = location.state;
+  const { group /* , startDate, endDate  */ } = location.state;
   const [currentUser, setCurrentUser] = useState("");
   const [deleteOrLeave, setDeleteOrLeave] = useState("Forlat");
 
@@ -25,17 +25,15 @@ function GroupPageSetting() {
     });
     return () => {
       authListener();
-      console.log("UseEffect 2 GroupPagesetting");
     };
   }, [currentUser]);
 
   //Sets correct grammar when deleting or leaving grouå
   useEffect(() => {
-    if (group.numberOfGroupMembers == 1) {
+    if (group.numberOfGroupMembers === 1) {
       setDeleteOrLeave("Slett");
     }
-    console.log("UseEffect 1 GroupPageSetting");
-  });
+  }, [group.numberOfGroupMembers]);
 
   //Deletes group if groupmember is the only member in group, else the groupmember leaves the group
   function deleteGroup(group) {
@@ -77,12 +75,11 @@ function GroupPageSetting() {
       .catch((err) => {
         console.error(err);
       });
-    console.log("Delete group");
   }
 
   return (
     <div className="modalGroup-content">
-      {GroupPageNavBar(group, startDate, endDate)}
+      {GroupPageNavBar(group /* , startDate, endDate */)}
       <div className="display-challenges">
         <label className="uncompletedChallengesText">
           {deleteOrLeave} denne gruppa
