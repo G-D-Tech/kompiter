@@ -17,8 +17,63 @@ const Homepage = () => {
   const [count, setCount] = useState(0);
   const exampleGroups = ["788618" /*  "964982" */];
 
+  //Checks if groupmember has accomblished challenge
+  function checkGroupMember(challenge) {
+    var isMember = false;
+    {
+      challenge.membersCompletedChallenge.map((member) =>
+        member === currentUser.uid ? (isMember = true) : null
+      );
+    }
+    return isMember;
+  }
+
+  function createScore(groupCode) {
+    let c = 0;
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(groupCode)
+      .collection("challenges")
+      .get()
+      .then((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        items.map((i) => (checkGroupMember(i) ? (c += 1) : null));
+        firebase
+          .firestore()
+          .collection("groups")
+          .doc(groupCode)
+          .collection("groupMembers")
+          .doc(currentUser.uid)
+          .update({ score: c });
+      });
+  }
+
+  function checkUserInGroup() {
+    groupCode
+      ? firebase
+          .firestore()
+          .collection("users")
+          .doc(currentUser.uid)
+          .collection("groupCodes")
+          .doc(groupCode)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setGroupCode("");
+            } else {
+              addGroup(groupCode);
+            }
+          })
+      : setGroupCode("");
+  }
+
   //Checks if groupCode exists
   function checkGroup() {
+    console.log(checkUserInGroup());
     groupCode
       ? firebase
           .firestore()
@@ -27,9 +82,7 @@ const Homepage = () => {
           .get()
           .then((doc) => {
             if (doc.exists) {
-              addGroup(groupCode);
-              setGroupCode("");
-            } else {
+              checkUserInGroup();
               setGroupCode("");
             }
           })
@@ -65,7 +118,7 @@ const Homepage = () => {
   }
 
   //Adds new group to current user
-  function addGroup(groupCode) {
+  function addGroup(groupCode, c) {
     firebase
       .firestore()
       .collection("users")
@@ -92,6 +145,7 @@ const Homepage = () => {
       .update({
         numberOfGroupMembers: firebase.firestore.FieldValue.increment(1),
       });
+    createScore(groupCode);
   }
 
   //Gets groups where current user is part of
