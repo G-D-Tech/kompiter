@@ -44,7 +44,7 @@ function GroupPage() {
   }, []);
 
   return (
-    <div className="modalGroup-content">
+    <div>
       {GroupPageNavBar(group, startDate, endDate)}
       {groupMembers
         .sort((a, b) => b.score - a.score)

@@ -216,7 +216,6 @@
 } */
 .uncompletedChallengesText {
   color: white;
-  opacity: 10%;
   margin-left: 5%;
   font-size: 22px;
   font-family: "Roboto", sans-serif;
@@ -224,7 +223,6 @@
 
 .display-header {
   color: white;
-  opacity: 10%;
   margin-right: 15px;
   margin-left: 15px;
   font-size: 20px;
