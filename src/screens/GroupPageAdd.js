@@ -60,6 +60,30 @@ function GroupPageAdd() {
       .update({
         numberOfChallenges: firebase.firestore.FieldValue.increment(-1),
       });
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("groupMembers")
+      .get()
+      .then((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        items.map((i) =>
+          i.score > 0
+            ? firebase
+                .firestore()
+                .collection("groups")
+                .doc(group.id)
+                .collection("groupMembers")
+                .doc(i.userId)
+                .update({ score: firebase.firestore.FieldValue.increment(-1) })
+            : null
+        );
+      });
+
     /* firebase
       .firestore()
       .collection("groups")
