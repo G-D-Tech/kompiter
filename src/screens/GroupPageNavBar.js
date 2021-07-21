@@ -33,7 +33,11 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
         )}
       </div> */}
       <div className="inputGroup-container">
-        <input className="form-control GroupNameBox" defaultValue={group.id} />
+        <input
+          className="form-control GroupNameBox"
+          value={group.id}
+          defaultValue={group.id}
+        />
         <CopyToClipboard text={group.id}>
           <FiCopy className="icon-copy" size={30}></FiCopy>
         </CopyToClipboard>
@@ -48,7 +52,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
             },
           }}
         >
-          <BsListOl size={40} className="icon"></BsListOl>
+          <BsListOl size={40}></BsListOl>
         </NavLink>
         <NavLink
           to={{
@@ -58,7 +62,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
             },
           }}
         >
-          <BsListCheck size={40} className="icon"></BsListCheck>
+          <BsListCheck size={40}></BsListCheck>
         </NavLink>
         <NavLink
           to={{
@@ -68,7 +72,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
             },
           }}
         >
-          <BsPlus size={40} className="icon"></BsPlus>
+          <BsPlus size={40}></BsPlus>
         </NavLink>
         <NavLink
           to={{
@@ -78,7 +82,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
             },
           }}
         >
-          <BsThreeDots size={40} className="icon"></BsThreeDots>
+          <BsThreeDots size={40}></BsThreeDots>
         </NavLink>
       </div>
       <div className="navbar-line"></div>
