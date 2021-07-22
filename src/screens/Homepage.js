@@ -282,7 +282,7 @@ const Homepage = () => {
                 setModalIsOpen(true);
               }}
             >
-              opprett gruppe
+              Opprett gruppe
             </button>
           )}
         </div>
