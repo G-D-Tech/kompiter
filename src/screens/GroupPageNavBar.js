@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import "../styles/NavBar.css";
 
-import { IoIosClose } from "react-icons/io";
+import { IoIosClose, IoIosPodium, IoIosCheckmarkCircle } from "react-icons/io";
 import { BsListCheck, BsListOl, BsPlus, BsThreeDots } from "react-icons/bs";
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
