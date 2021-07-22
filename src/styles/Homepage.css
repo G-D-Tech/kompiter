@@ -159,3 +159,8 @@ html {
 .leggtilBox {
   width: 100px;
 }
+
+.imageStyle {
+  padding-top: 40px;
+  margin-left: -20px;
+}

@@ -209,12 +209,11 @@ const Homepage = () => {
         ) : (
           <div className="icon">
             <Link to="/SignUpOrInPage">
-              <label className="loginTextSmall">Lagre gruppe? logg inn: </label>
+              <label className="loginTextSmall">logg inn: </label>
               <BsFillPersonFill color="black" size={30} />
             </Link>
           </div>
         )}
-
         <h1 id="groupHead">Grupper</h1>
 
         <div className="inputCodeStyle">
@@ -286,7 +285,11 @@ const Homepage = () => {
           )}
         </div>
       </div>
-
+      {currentUser ? null : (
+        <div className="d-flex justify-content-center imageStyle">
+          <img src="/KompiteFirstImage.png" height="360px" />
+        </div>
+      )}
       {groups.map((group) => (
         <div className="wrap" key={group.id}>
           <Link
