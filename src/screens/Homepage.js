@@ -217,8 +217,8 @@ const Homepage = () => {
         <h1 id="groupHead">Grupper</h1>
 
         <div className="inputCodeStyle">
-          <form>
-            <div className="col-xs-2">
+          <div className="leftColumn">
+            <form>
               <input
                 className="form-control"
                 id="exampleFormControlInput"
@@ -228,16 +228,18 @@ const Homepage = () => {
                   setGroupCode(e.target.value);
                 }}
               ></input>
-            </div>
-          </form>
-          <button
-            className="RedButtonStyle"
-            onClick={() => {
-              currentUser ? checkGroup() : setModalIsOpen(true);
-            }}
-          >
-            Bli med
-          </button>
+            </form>
+          </div>
+          <div className="rightColumn">
+            <button
+              className="AddCodeButton"
+              onClick={() => {
+                currentUser ? checkGroup() : setModalIsOpen(true);
+              }}
+            >
+              Bli med
+            </button>
+          </div>
           <Modal
             isOpen={modalIsOpen}
             className="modal-content"
@@ -302,7 +304,7 @@ const Homepage = () => {
               },
             }}
           >
-            <button className="GroupButtonStyle " id="createGroupButton">
+            <button className="GroupButtonStyle" id="createGroupButton">
               <div className="members">
                 <HiUserGroup color="white" size={20} />
                 <div className="memberNumber">{group.numberOfGroupMembers}</div>
