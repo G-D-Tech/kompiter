@@ -50,7 +50,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
         )}
       </div> */}
       <div className="sendTilVenner">
-        <text className="display-score">Send koden til venner</text>
+        <text className="display-sendTilVenner">Send koden til venner</text>
       </div>
       <div className="inputGroup-container">
         <input

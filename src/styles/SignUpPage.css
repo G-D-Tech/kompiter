@@ -94,19 +94,11 @@
 }
 
 .backFromTermsButton {
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
   color: white;
   background-color: #e94e4e;
   border-color: #e94e4e;
-  border-radius: 50%;
-  text-align: center;
-  padding: 10px 10px;
-  /* margin-right: 20px;
-  margin-left: 20px; */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
+  border-radius: 50%;
 }
 
 .terms {

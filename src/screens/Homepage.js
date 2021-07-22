@@ -282,14 +282,14 @@ const Homepage = () => {
                 setModalIsOpen(true);
               }}
             >
-              opprett gruppe
+              Opprett gruppe
             </button>
           )}
         </div>
       </div>
       {currentUser ? null : (
         <div className="d-flex justify-content-center imageStyle">
-          <img src="/KompiteFirstImage.png" height="360px" />
+          <img src="/KompiteFirstImage.png" height="350px" />
         </div>
       )}
       {groups.map((group) => (
