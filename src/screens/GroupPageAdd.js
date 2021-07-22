@@ -10,10 +10,10 @@ import { v4 as uuidv4 } from "uuid";
 
 function GroupPageAdd() {
   const location = useLocation();
-  const { group, startDate, endDate } = location.state;
+  const { group /* , startDate, endDate  */ } = location.state;
   const [currentUser, setCurrentUser] = useState("");
   const [addIsOpen, setAddIsOpen] = useState(false);
-  const [challengeName, setChallengeName] = useState();
+  const [challengeName, setChallengeName] = useState("");
   const [challenges, setChallenges] = useState([]);
 
   //Adds challenge to current group
@@ -28,6 +28,7 @@ function GroupPageAdd() {
       .catch((err) => {
         console.error(err);
       });
+    //MÅ UNMOUNTE
     firebase
       .firestore()
       .collection("groups")
@@ -37,7 +38,6 @@ function GroupPageAdd() {
       });
     setChallengeName("");
     setAddIsOpen(false);
-    console.log("Add challenge GroupPageAdd");
   }
 
   //Deletes challenge from group
@@ -52,7 +52,6 @@ function GroupPageAdd() {
       .catch((err) => {
         console.error(err);
       });
-    console.log("Delete challenge GroupPageAdd");
     firebase
       .firestore()
       .collection("groups")
@@ -78,7 +77,7 @@ function GroupPageAdd() {
                 .collection("groups")
                 .doc(group.id)
                 .collection("groupMembers")
-                .doc(i.userId)
+                .doc(i.id)
                 .update({ score: firebase.firestore.FieldValue.increment(-1) })
             : null
         );
@@ -101,7 +100,6 @@ function GroupPageAdd() {
         .doc(currentUser.uid)
         .update({ score: firebase.firestore.FieldValue.increment(-1) });
     } */
-    console.log("Delete challenge GroupPageAdd");
     setChallengeName("");
   }
 
@@ -121,9 +119,8 @@ function GroupPageAdd() {
       });
     return () => {
       unsubscribe();
-      console.log("UseEffect1 GroupPageAdd");
     };
-  }, []);
+  }, [group.id]);
 
   //For updateing total score
   useEffect(() => {
@@ -136,7 +133,6 @@ function GroupPageAdd() {
     });
     return () => {
       authListener();
-      console.log("UseEffect2 GroupPageAdd");
     };
   }, [currentUser]);
 
@@ -152,7 +148,7 @@ function GroupPageAdd() {
 
   return (
     <div className="modalGroup-content">
-      {GroupPageNavBar(group, startDate, endDate)}
+      {GroupPageNavBar(group /* , startDate, endDate */)}
       <div onClick={() => setAddIsOpen(true)} className="crossPlusButtonStyle">
         <BsPlus size={40}></BsPlus>
       </div>
@@ -175,15 +171,13 @@ function GroupPageAdd() {
               <div className="checkButtonStyle">
                 <BsCheck
                   onClick={() => {
-                    {
-                      challengeName
-                        ? addChallenge({
-                            challengeName: challengeName,
-                            id: uuidv4(),
-                            membersCompletedChallenge: [],
-                          })
-                        : setAddIsOpen(false);
-                    }
+                    challengeName
+                      ? addChallenge({
+                          challengeName: challengeName,
+                          id: uuidv4(),
+                          membersCompletedChallenge: [],
+                        })
+                      : setAddIsOpen(false);
                   }}
                   size={40}
                 ></BsCheck>

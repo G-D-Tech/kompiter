@@ -14,17 +14,17 @@ const Homepage = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [count, setCount] = useState(0);
-  const exampleGroups = ["788618" /*  "964982" */];
+  /* const [count, setCount] = useState(0); */
+  /* const exampleGroups = ["788618"  "964982" ]; */
 
   //Checks if groupmember has accomblished challenge
   function checkGroupMember(challenge) {
     var isMember = false;
-    {
-      challenge.membersCompletedChallenge.map((member) =>
-        member === currentUser.uid ? (isMember = true) : null
-      );
-    }
+
+    challenge.membersCompletedChallenge.map((member) =>
+      member === currentUser.uid ? (isMember = true) : null
+    );
+
     return isMember;
   }
 
@@ -73,7 +73,6 @@ const Homepage = () => {
 
   //Checks if groupCode exists
   function checkGroup() {
-    console.log(checkUserInGroup());
     groupCode
       ? firebase
           .firestore()
@@ -89,36 +88,22 @@ const Homepage = () => {
       : setGroupCode("");
   }
 
-  //Checks if groupmember has accomblished challenge
-  function checkGroupMember(challenge) {
-    var isMember = false;
-    {
-      challenge.membersCompletedChallenge.map((member) =>
-        member === currentUser.uid ? (isMember = true) : null
-      );
-    }
-    return isMember;
-  }
-
-  function createScore(groupCode) {
+  //Adds new group to current user
+  function addGroup(groupCode) {
+    let c = 0;
     firebase
       .firestore()
       .collection("groups")
       .doc(groupCode)
       .collection("challenges")
-      .onSnapshot((querySnapshot) => {
+      .get()
+      .then((querySnapshot) => {
         const items = [];
         querySnapshot.forEach((doc) => {
           items.push(doc.data());
         });
-        items.map((challenge) =>
-          checkGroupMember(challenge) ? setCount(count + 1) : console.log("2")
-        );
+        items.map((i) => (checkGroupMember(i) ? (c += 1) : null));
       });
-  }
-
-  //Adds new group to current user
-  function addGroup(groupCode, c) {
     firebase
       .firestore()
       .collection("users")
@@ -134,8 +119,8 @@ const Homepage = () => {
       .collection("groupMembers")
       .doc(currentUser.uid)
       .set({
-        userId: currentUser.uid,
-        score: count,
+        id: currentUser.uid,
+        score: c,
         name: currentUser.displayName,
       });
     firebase
@@ -191,7 +176,7 @@ const Homepage = () => {
       });
     return () => {
       unsubscribe();
-      console.log("UseEffect1 Homepage");
+      console.log("Test");
     };
   }, [currentUser]);
 
@@ -249,9 +234,7 @@ const Homepage = () => {
           <button
             className="RedButtonStyle"
             onClick={() => {
-              {
-                currentUser ? checkGroup() : setModalIsOpen(true);
-              }
+              currentUser ? checkGroup() : setModalIsOpen(true);
             }}
           >
             Legg til gruppe
@@ -293,8 +276,8 @@ const Homepage = () => {
               pathname: "/GroupPage",
               state: {
                 group: group,
-                startDate: group.startDate.toDate(),
-                endDate: group.endDate.toDate(),
+                /* startDate: group.startDate.toDate(),
+                endDate: group.endDate.toDate(), */
               },
             }}
           >

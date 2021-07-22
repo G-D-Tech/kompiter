@@ -47,6 +47,8 @@ const LoginPage = () => {
           case "auth/wrong-password":
             setPasswordError("Wrong password");
             break;
+          default:
+            console.log("Unknown error");
         }
       });
   }

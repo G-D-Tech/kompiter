@@ -29,7 +29,6 @@ const SignUpOrInPage = () => {
         console.error(err);
       });
     setFeedback("");
-    console.log("addFeedback ProfilePage");
     setFeedbackBool(false);
   }
 
@@ -54,7 +53,6 @@ const SignUpOrInPage = () => {
         setCurrentUser(user);
       } else {
         setCurrentUser("");
-        console.log("Logget ut");
       }
     });
     return () => {
