@@ -186,3 +186,8 @@ html {
   transition-duration: 0.2s;
   cursor: pointer;
 }
+
+.imageStyle {
+  padding-top: 40px;
+  margin-left: -20px;
+}
