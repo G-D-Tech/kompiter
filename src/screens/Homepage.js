@@ -220,7 +220,7 @@ const Homepage = () => {
           <form>
             <div className="col-xs-2">
               <input
-                className="form-control "
+                className="form-control"
                 id="exampleFormControlInput"
                 placeholder="Gruppekode"
                 value={groupCode}
@@ -287,7 +287,7 @@ const Homepage = () => {
       </div>
       {currentUser ? null : (
         <div className="d-flex justify-content-center imageStyle">
-          <img src="/KompiteFirstImage.png" height="360px" />
+          <img src="/KompiteFirstImage.png" height="350px" />
         </div>
       )}
       {groups.map((group) => (

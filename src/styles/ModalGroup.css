@@ -254,6 +254,14 @@
   font-family: "Roboto", sans-serif;
 }
 
+.display-sendTilVenner {
+  display: flex;
+  color: white;
+  /*   opacity: 70%; */
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+}
+
 .unchecked-circle {
   color: white;
 }
