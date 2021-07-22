@@ -254,7 +254,6 @@ const SignUpPage = () => {
                 id="createUserButton"
                 className="opprettButtonStyle"
                 onClick={handleSignUp}
-                disabled
               >
                 Opprett konto
               </button>
