@@ -117,6 +117,10 @@ const SignUpPage = () => {
   }, []);
 
   useEffect(() => {
+    setAcitveCreateUser();
+  }, []);
+
+  useEffect(() => {
     const unsubscribe = firebase
       .firestore()
       .collection("users")
@@ -172,11 +176,7 @@ const SignUpPage = () => {
 
               <div className="d-flex justify-content-center termsDiv">
                 <label className="checkboxContainer">
-                  <input
-                    type="checkbox"
-                    id="termsCheckbox"
-                    onClick={() => setAcitveCreateUser()}
-                  ></input>
+                  <input type="checkbox" id="termsCheckbox"></input>
                   <span className="checkmark"></span>
                 </label>
                 <label>
@@ -197,12 +197,9 @@ const SignUpPage = () => {
                 <div className="terms">
                   <div className="d-flex justify-content-between">
                     <h1>Vilkår</h1>
-                    <button
-                      className="backFromTermsButton"
-                      onClick={() => setModalIsOpen(false)}
-                    >
-                      <IoClose size={30}></IoClose>
-                    </button>
+                    <div onClick={() => setModalIsOpen(false)}>
+                      <IoClose size={35}></IoClose>
+                    </div>
                   </div>
 
                   <h5>1. Innledning</h5>
