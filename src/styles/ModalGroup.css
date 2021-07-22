@@ -39,6 +39,15 @@
   margin-right: 9%;
 }
 
+.sendTilVenner {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-bottom: -10px;
+  margin-left: 9%;
+  margin-right: 9%;
+}
+
 .crossButtonStyle {
   color: white;
   background-color: #e94e4e;
@@ -306,4 +315,9 @@
 .DeleteButtonStyle:active {
   background: #fc9e9e;
   box-shadow: inset 0px 0px 5px #fc9e9e;
+}
+
+.modalClose {
+  margin-top: -20px;
+  margin-left: -20px;
 }

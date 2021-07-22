@@ -223,7 +223,7 @@ const Homepage = () => {
               <input
                 className="form-control "
                 id="exampleFormControlInput"
-                placeholder="123456"
+                placeholder="Gruppekode"
                 value={groupCode}
                 onChange={(e) => {
                   setGroupCode(e.target.value);
@@ -237,7 +237,7 @@ const Homepage = () => {
               currentUser ? checkGroup() : setModalIsOpen(true);
             }}
           >
-            Legg til gruppe
+            Bli med
           </button>
           <Modal
             isOpen={modalIsOpen}
@@ -261,11 +261,29 @@ const Homepage = () => {
         </div>
 
         <div className="d-flex justify-content-center">
-          <Link to="/CreateGroup">
-            <button className="RedButtonStyle" id="createGroupButton">
+          {currentUser ? (
+            <Link to="/CreateGroup">
+              <button
+                className="RedButtonStyle"
+                id="createGroupButton"
+                onClick={() => {
+                  setModalIsOpen(true);
+                }}
+              >
+                Opprett gruppe
+              </button>
+            </Link>
+          ) : (
+            <button
+              className="RedButtonStyle"
+              id="createGroupButton"
+              onClick={() => {
+                setModalIsOpen(true);
+              }}
+            >
               opprett gruppe
             </button>
-          </Link>
+          )}
         </div>
       </div>
 

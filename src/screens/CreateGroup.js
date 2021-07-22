@@ -24,7 +24,6 @@ const CreateGroup = () => {
   const ref = firebase.firestore();
   const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   //Adds a new group to current user
   function addGroup(newGroup) {
@@ -54,13 +53,6 @@ const CreateGroup = () => {
         console.error(err);
       });
   }
-
-  //Checks if user is logged in or if group name is undefined
-  const groupOrUser = () => {
-    !currentUser
-      ? setErrorMessage("Har du logget inn?")
-      : setErrorMessage("Gruppenavn er ikke definert.");
-  };
 
   //Gets current user
   useEffect(() => {
@@ -136,7 +128,6 @@ const CreateGroup = () => {
           className="RedButtonStyle"
           onClick={() => {
             setModalIsOpen(!modalIsOpen);
-            groupOrUser();
           }}
         >
           Opprett gruppe
@@ -187,7 +178,7 @@ const CreateGroup = () => {
           ariaHideApp={false}
         >
           <div className="input-container">
-            <label className="textGruppe">{errorMessage}</label>
+            <label className="textGruppe">Gruppenavn er ikke definert</label>
           </div>
 
           <div className="button-container">

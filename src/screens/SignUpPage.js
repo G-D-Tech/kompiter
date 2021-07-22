@@ -21,9 +21,9 @@ const SignUpPage = () => {
   const [passwordError, setPasswordError] = useState("");
   const [userUid, setUserUid] = useState("");
 
-  const facebookProvider = new firebase.auth.FacebookAuthProvider();
+  /*   const facebookProvider = new firebase.auth.FacebookAuthProvider();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
-
+ */
   const clearInputs = () => {
     setName("");
     setEmail("");
@@ -56,10 +56,10 @@ const SignUpPage = () => {
         switch (err.code) {
           case "auth/email-already-in-use":
           case "auth/invalid-email":
-            setEmailError(err.message);
+            setEmailError("Feil email eller allerede i bruk");
             break;
           case "auth/weak-password":
-            setPasswordError(err.message);
+            setPasswordError("Passordet må være minst 6 tegn");
             break;
           default:
             console.log("Unknown error");
@@ -67,7 +67,7 @@ const SignUpPage = () => {
       });
   };
 
-  const handleLogIn = async (provider) => {
+  /*   const handleLogIn = async (provider) => {
     await firebase
       .auth()
       .signInWithPopup(provider)
@@ -77,7 +77,7 @@ const SignUpPage = () => {
       .catch((er) => {
         return er;
       });
-  };
+  }; */
 
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
@@ -127,7 +127,7 @@ const SignUpPage = () => {
               <label className="loginTextSmall">Opprett en ny konto</label>
               <input
                 className="usernameBox"
-                placeholder="full name"
+                placeholder="fullt navn"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -140,7 +140,7 @@ const SignUpPage = () => {
               <p className="errorMsg">{emailError}</p>
               <input
                 className="usernameBox"
-                placeholder="password"
+                placeholder="passord"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -150,7 +150,7 @@ const SignUpPage = () => {
                 Opprett konto
               </button>
             </section>
-            <label className="loginTextSmall">eller logg inn med</label>
+            {/*             <label className="loginTextSmall">eller logg inn med</label>
             <div className="icon-spacebetween">
               <div>
                 <IoLogoFacebook
@@ -166,7 +166,7 @@ const SignUpPage = () => {
                   onClick={() => handleLogIn(googleProvider)}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
