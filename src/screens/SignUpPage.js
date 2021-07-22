@@ -245,7 +245,7 @@ const SignUpPage = () => {
                   <p>
                     Kompit forbeholder seg retten til å gjøre endringer i
                     vilkårene. De til enhver tid gjeldende vilkårene vil være
-                    tilgjengelig i appen under din profil. Vesentlig endringer
+                    tilgjengelig i appen under "Din profil". Større endringer
                     vil bli varslet på e-post.
                   </p>
                 </div>
