@@ -5,3 +5,8 @@
 .navBarIcon {
   color: black;
 }
+
+#myLabel {
+  margin-left: 9%;
+  margin-right: 9%;
+}

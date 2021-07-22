@@ -7,6 +7,16 @@ import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function GroupPageNavBar(group /* , startDate, endDate */) {
+  function showCopiedText() {
+    var x = document.getElementById("myLabel");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+      setTimeout(function () {
+        x.style.display = "none";
+      }, 2000);
+    }
+  }
+
   return (
     <div>
       <button className="crossButtonStyle">
@@ -32,15 +42,24 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
           </label>
         )}
       </div> */}
-      <div className="inputGroup-container">
-        <input
-          className="form-control GroupNameBox"
-          /*           value={group.id} */
-          defaultValue={group.id}
-        />
-        <CopyToClipboard text={group.id}>
-          <FiCopy className="icon-copy" size={30}></FiCopy>
-        </CopyToClipboard>
+      <div className="d-flex flex-column">
+        <div className="inputGroup-container">
+          <input
+            className="form-control GroupNameBox"
+            /*           value={group.id} */
+            defaultValue={group.id}
+          />
+          <CopyToClipboard text={group.id}>
+            <FiCopy
+              className="icon-copy"
+              size={30}
+              onClick={() => showCopiedText()}
+            ></FiCopy>
+          </CopyToClipboard>
+        </div>
+        <label id="myLabel" style={{ display: "none" }}>
+          Kode kopiert
+        </label>
       </div>
       <div className="navbar">
         <NavLink
