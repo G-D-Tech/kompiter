@@ -1,8 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
 import "../styles/NavBar.css";
+import "../styles/ModalGroup.css";
 
 import { IoIosClose, IoIosPodium, IoIosCheckmarkCircle } from "react-icons/io";
-import { BsListCheck, BsListOl, BsPlus, BsThreeDots } from "react-icons/bs";
+import {
+  BsListCheck,
+  BsCheckCircle,
+  BsListOl,
+  BsPlus,
+  BsThreeDots,
+} from "react-icons/bs";
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -42,25 +49,26 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
           </label>
         )}
       </div> */}
-      <div className="d-flex flex-column">
-        <div className="inputGroup-container">
-          <input
-            className="form-control GroupNameBox"
-            /*           value={group.id} */
-            defaultValue={group.id}
-          />
-          <CopyToClipboard text={group.id}>
-            <FiCopy
-              className="icon-copy"
-              size={30}
-              onClick={() => showCopiedText()}
-            ></FiCopy>
-          </CopyToClipboard>
-        </div>
-        <label id="myLabel" style={{ display: "none" }}>
-          Kode kopiert
-        </label>
+      <div className="sendTilVenner">
+        <text className="display-score">Send koden til venner</text>
       </div>
+      <div className="inputGroup-container">
+        <input
+          className="form-control GroupNameBox"
+          /*           value={group.id} */
+          defaultValue={group.id}
+        />
+        <CopyToClipboard text={group.id}>
+          <FiCopy
+            className="icon-copy"
+            size={30}
+            onClick={() => showCopiedText()}
+          ></FiCopy>
+        </CopyToClipboard>
+      </div>
+      <label id="myLabel" style={{ display: "none" }}>
+        Kode kopiert
+      </label>
       <div className="navbar">
         <NavLink
           exact
@@ -71,7 +79,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
             },
           }}
         >
-          <BsListOl size={40} className="navBarIcon"></BsListOl>
+          <IoIosPodium size={40} className="navBarIcon"></IoIosPodium>
         </NavLink>
         <NavLink
           to={{
@@ -81,7 +89,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
             },
           }}
         >
-          <BsListCheck size={40} className="navBarIcon"></BsListCheck>
+          <BsCheckCircle size={36} className="navBarIcon"></BsCheckCircle>
         </NavLink>
         <NavLink
           to={{

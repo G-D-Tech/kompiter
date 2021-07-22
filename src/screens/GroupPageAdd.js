@@ -7,6 +7,7 @@ import { IoIosClose } from "react-icons/io";
 import firebase from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 import { v4 as uuidv4 } from "uuid";
+import Modal from "react-modal";
 
 function GroupPageAdd() {
   const location = useLocation();
@@ -15,6 +16,7 @@ function GroupPageAdd() {
   const [addIsOpen, setAddIsOpen] = useState(false);
   const [challengeName, setChallengeName] = useState("");
   const [challenges, setChallenges] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -158,7 +160,7 @@ function GroupPageAdd() {
             value={challengeName}
             onChange={(e) => setChallengeName(e.target.value)}
             className="form-control"
-            placeholder="Ring din nummernabo"
+            placeholder="Skriv inn utfordring..."
           />
           <div>
             <div className="addAndCheckBox">
@@ -194,10 +196,37 @@ function GroupPageAdd() {
             </label>
             <div>
               <IoIosClose
-                onClick={() => deleteChallenge(challenge)}
+                onClick={() => setModalIsOpen(true)}
                 className="unchecked-circle"
                 size={40}
               ></IoIosClose>
+              <Modal
+                isOpen={modalIsOpen}
+                className="modal-content"
+                ariaHideApp={false}
+              >
+                <IoIosClose
+                  onClick={() => setModalIsOpen(false)}
+                  className="modalClose"
+                  size={40}
+                ></IoIosClose>
+                <div className="input-container">
+                  <label className="textGruppe">
+                    Vil du slette denne utfordringen?
+                  </label>
+                </div>
+                <div className="button-container">
+                  <button
+                    className="RedButtonStyle"
+                    onClick={() => {
+                      deleteChallenge(challenge);
+                      setModalIsOpen(false);
+                    }}
+                  >
+                    slett
+                  </button>
+                </div>
+              </Modal>
             </div>
           </div>
         ))}

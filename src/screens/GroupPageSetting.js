@@ -4,15 +4,18 @@ import "../styles/ModalGroup.css";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { IoIosClose } from "react-icons/io";
 
 import { useLocation } from "react-router-dom";
 import firebase from "../firebase";
+import Modal from "react-modal";
 
 function GroupPageSetting() {
   const location = useLocation();
   const { group /* , startDate, endDate  */ } = location.state;
   const [currentUser, setCurrentUser] = useState("");
   const [deleteOrLeave, setDeleteOrLeave] = useState("Forlat");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //Gets current user
   useEffect(() => {
@@ -84,14 +87,41 @@ function GroupPageSetting() {
         <label className="uncompletedChallengesText">
           {deleteOrLeave} denne gruppa
         </label>
-        <Link to="/">
-          <button
-            className="DeleteButtonStyle"
-            onClick={() => deleteGroup(group)}
-          >
-            {deleteOrLeave}
-          </button>
-        </Link>
+        <button
+          className="DeleteButtonStyle"
+          onClick={() => setModalIsOpen(true)}
+        >
+          {deleteOrLeave}
+        </button>
+        <Modal
+          isOpen={modalIsOpen}
+          className="modal-content"
+          ariaHideApp={false}
+        >
+          <IoIosClose
+            onClick={() => setModalIsOpen(false)}
+            className="modalClose"
+            size={40}
+          ></IoIosClose>
+          <div className="input-container">
+            <label className="textGruppe">
+              Vil du {deleteOrLeave}e denne gruppen?
+            </label>
+          </div>
+          <div className="button-container">
+            <Link to="/">
+              <button
+                className="RedButtonStyle"
+                onClick={() => {
+                  deleteGroup(group);
+                  setModalIsOpen(false);
+                }}
+              >
+                slett
+              </button>
+            </Link>
+          </div>
+        </Modal>
       </div>
     </div>
   );

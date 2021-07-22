@@ -10,6 +10,7 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import firebase from "../firebase";
 import "firebase/auth";
 import "firebase/firestore";
+import Modal from "react-modal";
 
 const LoginPage = () => {
   const [currentUser, setCurrentUser] = useState("");
@@ -17,10 +18,11 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const facebookProvider = new firebase.auth.FacebookAuthProvider();
+  /*   const facebookProvider = new firebase.auth.FacebookAuthProvider();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
-
+ */
   /*   const clearInputs = () => {
     setEmail("");
     setPassword("");
@@ -42,14 +44,23 @@ const LoginPage = () => {
           case "auth/invalid-email":
           case "auth/user-disabled":
           case "auth/user-not-found":
-            setEmailError("Wrong email");
+            setEmailError("Feil email");
             break;
           case "auth/wrong-password":
-            setPasswordError("Wrong password");
+            setPasswordError("Feil passord");
             break;
           default:
-            console.log("Unknown error");
+            console.log("Ukjent feil");
         }
+      });
+  }
+
+  function resetPassord() {
+    firebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        setModalIsOpen(true);
       });
   }
 
@@ -68,14 +79,14 @@ const LoginPage = () => {
   }, [currentUser]);
 
   //Used to handle log in with facebook or google accounts
-  const handleLogIn = async (provider) => {
+  /*   const handleLogIn = async (provider) => {
     await firebase
       .auth()
       .signInWithPopup(provider)
       .catch((er) => {
         return er;
       });
-  };
+  }; */
 
   return (
     <div>
@@ -108,7 +119,7 @@ const LoginPage = () => {
               <div>
                 <input
                   className="usernameBox"
-                  placeholder="password"
+                  placeholder="passord"
                   required
                   value={password}
                   type="password"
@@ -122,9 +133,17 @@ const LoginPage = () => {
               <button className="loginButtonStyle" onClick={handleSignIn}>
                 Logg inn
               </button>
+              <text
+                className="glemtPassordSmall"
+                onClick={() => {
+                  resetPassord();
+                }}
+              >
+                glemt passord?
+              </text>
             </section>
 
-            <label className="loginTextSmall">eller logg inn med</label>
+            {/*             <label className="loginTextSmall">eller logg inn med</label>
             <div className="icon-spacebetween">
               <div>
                 <IoLogoFacebook
@@ -140,11 +159,27 @@ const LoginPage = () => {
                   onClick={() => handleLogIn(googleProvider)}
                 />
               </div>
-              {/* <text>{user.displayName}</text> */}
-            </div>
+            </div> */}
           </div>
         </div>
       )}
+      <Modal isOpen={modalIsOpen} className="modal-content" ariaHideApp={false}>
+        <div className="input-container">
+          <label className="textGruppe">
+            Nytt passord sent til {email} (sjekk søppelpost)
+          </label>
+        </div>
+        <div className="button-container">
+          <button
+            className="RedButtonStyle"
+            onClick={() => {
+              setModalIsOpen(false);
+            }}
+          >
+            tilbake
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };
