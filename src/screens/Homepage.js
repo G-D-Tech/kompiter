@@ -112,6 +112,12 @@ const Homepage = () => {
       .doc(groupCode)
       .set({ groupId: groupCode });
     createScore(groupCode);
+
+    /* setIsAdmin(firebase.firestore().collection("groups").doc(groupCode).get());
+    console.log(isAdmin);
+    ).then((snapshot) => {
+      if (snapshot.data().everyoneIsAdmin) {
+        console.log("1"); */
     firebase
       .firestore()
       .collection("groups")
@@ -122,7 +128,25 @@ const Homepage = () => {
         id: currentUser.uid,
         score: c,
         name: currentUser.displayName,
+        isAdmin: true,
       });
+    /* } else {
+        console.log("2");
+        firebase
+          .firestore()
+          .collection("groups")
+          .doc(groupCode)
+          .collection("groupMembers")
+          .doc(currentUser.uid)
+          .set({
+            id: currentUser.uid,
+            score: c,
+            name: currentUser.displayName,
+            isAdmin: false,
+          });
+      }
+    }); */
+
     firebase
       .firestore()
       .collection("groups")

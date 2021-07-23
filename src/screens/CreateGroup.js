@@ -48,7 +48,12 @@ const CreateGroup = () => {
       .doc(newGroup.id)
       .collection("groupMembers")
       .doc(currentUser.uid)
-      .set({ id: currentUser.uid, score: 0, name: currentUser.displayName })
+      .set({
+        id: currentUser.uid,
+        score: 0,
+        name: currentUser.displayName,
+        isAdmin: true,
+      })
       .catch((err) => {
         console.error(err);
       });
@@ -123,6 +128,18 @@ const CreateGroup = () => {
           />
         </div>
       </div> */}
+
+      <div className="d-flex justify-content-center">
+        <label className="checkboxContainer">
+          <input type="checkbox" id="adminCheckbox"></input>
+          <span className="checkmark"></span>
+        </label>
+        <label>
+          Ved å huke av her vil bare du kunne legge til utfordringer i denne
+          gruppa.
+        </label>
+      </div>
+
       <div className="button-container">
         <button
           className="RedButtonStyle"
@@ -153,18 +170,30 @@ const CreateGroup = () => {
               <FiCopy className="icon-copy" size={30}></FiCopy>
             </CopyToClipboard>
           </div>
+
           <div className="button-container">
             <button
               className="RedButtonStyle"
               onClick={() => {
-                addGroup({
-                  groupName: groupName,
-                  id: randomNumber,
-                  //startDate: startDate,
-                  //endDate: endDate,
-                  numberOfGroupMembers: 1,
-                  numberOfChallenges: 0,
-                });
+                document.getElementById("adminCheckbox").checked
+                  ? addGroup({
+                      groupName: groupName,
+                      id: randomNumber,
+                      //startDate: startDate,
+                      //endDate: endDate,
+                      numberOfGroupMembers: 1,
+                      numberOfChallenges: 0,
+                      everyoneIsAdmin: false,
+                    })
+                  : addGroup({
+                      groupName: groupName,
+                      id: randomNumber,
+                      //startDate: startDate,
+                      //endDate: endDate,
+                      numberOfGroupMembers: 1,
+                      numberOfChallenges: 0,
+                      everyoneIsAdmin: true,
+                    });
               }}
             >
               <Link to="/">ferdig</Link>
