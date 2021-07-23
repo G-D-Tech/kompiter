@@ -147,6 +147,42 @@ function GroupPageAdd() {
     }
     return isMember;
   } */
+  function modalIsOpen2(challenge) {
+    setModalIsOpen(true);
+    console.log(modalIsOpen);
+    return (
+      <div>
+        <Modal
+          isOpen={modalIsOpen}
+          className="modal-content"
+          //onRequestClose={() => setModalIsOpen(false)}
+          ariaHideApp={false}
+        >
+          <IoIosClose
+            onClick={() => setModalIsOpen(false)}
+            className="modalClose"
+            size={40}
+          ></IoIosClose>
+          <div className="input-container">
+            <label className="textGruppe">
+              Vil du slette denne utfordringen?
+            </label>
+          </div>
+          <div className="button-container">
+            <button
+              className="RedButtonStyle"
+              onClick={() => {
+                deleteChallenge(challenge);
+                setModalIsOpen(false);
+              }}
+            >
+              slett
+            </button>
+          </div>
+        </Modal>
+      </div>
+    );
+  }
 
   return (
     <div className="modalGroup-content">
@@ -196,37 +232,10 @@ function GroupPageAdd() {
             </label>
             <div>
               <IoIosClose
-                onClick={() => setModalIsOpen(true)}
+                onClick={() => modalIsOpen2(challenge)}
                 className="unchecked-circle"
                 size={40}
               ></IoIosClose>
-              <Modal
-                isOpen={modalIsOpen}
-                className="modal-content"
-                ariaHideApp={false}
-              >
-                <IoIosClose
-                  onClick={() => setModalIsOpen(false)}
-                  className="modalClose"
-                  size={40}
-                ></IoIosClose>
-                <div className="input-container">
-                  <label className="textGruppe">
-                    Vil du slette denne utfordringen?
-                  </label>
-                </div>
-                <div className="button-container">
-                  <button
-                    className="RedButtonStyle"
-                    onClick={() => {
-                      deleteChallenge(challenge);
-                      setModalIsOpen(false);
-                    }}
-                  >
-                    slett
-                  </button>
-                </div>
-              </Modal>
             </div>
           </div>
         ))}
