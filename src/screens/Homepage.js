@@ -176,7 +176,6 @@ const Homepage = () => {
       });
     return () => {
       unsubscribe();
-      console.log("Test");
     };
   }, [currentUser]);
 

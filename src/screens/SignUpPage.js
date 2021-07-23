@@ -172,7 +172,7 @@ const SignUpPage = () => {
                   ></span>
                 </label>
                 <label>
-                  For å ta i bruk applikasjonen må du godta{" "}
+                  En opprettelse av konto innebærer at du godtar{" "}
                   <a
                     className="termsAndConditions"
                     onClick={() => setModalIsOpen(true)}
@@ -205,9 +205,14 @@ const SignUpPage = () => {
                     Du må opprette en brukerkonto før du får tatt i bruk
                     funksjonaliteten i appen. All informasjonen du lagrer i
                     appen vil bli behandlet konfidensielt og vil ikke bli delt
-                    med tredjeparter. Brukerkontoen er personlig, og du er
-                    ansvarlig for all aktivitet som skjer gjennom bruk av
-                    kontoen.{" "}
+                    med tredjeparter. Alt av informasjon i appen lagres i Google
+                    sin tjeneste Firebase, hvordan denne informasjonen blir
+                    lagret kan du lese mer om{" "}
+                    <a href="https://firebase.google.com/support/privacy">
+                      her
+                    </a>
+                    . Brukerkontoen er personlig, og du er ansvarlig for all
+                    aktivitet som skjer gjennom bruk av kontoen.{" "}
                   </p>
                   <h5>3. Bruk av applikasjonen</h5>
                   <p>

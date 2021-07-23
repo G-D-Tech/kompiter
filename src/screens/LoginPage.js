@@ -5,8 +5,8 @@ import "../styles/Homepage.css";
 import "../styles/CreateGroup.css";
 import "../styles/LoginPage.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { IoLogoFacebook } from "react-icons/io5";
-import { AiFillGoogleCircle } from "react-icons/ai";
+/* import { IoLogoFacebook } from "react-icons/io5";
+import { AiFillGoogleCircle } from "react-icons/ai"; */
 import firebase from "../firebase";
 import "firebase/auth";
 import "firebase/firestore";

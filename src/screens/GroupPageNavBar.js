@@ -2,11 +2,14 @@ import { Link, NavLink } from "react-router-dom";
 import "../styles/NavBar.css";
 import "../styles/ModalGroup.css";
 
-import { IoIosClose, IoIosPodium, IoIosCheckmarkCircle } from "react-icons/io";
 import {
-  BsListCheck,
+  IoIosClose,
+  IoIosPodium /* IoIosCheckmarkCircle */,
+} from "react-icons/io";
+import {
+  /* BsListCheck, */
   BsCheckCircle,
-  BsListOl,
+  /* BsListOl, */
   BsPlus,
   BsThreeDots,
 } from "react-icons/bs";
