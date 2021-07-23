@@ -84,24 +84,6 @@ const SignUpPage = () => {
       });
   }; */
 
-  function setAcitveCreateUser() {
-    var checkBox = document.getElementById("termsCheckbox");
-    var createUserButton = document.getElementById("createUserButton");
-    if (checkBox.checked) {
-      createUserButton.disabled = false;
-    } else {
-      createUserButton.disabled = true;
-    }
-  }
-
-  /*  window.onload = function () {
-    if (document.getElementById(termsCheckbox).checked) {
-      document.getElementById(createUser).disabled = true;
-    } else {
-      document.getElementById(createUser).disabled = false;
-    }
-  }; */
-
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -116,9 +98,15 @@ const SignUpPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setAcitveCreateUser();
-  }, []);
+  function acceptTerms() {
+    let checkBox = document.getElementById("termsCheckbox");
+    let createUserButton = document.getElementById("createUserButton");
+    if (checkBox.checked) {
+      createUserButton.disabled = true;
+    } else {
+      createUserButton.disabled = false;
+    }
+  }
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -177,7 +165,10 @@ const SignUpPage = () => {
               <div className="d-flex justify-content-center termsDiv">
                 <label className="checkboxContainer">
                   <input type="checkbox" id="termsCheckbox"></input>
-                  <span className="checkmark"></span>
+                  <span
+                    className="checkmark"
+                    onClick={() => acceptTerms()}
+                  ></span>
                 </label>
                 <label>
                   For å ta i bruk applikasjonen må du godta{" "}
@@ -250,6 +241,7 @@ const SignUpPage = () => {
               <button
                 id="createUserButton"
                 className="opprettButtonStyle"
+                disabled={true}
                 onClick={handleSignUp}
               >
                 Opprett konto
