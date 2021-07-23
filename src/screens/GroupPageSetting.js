@@ -117,7 +117,7 @@ function GroupPageSetting() {
                   setModalIsOpen(false);
                 }}
               >
-                slett
+                {deleteOrLeave}
               </button>
             </Link>
           </div>
