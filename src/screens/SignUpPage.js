@@ -25,6 +25,7 @@ const SignUpPage = () => {
   const [passwordError, setPasswordError] = useState("");
   const [userUid, setUserUid] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(true);
 
   /*   const facebookProvider = new firebase.auth.FacebookAuthProvider();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -100,11 +101,11 @@ const SignUpPage = () => {
 
   function acceptTerms() {
     let checkBox = document.getElementById("termsCheckbox");
-    let createUserButton = document.getElementById("createUserButton");
+    /* let createUserButton = document.getElementById("createUserButton"); */
     if (checkBox.checked) {
-      createUserButton.disabled = true;
+      setDisabledButton(true);
     } else {
-      createUserButton.disabled = false;
+      setDisabledButton(false);
     }
   }
 
@@ -241,8 +242,8 @@ const SignUpPage = () => {
               <button
                 id="createUserButton"
                 className="opprettButtonStyle"
-                disabled={true}
                 onClick={handleSignUp}
+                disabled={disabledButton}
               >
                 Opprett konto
               </button>
