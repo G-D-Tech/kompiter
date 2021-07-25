@@ -14,6 +14,7 @@ const Homepage = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentUserAdmin, setCurrentUserAdmin] = useState(false);
   /* const [count, setCount] = useState(0); */
   /* const exampleGroups = ["788618"  "964982" ]; */
 
@@ -104,6 +105,7 @@ const Homepage = () => {
         });
         items.map((i) => (checkGroupMember(i) ? (c += 1) : null));
       });
+
     firebase
       .firestore()
       .collection("users")
@@ -113,23 +115,34 @@ const Homepage = () => {
       .set({ groupId: groupCode });
     createScore(groupCode);
 
-    /* setIsAdmin(firebase.firestore().collection("groups").doc(groupCode).get());
-    console.log(isAdmin);
-    ).then((snapshot) => {
-      if (snapshot.data().everyoneIsAdmin) {
-        console.log("1"); */
-    firebase
-      .firestore()
-      .collection("groups")
-      .doc(groupCode)
-      .collection("groupMembers")
-      .doc(currentUser.uid)
-      .set({
-        id: currentUser.uid,
-        score: c,
-        name: currentUser.displayName,
-        isAdmin: true,
-      });
+    if (currentUserAdmin) {
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(groupCode)
+        .collection("groupMembers")
+        .doc(currentUser.uid)
+        .set({
+          id: currentUser.uid,
+          score: c,
+          name: currentUser.displayName,
+          isAdmin: true,
+        });
+    } else {
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(groupCode)
+        .collection("groupMembers")
+        .doc(currentUser.uid)
+        .set({
+          id: currentUser.uid,
+          score: c,
+          name: currentUser.displayName,
+          isAdmin: false,
+        });
+    }
+
     /* } else {
         console.log("2");
         firebase
@@ -217,6 +230,22 @@ const Homepage = () => {
       authListener();
     };
   }, [currentUser]);
+
+  useEffect(() => {
+    if (groupCode.length > 0)
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(groupCode)
+        .get()
+        .then((doc) => {
+          if (doc.data().everyoneIsAdmin) {
+            console.log("Før" + currentUserAdmin);
+            setCurrentUserAdmin(true);
+            console.log("Etter" + currentUserAdmin);
+          }
+        });
+  }, [groupCode]);
 
   return (
     <div>
