@@ -92,7 +92,43 @@ const Homepage = () => {
   //Adds new group to current user
   function addGroup(groupCode) {
     let c = 0;
+    //Set if currentUser is admin
     firebase
+      .firestore()
+      .collection("groups")
+      .doc(groupCode)
+      .get()
+      .then((doc) => {
+        if (doc.data().everyoneIsAdmin) {
+          firebase
+            .firestore()
+            .collection("groups")
+            .doc(groupCode)
+            .collection("groupMembers")
+            .doc(currentUser.uid)
+            .set({
+              id: currentUser.uid,
+              score: c,
+              name: currentUser.displayName,
+              isAdmin: true,
+            });
+        } else {
+          firebase
+            .firestore()
+            .collection("groups")
+            .doc(groupCode)
+            .collection("groupMembers")
+            .doc(currentUser.uid)
+            .set({
+              id: currentUser.uid,
+              score: c,
+              name: currentUser.displayName,
+              isAdmin: false,
+            });
+        }
+      });
+    //UNØDVENDIG??
+    /* firebase
       .firestore()
       .collection("groups")
       .doc(groupCode)
@@ -104,8 +140,8 @@ const Homepage = () => {
           items.push(doc.data());
         });
         items.map((i) => (checkGroupMember(i) ? (c += 1) : null));
-      });
-
+      }); */
+    //Add groupcode to currentUser
     firebase
       .firestore()
       .collection("users")
@@ -114,52 +150,7 @@ const Homepage = () => {
       .doc(groupCode)
       .set({ groupId: groupCode });
     createScore(groupCode);
-
-    if (currentUserAdmin) {
-      firebase
-        .firestore()
-        .collection("groups")
-        .doc(groupCode)
-        .collection("groupMembers")
-        .doc(currentUser.uid)
-        .set({
-          id: currentUser.uid,
-          score: c,
-          name: currentUser.displayName,
-          isAdmin: true,
-        });
-    } else {
-      firebase
-        .firestore()
-        .collection("groups")
-        .doc(groupCode)
-        .collection("groupMembers")
-        .doc(currentUser.uid)
-        .set({
-          id: currentUser.uid,
-          score: c,
-          name: currentUser.displayName,
-          isAdmin: false,
-        });
-    }
-
-    /* } else {
-        console.log("2");
-        firebase
-          .firestore()
-          .collection("groups")
-          .doc(groupCode)
-          .collection("groupMembers")
-          .doc(currentUser.uid)
-          .set({
-            id: currentUser.uid,
-            score: c,
-            name: currentUser.displayName,
-            isAdmin: false,
-          });
-      }
-    }); */
-
+    //Increase number of members in current group
     firebase
       .firestore()
       .collection("groups")
@@ -213,7 +204,6 @@ const Homepage = () => {
       });
     return () => {
       unsubscribe();
-      console.log("Test");
     };
   }, [currentUser]);
 
@@ -230,22 +220,6 @@ const Homepage = () => {
       authListener();
     };
   }, [currentUser]);
-
-  useEffect(() => {
-    if (groupCode.length > 0)
-      firebase
-        .firestore()
-        .collection("groups")
-        .doc(groupCode)
-        .get()
-        .then((doc) => {
-          if (doc.data().everyoneIsAdmin) {
-            console.log("Før" + currentUserAdmin);
-            setCurrentUserAdmin(true);
-            console.log("Etter" + currentUserAdmin);
-          }
-        });
-  }, [groupCode]);
 
   return (
     <div>
