@@ -261,7 +261,13 @@ function GroupPageAdd() {
         {challenges.map((challenge) => (
           <div>
             {challenge.length === 3 ? settingIsOpen(challenge) : null}
-            {currentUserIsAdmin() ? (
+            {!currentUserIsAdmin() ? (
+              <div className="display-challenges" key={challenge.id}>
+                <label className="uncompletedChallengesText">
+                  {challenge.challengeName}
+                </label>
+              </div>
+            ) : (
               <div>
                 {challenge.settingIsOpen ? (
                   renameIsOpen ? (
@@ -377,12 +383,6 @@ function GroupPageAdd() {
                     </div>
                   </div>
                 )}
-              </div>
-            ) : (
-              <div className="display-challenges" key={challenge.id}>
-                <label className="uncompletedChallengesText">
-                  {challenge.challengeName}
-                </label>
               </div>
             )}
           </div>
