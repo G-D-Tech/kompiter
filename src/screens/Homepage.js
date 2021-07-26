@@ -14,6 +14,7 @@ const Homepage = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentUserAdmin, setCurrentUserAdmin] = useState(false);
   /* const [count, setCount] = useState(0); */
   /* const exampleGroups = ["788618"  "964982" ]; */
 
@@ -91,7 +92,43 @@ const Homepage = () => {
   //Adds new group to current user
   function addGroup(groupCode) {
     let c = 0;
+    //Set if currentUser is admin
     firebase
+      .firestore()
+      .collection("groups")
+      .doc(groupCode)
+      .get()
+      .then((doc) => {
+        if (doc.data().everyoneIsAdmin) {
+          firebase
+            .firestore()
+            .collection("groups")
+            .doc(groupCode)
+            .collection("groupMembers")
+            .doc(currentUser.uid)
+            .set({
+              id: currentUser.uid,
+              score: c,
+              name: currentUser.displayName,
+              isAdmin: true,
+            });
+        } else {
+          firebase
+            .firestore()
+            .collection("groups")
+            .doc(groupCode)
+            .collection("groupMembers")
+            .doc(currentUser.uid)
+            .set({
+              id: currentUser.uid,
+              score: c,
+              name: currentUser.displayName,
+              isAdmin: false,
+            });
+        }
+      });
+    //UNØDVENDIG??
+    /* firebase
       .firestore()
       .collection("groups")
       .doc(groupCode)
@@ -103,7 +140,8 @@ const Homepage = () => {
           items.push(doc.data());
         });
         items.map((i) => (checkGroupMember(i) ? (c += 1) : null));
-      });
+      }); */
+    //Add groupcode to currentUser
     firebase
       .firestore()
       .collection("users")
@@ -112,17 +150,7 @@ const Homepage = () => {
       .doc(groupCode)
       .set({ groupId: groupCode });
     createScore(groupCode);
-    firebase
-      .firestore()
-      .collection("groups")
-      .doc(groupCode)
-      .collection("groupMembers")
-      .doc(currentUser.uid)
-      .set({
-        id: currentUser.uid,
-        score: c,
-        name: currentUser.displayName,
-      });
+    //Increase number of members in current group
     firebase
       .firestore()
       .collection("groups")
