@@ -160,7 +160,12 @@ a:active {
 }
 
 .GroupButtonStyle:hover {
-  background-color: #d14646;
+  background-color: #4d85f2;
+}
+
+.GroupButtonStyle:active {
+  background: #96b3e2;
+  box-shadow: inset 0px 0px 5px #96b3e2;
 }
 
 html {

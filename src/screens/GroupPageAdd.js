@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
-import { BsPlus, BsCheck } from "react-icons/bs";
+import { BsPlus, BsCheck, BsThreeDots } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import firebase from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
@@ -17,6 +17,9 @@ function GroupPageAdd() {
   const [challengeName, setChallengeName] = useState("");
   const [challenges, setChallenges] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [rename, setRename] = useState();
+  const [renameIsOpen, setRenameIsOpen] = useState(false);
+  const firstMapping = true;
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -40,6 +43,14 @@ function GroupPageAdd() {
       });
     setChallengeName("");
     setAddIsOpen(false);
+  }
+
+  function updateSettingIsOpen(challenge) {
+    challenge.settingIsOpen = !challenge.settingIsOpen;
+    setModalIsOpen(!modalIsOpen);
+    {
+      console.log(challenge);
+    }
   }
 
   //Deletes challenge from group
@@ -105,6 +116,22 @@ function GroupPageAdd() {
     setChallengeName("");
   }
 
+  function renameChallenge(challenge) {
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("challenges")
+      .doc(challenge)
+      .update({ challengeName: rename });
+  }
+
+  function settingIsOpen(challenge) {
+    challenge.settingIsOpen = false;
+    console.log(challenge);
+    firstMapping = false;
+  }
+
   //Gets all challenges belonging to current group
   useEffect(() => {
     const unsubscribe = firebase
@@ -137,6 +164,20 @@ function GroupPageAdd() {
       authListener();
     };
   }, [currentUser]);
+
+  /*   useEffect(() => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("challenges")
+      .doc(challenge)
+      .update({ settingIsOpen: true });
+    console.log("hei");
+    return () => {
+      unsubscribe();
+    };
+  }, [challenge]); */
 
   /*   function checkGroupMember(challenge) {
     var isMember = false;
@@ -190,17 +231,123 @@ function GroupPageAdd() {
       ) : null}
       <div>
         {challenges.map((challenge) => (
-          <div className="display-challenges" key={challenge.id}>
-            <label className="uncompletedChallengesText">
-              {challenge.challengeName}
-            </label>
-            <div>
-              <IoIosClose
-                onClick={() => setModalIsOpen(true)}
-                className="unchecked-circle"
-                size={40}
-              ></IoIosClose>
-              <Modal
+          <div>
+            {challenge.length === 3 ? settingIsOpen(challenge) : null}
+            {console.log("j")}
+            {challenge.settingIsOpen ? (
+              renameIsOpen ? (
+                <div className="display-challengesSettings" key={challenge.id}>
+                  <div className="settings">
+                    <input
+                      className="form-control"
+                      defaultValue={challenge.challengeName}
+                      value={rename}
+                      onChange={(e) => setRename(e.target.value)}
+                    />
+
+                    <div>
+                      <BsThreeDots
+                        className="unchecked-circle"
+                        size={40}
+                        onClick={() => updateSettingIsOpen(challenge)}
+                      ></BsThreeDots>
+                    </div>
+                  </div>
+                  <div
+                    className="renameSaveButtonStyle"
+                    onClick={() => {
+                      renameChallenge(challenge.id);
+                      setRenameIsOpen(!renameIsOpen);
+                    }}
+                  >
+                    Lagre
+                  </div>
+
+                  <div className="settings">
+                    <label className="settingsText">rediger navn</label>
+                    <button
+                      className="settingChangeButtonStyle"
+                      onClick={() => {
+                        setRenameIsOpen(!renameIsOpen);
+                      }}
+                    >
+                      rediger
+                    </button>
+                  </div>
+                  <div className="settings">
+                    <label className="settingsText">Slette utfordring</label>
+                    <button
+                      className="settingDeleteButtonStyle"
+                      onClick={() => deleteChallenge(challenge)}
+                    >
+                      slett
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="display-challengesSettings" key={challenge.id}>
+                  <div className="settings">
+                    <label className="uncompletedChallengesText">
+                      {challenge.challengeName}
+                    </label>
+                    <div>
+                      <BsThreeDots
+                        className="unchecked-circle"
+                        size={40}
+                        onClick={() => updateSettingIsOpen(challenge)}
+                      ></BsThreeDots>
+                    </div>
+                  </div>
+
+                  <div className="settings">
+                    <label className="settingsText">rediger navn</label>
+                    <button
+                      className="settingChangeButtonStyle"
+                      onClick={() => {
+                        setRenameIsOpen(!renameIsOpen);
+                      }}
+                    >
+                      rediger
+                    </button>
+                  </div>
+                  <div className="settings">
+                    <label className="settingsText">Slette utfordring</label>
+                    <button
+                      className="settingDeleteButtonStyle"
+                      onClick={() => deleteChallenge(challenge)}
+                    >
+                      slett
+                    </button>
+                  </div>
+                </div>
+              )
+            ) : (
+              <div
+                className="display-challenges"
+                key={challenge.id}
+                onClick={() => updateSettingIsOpen(challenge)}
+              >
+                <label className="uncompletedChallengesText">
+                  {challenge.challengeName}
+                </label>
+                <div>
+                  <BsThreeDots
+                    className="unchecked-circle"
+                    size={40}
+                  ></BsThreeDots>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default GroupPageAdd;
+
+/*               <Modal
                 isOpen={modalIsOpen}
                 className="modal-content"
                 ariaHideApp={false}
@@ -226,13 +373,4 @@ function GroupPageAdd() {
                     slett
                   </button>
                 </div>
-              </Modal>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default GroupPageAdd;
+              </Modal> */
