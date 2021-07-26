@@ -17,6 +17,7 @@ function GroupPageAdd() {
   const [challengeName, setChallengeName] = useState("");
   const [challenges, setChallenges] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -138,15 +139,20 @@ function GroupPageAdd() {
     };
   }, [currentUser]);
 
-  /*   function checkGroupMember(challenge) {
-    var isMember = false;
-    {
-      challenge.membersCompletedChallenge.map((member) =>
-        member === currentUser.uid ? (isMember = true) : null
-      );
-    }
-    return isMember;
-  } */
+  function currentUserIsAdmin() {
+    console.log(isAdmin);
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("groupMembers")
+      .doc(currentUser.uid)
+      .onSnapshot((doc) => {
+        setIsAdmin(doc.data().isAdmin);
+      });
+    return isAdmin;
+  }
+
   function modalIsOpen2(challenge) {
     setModalIsOpen(true);
     console.log(modalIsOpen);
@@ -231,11 +237,13 @@ function GroupPageAdd() {
               {challenge.challengeName}
             </label>
             <div>
-              <IoIosClose
-                onClick={() => modalIsOpen2(challenge)}
-                className="unchecked-circle"
-                size={40}
-              ></IoIosClose>
+              {currentUserIsAdmin() ? (
+                <IoIosClose
+                  onClick={() => modalIsOpen2(challenge)}
+                  className="unchecked-circle"
+                  size={40}
+                ></IoIosClose>
+              ) : null}
             </div>
           </div>
         ))}
