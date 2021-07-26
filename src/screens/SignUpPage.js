@@ -248,8 +248,10 @@ const SignUpPage = () => {
                 id="createUserButton"
                 className="opprettButtonStyle"
                 onClick={handleSignUp}
-                disabled={disabledButton}
               >
+                {/* {disabledButton
+                  ? document.getElementById("createUserButton").disabled
+                  : null} */}
                 Opprett konto
               </button>
             </section>
