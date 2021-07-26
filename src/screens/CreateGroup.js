@@ -92,7 +92,7 @@ const CreateGroup = () => {
             <input
               className="form-control"
               id="exampleFormControlInput"
-              placeholder="Sommerfest 2021"
+              placeholder="Gruppenavn"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
               autoComplete="off"

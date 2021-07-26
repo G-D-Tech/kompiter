@@ -25,6 +25,7 @@ const SignUpPage = () => {
   const [passwordError, setPasswordError] = useState("");
   const [userUid, setUserUid] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(true);
 
   /*   const facebookProvider = new firebase.auth.FacebookAuthProvider();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -84,24 +85,6 @@ const SignUpPage = () => {
       });
   }; */
 
-  function setAcitveCreateUser() {
-    var checkBox = document.getElementById("termsCheckbox");
-    var createUserButton = document.getElementById("createUserButton");
-    if (checkBox.checked) {
-      createUserButton.disabled = false;
-    } else {
-      createUserButton.disabled = true;
-    }
-  }
-
-  /*  window.onload = function () {
-    if (document.getElementById(termsCheckbox).checked) {
-      document.getElementById(createUser).disabled = true;
-    } else {
-      document.getElementById(createUser).disabled = false;
-    }
-  }; */
-
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -116,9 +99,15 @@ const SignUpPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setAcitveCreateUser();
-  }, []);
+  function acceptTerms() {
+    let checkBox = document.getElementById("termsCheckbox");
+    /* let createUserButton = document.getElementById("createUserButton"); */
+    if (checkBox.checked) {
+      setDisabledButton(true);
+    } else {
+      setDisabledButton(false);
+    }
+  }
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -177,7 +166,10 @@ const SignUpPage = () => {
               <div className="d-flex justify-content-center termsDiv">
                 <label className="checkboxContainer">
                   <input type="checkbox" id="termsCheckbox"></input>
-                  <span className="checkmark"></span>
+                  <span
+                    className="checkmark"
+                    onClick={() => acceptTerms()}
+                  ></span>
                 </label>
                 <label>
                   For å ta i bruk applikasjonen må du godta{" "}
@@ -251,6 +243,7 @@ const SignUpPage = () => {
                 id="createUserButton"
                 className="opprettButtonStyle"
                 onClick={handleSignUp}
+                disabled={disabledButton}
               >
                 Opprett konto
               </button>
