@@ -223,25 +223,28 @@ const Homepage = () => {
 
   return (
     <div>
-      <div id="d-flex justify-content-center"></div>
       <div className="container">
-        {currentUser ? (
-          <div className="icon">
-            <label className="loginTextSmall">{currentUser.displayName}</label>
+        <div>
+          {currentUser ? (
+            <div className="icon">
+              <label className="loginTextSmall">
+                {currentUser.displayName}
+              </label>
 
-            <Link to="/ProfilePage">
-              <BsFillPersonFill color="black" size={30} />
-            </Link>
-          </div>
-        ) : (
-          <div className="icon">
-            <Link to="/SignUpOrInPage">
-              <label className="loginTextSmall">logg inn: </label>
-              <BsFillPersonFill color="black" size={30} />
-            </Link>
-          </div>
-        )}
-        <div className="groupHead" id="groupHead">
+              <Link to="/ProfilePage">
+                <BsFillPersonFill color="black" size={30} />
+              </Link>
+            </div>
+          ) : (
+            <div className="icon">
+              <Link to="/SignUpOrInPage">
+                <label className="loginTextSmall">logg inn: </label>
+                <BsFillPersonFill color="black" size={30} />
+              </Link>
+            </div>
+          )}
+        </div>
+        <div id="groupHead">
           <img src="/fullLogoKompit.png" height="50px" />
         </div>
 
