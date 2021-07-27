@@ -241,9 +241,9 @@ const Homepage = () => {
             </Link>
           </div>
         )}
-        <h1 id="groupHead">
+        <div className="groupHead" id="groupHead">
           <img src="/fullLogoKompit.png" height="50px" />
-        </h1>
+        </div>
 
         <div className="inputCodeStyle">
           <div className="leftColumn">
