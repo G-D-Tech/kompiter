@@ -13,6 +13,8 @@ import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { IoIosArrowBack } from "react-icons/io";
 
+import { RiArrowDownSFill } from "react-icons/ri";
+
 import firebase from "../firebase";
 
 const CreateGroup = () => {
@@ -24,6 +26,7 @@ const CreateGroup = () => {
   const ref = firebase.firestore();
   const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
+  const [adminInfo, setAdminInfo] = useState(false);
 
   //Adds a new group to current user
   function addGroup(newGroup) {
@@ -129,16 +132,33 @@ const CreateGroup = () => {
         </div>
       </div> */}
 
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center container">
         <label className="checkboxContainer">
           <input type="checkbox" id="adminCheckbox"></input>
           <span className="checkmark"></span>
         </label>
-        <label>
+        <label
+          className="textAdmin"
+          onClick={() => {
+            setAdminInfo(!adminInfo);
+          }}
+        >
+          Administrator
+        </label>
+        <RiArrowDownSFill
+          size={20}
+          className="iconArrowDown "
+          onClick={() => {
+            setAdminInfo(!adminInfo);
+          }}
+        ></RiArrowDownSFill>
+      </div>
+      {adminInfo ? (
+        <label className="infoAdmin">
           Ved å huke av her vil bare du kunne legge til utfordringer i denne
           gruppa.
         </label>
-      </div>
+      ) : null}
 
       <div className="button-container">
         <button

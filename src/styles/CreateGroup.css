@@ -3,15 +3,18 @@
   font-size: 21px;
   margin-left: 5%;
   margin-right: 5%;
+  font-weight: 700;
 }
 
 .textGruppe {
   font-family: "Roboto", sans-serif;
   font-size: 21px;
+  font-weight: 700;
 }
 .text-code {
   font-family: "Roboto", sans-serif;
   font-size: 13px;
+  font-weight: 700;
   margin-left: 9px;
   margin-right: 9px;
   padding: -10px;
@@ -20,6 +23,7 @@
 .textError {
   font-family: "Roboto", sans-serif;
   font-size: 21px;
+  font-weight: 700;
   color: #e94e4e;
 }
 
@@ -98,6 +102,28 @@
   padding: 5px;
 }
 
-/* input[type="checkbox"] {
+.iconArrowDown {
+  margin-left: -20px;
+  margin-top: 5px;
+}
+
+.infoAdmin {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  margin-left: 25%;
+  margin-right: 20%;
+  font-weight: 300;
+}
+
+.textAdmin {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  margin-left: 2%;
+  margin-right: 5%;
+  font-weight: 700;
+}
+
+input[type="checkbox"] {
   transform: scale(2);
-} */
+  border-radius: 30px;
+}

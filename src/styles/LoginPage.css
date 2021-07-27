@@ -27,6 +27,7 @@
   letter-spacing: 1px;
   font-size: 35px;
   margin-top: 30px;
+  font-weight: 700;
 }
 
 input,
@@ -69,6 +70,7 @@ textarea {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transition-duration: 0.2s;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .opprettButtonStyle {
@@ -86,6 +88,7 @@ textarea {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transition-duration: 0.2s;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .LogInButtonStyle {
@@ -103,6 +106,7 @@ textarea {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transition-duration: 0.2s;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .SignInButtonStyle {
@@ -121,6 +125,7 @@ textarea {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transition-duration: 0.2s;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .tilbakemeldingButtonStyle {
@@ -137,6 +142,7 @@ textarea {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transition-duration: 0.2s;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .sendInnButtonStyle {
@@ -154,6 +160,7 @@ textarea {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transition-duration: 0.2s;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .signUpButtonStyle {
@@ -169,6 +176,7 @@ textarea {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   transition-duration: 0.2s;
   cursor: pointer;
+  font-weight: 700;
 }
 
 .loginButtonStyle:hover {
@@ -267,4 +275,5 @@ textarea {
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 10px;
+  font-weight: 700;
 }

@@ -302,7 +302,7 @@ function GroupPageAdd() {
                       </div>
 
                       <div className="settings">
-                        <label className="settingsText">rediger navn</label>
+                        <label className="settingsText">Rediger navn</label>
                         <button
                           className="settingChangeButtonStyle"
                           onClick={() => {
