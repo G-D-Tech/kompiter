@@ -242,7 +242,7 @@ const Homepage = () => {
           </div>
         )}
         <h1 id="groupHead">
-          <img src="/fullLogoKompit.png" height="60px" />
+          <img src="/fullLogoKompit.png" height="50px" />
         </h1>
 
         <div className="inputCodeStyle">
