@@ -16,6 +16,8 @@ function GroupPageSetting() {
   const [currentUser, setCurrentUser] = useState("");
   const [deleteOrLeave, setDeleteOrLeave] = useState("Forlat");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [groupMembers, setGroupMembers] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   //Gets current user
   useEffect(() => {
@@ -25,13 +27,46 @@ function GroupPageSetting() {
       } else {
         setCurrentUser("");
       }
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("groupMembers")
+        .doc(user.uid)
+        .onSnapshot((doc) => {
+          setIsAdmin(doc.data().isAdmin);
+        });
     });
     return () => {
       authListener();
     };
   }, [currentUser]);
 
-  //Sets correct grammar when deleting or leaving grouå
+  useEffect(() => {
+    //Gets groupmembers
+    const unsubscribe = firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("groupMembers")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push({
+            id: doc.data().id,
+            name: doc.data().name,
+            score: doc.data().score,
+            isAdmin: doc.data().isAdmin,
+          });
+        });
+        setGroupMembers(items);
+      });
+    return () => {
+      unsubscribe();
+    };
+  }, [group.id]);
+
+  //Sets correct grammar when deleting or leaving group
   useEffect(() => {
     if (group.numberOfGroupMembers === 1) {
       setDeleteOrLeave("Slett");
@@ -80,9 +115,45 @@ function GroupPageSetting() {
       });
   }
 
+  function makeAdmin(member) {
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("groupMembers")
+      .doc(member.id)
+      .update({ isAdmin: true });
+  }
+
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group /* , startDate, endDate */)}
+
+      {isAdmin && !group.everyoneIsAdmin ? (
+        <div className="display-challengesSettings">
+          <label className="uncompletedChallengesText">
+            Legg til medlem som admin i gruppa
+          </label>
+          <div>
+            {groupMembers.map((member) =>
+              !member.isAdmin ? (
+                <div className="display-membersNotAdmin settings">
+                  <label className="mediumText">{member.name}</label>
+
+                  <button
+                    className="DeleteButtonStyle"
+                    onClick={() => {
+                      makeAdmin(member);
+                    }}
+                  >
+                    Legg til
+                  </button>
+                </div>
+              ) : null
+            )}
+          </div>
+        </div>
+      ) : null}
       <div className="display-challenges">
         <label className="uncompletedChallengesText">
           {deleteOrLeave} denne gruppa

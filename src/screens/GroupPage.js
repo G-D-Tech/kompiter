@@ -75,6 +75,7 @@ function GroupPage() {
             id: doc.data().id,
             name: doc.data().name,
             score: doc.data().score,
+            isAdmin: doc.data().isAdmin,
           });
         });
         setGroupMembers(items);
