@@ -26,9 +26,10 @@ function GroupPage() {
 
         querySnapshot.forEach((doc) => {
           items.push({
-            id: doc.data().userId,
+            id: doc.data().id,
             name: doc.data().name,
             score: doc.data().score,
+            isAdmin: doc.data().isAdmin,
           });
         });
         setGroupMembers(items);
