@@ -284,7 +284,10 @@ function GroupPageAdd() {
                           <BsThreeDots
                             className="unchecked-circle"
                             size={40}
-                            onClick={() => updateSettingIsOpen(challenge)}
+                            onClick={
+                              (() => updateSettingIsOpen(challenge),
+                              setRenameIsOpen(!renameIsOpen))
+                            }
                           ></BsThreeDots>
                         </div>
                       </div>
