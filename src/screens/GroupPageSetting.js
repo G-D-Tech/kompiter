@@ -40,7 +40,7 @@ function GroupPageSetting() {
     return () => {
       authListener();
     };
-  }, [currentUser]);
+  }, [group.id, currentUser]);
 
   useEffect(() => {
     //Gets groupmembers
@@ -130,14 +130,17 @@ function GroupPageSetting() {
       {GroupPageNavBar(group /* , startDate, endDate */)}
 
       {isAdmin && !group.everyoneIsAdmin ? (
-        <div className="display-challengesSettings">
+        <div className="display-membersNotAdminOuter">
           <label className="uncompletedChallengesText">
-            Legg til medlem som admin i gruppa
+            Legg til nye medlem som admin i gruppa
           </label>
           <div>
             {groupMembers.map((member) =>
               !member.isAdmin ? (
-                <div className="display-membersNotAdmin settings">
+                <div
+                  className="display-membersNotAdminInner settings"
+                  key={member.id}
+                >
                   <label className="mediumText">{member.name}</label>
 
                   <button

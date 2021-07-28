@@ -443,8 +443,19 @@
   font-weight: 700;
 }
 
-.display-membersNotAdmin {
+.display-membersNotAdminOuter {
   padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #4d85f2;
+  border-radius: 15px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.display-membersNotAdminInner {
+  /* padding: 5px; */
   margin-top: 20px;
   margin-bottom: 20px;
   background-color: #4d85f2;

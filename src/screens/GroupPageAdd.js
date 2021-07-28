@@ -7,7 +7,7 @@ import { IoIosClose } from "react-icons/io";
 import firebase from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 import { v4 as uuidv4 } from "uuid";
-import Modal from "react-modal";
+/* import Modal from "react-modal"; */
 
 function GroupPageAdd() {
   const location = useLocation();
@@ -17,10 +17,10 @@ function GroupPageAdd() {
   const [challengeName, setChallengeName] = useState("");
   const [challenges, setChallenges] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  /* const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false); */
   const [isAdmin, setIsAdmin] = useState(false);
   const [rename, setRename] = useState();
   const [renameIsOpen, setRenameIsOpen] = useState(false);
-  const firstMapping = true;
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -44,14 +44,6 @@ function GroupPageAdd() {
       });
     setChallengeName("");
     setAddIsOpen(false);
-  }
-
-  function updateSettingIsOpen(challenge) {
-    challenge.settingIsOpen = !challenge.settingIsOpen;
-    setModalIsOpen(!modalIsOpen);
-    {
-      console.log(challenge);
-    }
   }
 
   //Deletes challenge from group
@@ -127,10 +119,14 @@ function GroupPageAdd() {
       .update({ challengeName: rename });
   }
 
+  //Runs the first time the challenges is displayed
   function settingIsOpen(challenge) {
     challenge.settingIsOpen = false;
-    console.log(challenge);
-    firstMapping = false;
+  }
+
+  function updateSettingIsOpen(challenge) {
+    challenge.settingIsOpen = !challenge.settingIsOpen;
+    setModalIsOpen(!modalIsOpen);
   }
 
   //Gets all challenges belonging to current group
@@ -180,19 +176,20 @@ function GroupPageAdd() {
     return isAdmin;
   }
 
-  function modalIsOpen2(challenge) {
-    setModalIsOpen(true);
-    console.log(modalIsOpen);
+  //Må fikses på et senere tidspunkt, men fungerer ikke nå da Modal displayes i bakgrunnen grunnet posisjon til foreldre
+  /* function modalIsOpen2(challenge) {
+    setDeleteModalIsOpen(true);
+    console.log(deleteModalIsOpen);
     return (
       <div>
         <Modal
-          isOpen={modalIsOpen}
+          isOpen={deleteModalIsOpen}
           className="modal-content"
           //onRequestClose={() => setModalIsOpen(false)}
           ariaHideApp={false}
         >
           <IoIosClose
-            onClick={() => setModalIsOpen(false)}
+            onClick={() => setDeleteModalIsOpen(false)}
             className="modalClose"
             size={40}
           ></IoIosClose>
@@ -206,7 +203,7 @@ function GroupPageAdd() {
               className="RedButtonStyle"
               onClick={() => {
                 deleteChallenge(challenge);
-                setModalIsOpen(false);
+                setDeleteModalIsOpen(false);
               }}
             >
               slett
@@ -215,7 +212,7 @@ function GroupPageAdd() {
         </Modal>
       </div>
     );
-  }
+  } */
 
   return (
     <div className="modalGroup-content">
@@ -318,7 +315,12 @@ function GroupPageAdd() {
                         </label>
                         <button
                           className="settingDeleteButtonStyle"
-                          onClick={() => deleteChallenge(challenge)}
+                          onClick={
+                            () =>
+                              deleteChallenge(
+                                challenge
+                              ) /* modalIsOpen2(challenge) */
+                          }
                         >
                           slett
                         </button>
@@ -359,7 +361,12 @@ function GroupPageAdd() {
                         </label>
                         <button
                           className="settingDeleteButtonStyle"
-                          onClick={() => deleteChallenge(challenge)}
+                          onClick={
+                            () =>
+                              deleteChallenge(
+                                challenge
+                              ) /* modalIsOpen2(challenge) */
+                          }
                         >
                           slett
                         </button>
