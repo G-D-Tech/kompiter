@@ -180,7 +180,7 @@ function GroupPageAdd() {
     return isAdmin;
   }
 
-  function modalIsOpen2(challenge) {
+  /*   function modalIsOpen2(challenge) {
     setModalIsOpen(true);
     console.log(modalIsOpen);
     return (
@@ -216,7 +216,7 @@ function GroupPageAdd() {
       </div>
     );
   }
-
+ */
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group /* , startDate, endDate */)}
@@ -287,7 +287,10 @@ function GroupPageAdd() {
                           <BsThreeDots
                             className="unchecked-circle"
                             size={40}
-                            onClick={() => updateSettingIsOpen(challenge)}
+                            onClick={
+                              (() => updateSettingIsOpen(challenge),
+                              setRenameIsOpen(!renameIsOpen))
+                            }
                           ></BsThreeDots>
                         </div>
                       </div>
