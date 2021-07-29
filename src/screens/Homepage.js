@@ -14,7 +14,6 @@ const Homepage = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [groupCode, setGroupCode] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [currentUserAdmin, setCurrentUserAdmin] = useState(false);
   /* const [count, setCount] = useState(0); */
   /* const exampleGroups = ["788618"  "964982" ]; */
 

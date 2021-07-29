@@ -25,7 +25,7 @@ const SignUpPage = () => {
   const [passwordError, setPasswordError] = useState("");
   const [userUid, setUserUid] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [disabledButton, setDisabledButton] = useState(true);
+  const [disabledButton, setDisabledButton] = useState(true); //Ubrukt, ettersom den ikke har blitt lagt inn enn
 
   /*   const facebookProvider = new firebase.auth.FacebookAuthProvider();
   const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -248,10 +248,8 @@ const SignUpPage = () => {
                 id="createUserButton"
                 className="opprettButtonStyle"
                 onClick={handleSignUp}
+                disabled={disabledButton}
               >
-                {/* {disabledButton
-                  ? document.getElementById("createUserButton").disabled
-                  : null} */}
                 Opprett konto
               </button>
             </section>
