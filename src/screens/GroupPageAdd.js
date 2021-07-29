@@ -49,9 +49,7 @@ function GroupPageAdd() {
   function updateSettingIsOpen(challenge) {
     challenge.settingIsOpen = !challenge.settingIsOpen;
     setModalIsOpen(!modalIsOpen);
-    {
-      console.log(challenge);
-    }
+    setRenameIsOpen(false);
   }
 
   //Deletes challenge from group
@@ -287,10 +285,7 @@ function GroupPageAdd() {
                           <BsThreeDots
                             className="unchecked-circle"
                             size={40}
-                            onClick={
-                              (() => updateSettingIsOpen(challenge),
-                              setRenameIsOpen(!renameIsOpen))
-                            }
+                            onClick={() => updateSettingIsOpen(challenge)}
                           ></BsThreeDots>
                         </div>
                       </div>
