@@ -120,6 +120,14 @@
   margin-right: 5%;
   margin-bottom: 20px;
 }
+
+.navbar-challengeLine {
+  border-bottom: 1px solid;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 20px;
+  color: white;
+}
 /* .navbar-line1 {
   color: black;
   border-bottom: 3px solid;
@@ -305,6 +313,19 @@
   font-size: 17px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.display-cDone {
+  display: flex;
+  margin-left: 10px;
+  color: white;
+  font-size: 17px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .display-sendTilVenner {

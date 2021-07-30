@@ -117,12 +117,14 @@ function GroupPage() {
                   <label className="display-score">
                     Score: {groupMember.score} / {totalChallenges}
                   </label>
+                  <label className="display-challengeScore">Fullført </label>
                   {challenges.map((challenge) =>
                     checkGroupMember(challenge, groupMember.id) ? (
-                      <div className="display-ScoreChallenges">
-                        <label className="display-challengeScore">
+                      <div /* className="display-ScoreChallenges" */>
+                        <label className="display-cDone">
                           {challenge.challengeName}
                         </label>
+                        {/* <div className="navbar-challengeLine"></div> */}
                       </div>
                     ) : null
                   )}
