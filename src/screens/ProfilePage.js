@@ -14,7 +14,7 @@ import "firebase/firestore";
 const SignUpOrInPage = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [renameIsOpen, setRenameIsOpen] = useState(false);
-  const [rename, setRename] = useState("");
+  const [rename, setRename] = useState(currentUser.displayName);
   const [feedbackBool, setFeedbackBool] = useState(false);
   const [feedback, setFeedback] = useState("");
 

@@ -117,7 +117,9 @@ function GroupPage() {
                   <label className="display-score">
                     Score: {groupMember.score} / {totalChallenges}
                   </label>
-                  <label className="display-challengeScore">Fullført </label>
+                  <label className="display-challengeScore">
+                    Fullførte utfordringer{" "}
+                  </label>
                   {challenges.map((challenge) =>
                     checkGroupMember(challenge, groupMember.id) ? (
                       <div /* className="display-ScoreChallenges" */>

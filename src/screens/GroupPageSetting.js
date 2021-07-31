@@ -192,7 +192,7 @@ function GroupPageSetting() {
                     )
                   ) : (
                     <button
-                      className="settingDeleteButtonStyle"
+                      className="settingAddButtonStyle"
                       onClick={() => {
                         makeAdmin(member);
                       }}

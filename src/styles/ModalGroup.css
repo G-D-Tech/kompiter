@@ -361,8 +361,8 @@
 
 .checkButtonStyle {
   color: white;
-  background-color: #75da85;
-  border-color: #75da85;
+  background-color: #3acd94;
+  border-color: #3acd94;
   border-radius: 50px;
   margin-left: 30px;
   text-align: center;
@@ -426,6 +426,28 @@
   box-shadow: inset 0px 0px 5px #fc9e9e;
 }
 
+.settingAddButtonStyle {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  letter-spacing: 1px;
+  background-color: #3acd94;
+  border-color: #3acd94;
+  border-radius: 12px;
+  text-align: center;
+  padding: 4px 11px;
+  margin-top: 5%;
+  margin-left: 20px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.2s;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.settingAddButtonStyle:active {
+  background: #c2ffcc;
+  box-shadow: inset 0px 0px 5px #c2ffcc;
+}
+
 .settingChangeButtonStyle {
   font-family: "Roboto", sans-serif;
   color: white;
@@ -462,8 +484,8 @@
   font-size: 18px;
   font-family: "Roboto", sans-serif;
   color: white;
-  background-color: #75da85;
-  border-color: #75da85;
+  background-color: #3acd94;
+  border-color: #3acd94;
   border-radius: 10px;
   margin-top: 4px;
   width: 60px;
