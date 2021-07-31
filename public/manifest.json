@@ -10,14 +10,12 @@
     {
       "src": "kompitIcon100.png",
       "type": "image/png",
-      "sizes": "192x192",
-      "background_color" :"#f4f3ed"
+      "sizes": "192x192"
     },
     {
       "src": "kompitIcon100.png",
       "type": "image/pngg",
-      "sizes": "512x512",
-      "background_color" :"#f4f3ed"
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
