@@ -12,6 +12,7 @@ import {
   /* BsListOl, */
   BsPlus,
   BsThreeDots,
+  BsPencil,
 } from "react-icons/bs";
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -98,7 +99,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
             },
           }}
         >
-          <BsPlus size={40} className="navBarIcon"></BsPlus>
+          <BsPencil size={33} className="navBarIcon"></BsPencil>
         </NavLink>
         <NavLink
           to={{

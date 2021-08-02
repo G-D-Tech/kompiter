@@ -146,7 +146,7 @@ function GroupPageSetting() {
             className="uncompletedChallengesText"
             onClick={() => setOpenAdmins(!openAdmins)}
           >
-            Legg til nye medlem som admin i gruppa
+            Legg til administrator
           </label>
           {openAdmins ? (
             <div>

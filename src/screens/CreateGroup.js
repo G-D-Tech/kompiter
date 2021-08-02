@@ -28,6 +28,17 @@ const CreateGroup = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [adminInfo, setAdminInfo] = useState(false);
 
+  function showCopiedText() {
+    var x = document.getElementById("myLabel");
+    if (x.style.display === "none") {
+      x.style.marginLeft = "50%";
+      x.style.display = "block";
+      setTimeout(function () {
+        x.style.display = "none";
+      }, 1000);
+    }
+  }
+
   //Adds a new group to current user
   function addGroup(newGroup) {
     ref
@@ -155,8 +166,10 @@ const CreateGroup = () => {
       </div>
       {adminInfo ? (
         <label className="infoAdmin">
-          Ved å huke av her vil bare du kunne legge til utfordringer i denne
-          gruppa.
+          {/* Ved å huke av her vil bare du kunne legge til utfordringer i denne
+          gruppa. */}
+          Administrator er den eneste som kan legge til eller slette
+          utfordringer. (Kan legge til flere administrator senere)
         </label>
       ) : null}
 
@@ -181,13 +194,17 @@ const CreateGroup = () => {
               {groupName} har blitt lagt til i grupper
             </label>
           </div>
+          <label id="myLabel" style={{ display: "none" }}>
+            Kode kopiert
+          </label>
           <div className="codeOutput">
-            <input
-              className="form-control GroupNameBox"
-              placeholder={randomNumber}
-            />
+            <input className="form-control GroupNameBox" value={randomNumber} />
             <CopyToClipboard text={randomNumber}>
-              <FiCopy className="icon-copy" size={30}></FiCopy>
+              <FiCopy
+                className="icon-copy"
+                size={30}
+                onClick={() => showCopiedText()}
+              ></FiCopy>
             </CopyToClipboard>
           </div>
 

@@ -22,6 +22,16 @@ function GroupPageAdd() {
   const [renameIsOpen, setRenameIsOpen] = useState(false);
   const firstMapping = true;
 
+  function showAddedText() {
+    var x = document.getElementById("label");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+      setTimeout(function () {
+        x.style.display = "none";
+      }, 2000);
+    }
+  }
+
   //Adds challenge to current group
   function addChallenge(newChallenge) {
     firebase
@@ -44,6 +54,7 @@ function GroupPageAdd() {
       });
     setChallengeName("");
     setAddIsOpen(false);
+    showAddedText();
   }
 
   function updateSettingIsOpen(challenge) {
