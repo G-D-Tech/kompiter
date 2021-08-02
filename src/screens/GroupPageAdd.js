@@ -9,6 +9,10 @@ import GroupPageNavBar from "../screens/GroupPageNavBar";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "react-modal";
 
+import "bootstrap/dist/css/bootstrap.min.css"; //Used to display sortingType
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
+
 function GroupPageAdd() {
   const location = useLocation();
   const { group /* , startDate, endDate  */ } = location.state;
@@ -241,6 +245,14 @@ function GroupPageAdd() {
             placeholder="Skriv inn utfordring..."
           />
           <div>
+            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+              <ToggleButton id="tbg-radio-1" value={1}>
+                CheckboxGruppe
+              </ToggleButton>
+              <ToggleButton id="tbg-radio-2" value={2}>
+                RankingGruppe
+              </ToggleButton>
+            </ToggleButtonGroup>
             <div className="addAndCheckBox">
               <div className="crossButtonStyle">
                 <IoIosClose
