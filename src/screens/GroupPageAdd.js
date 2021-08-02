@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
+import "../styles/groupPageAdd.css";
+
+// Importing the Bootstrap CSS
+import radio from "bootstrap/dist/css/bootstrap.min.css"; //Used to display sortingType
+
 import { BsPlus, BsCheck, BsThreeDots } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import firebase from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 import { v4 as uuidv4 } from "uuid";
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
 /* import Modal from "react-modal"; */
 
 function GroupPageAdd() {
@@ -21,6 +28,7 @@ function GroupPageAdd() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [rename, setRename] = useState();
   const [renameIsOpen, setRenameIsOpen] = useState(false);
+  const [sortingType, setSortingType] = useState("høy");
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -119,14 +127,15 @@ function GroupPageAdd() {
       .update({ challengeName: rename });
   }
 
-  //Runs the first time the challenges is displayed
+  /* //Runs the first time the challenges is displayed
   function settingIsOpen(challenge) {
     challenge.settingIsOpen = false;
-  }
+  } */
 
   function updateSettingIsOpen(challenge) {
     challenge.settingIsOpen = !challenge.settingIsOpen;
     setModalIsOpen(!modalIsOpen);
+    console.log(challenge);
   }
 
   //Gets all challenges belonging to current group
@@ -163,7 +172,6 @@ function GroupPageAdd() {
   }, [currentUser]);
 
   function currentUserIsAdmin() {
-    console.log(isAdmin);
     firebase
       .firestore()
       .collection("groups")
@@ -228,28 +236,51 @@ function GroupPageAdd() {
             className="form-control"
             placeholder="Skriv inn utfordring..."
           />
-          <div>
-            <div className="addAndCheckBox">
-              <div className="crossButtonStyle">
-                <IoIosClose
-                  onClick={() => setAddIsOpen(false)}
-                  size={40}
-                ></IoIosClose>
-              </div>
-              <div className="checkButtonStyle">
-                <BsCheck
-                  onClick={() => {
-                    challengeName
-                      ? addChallenge({
-                          challengeName: challengeName,
-                          id: uuidv4(),
-                          membersCompletedChallenge: [],
-                        })
-                      : setAddIsOpen(false);
-                  }}
-                  size={40}
-                ></BsCheck>
-              </div>
+
+          {/* Ranking functionality */}
+          {group.groupType === "ranking" ? (
+            <div className="d-flex flex-column container">
+              <label className="sortingText">Ranger score etter:</label>
+              <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                <ToggleButton
+                  id="tbg-radio-1"
+                  value={1}
+                  onClick={() => setSortingType("høy")}
+                >
+                  Høyest
+                </ToggleButton>
+                <ToggleButton
+                  id="tbg-radio-2"
+                  value={2}
+                  onClick={() => setSortingType("lav")}
+                >
+                  Lavest
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div>
+          ) : null}
+
+          <div className="addAndCheckBox">
+            <div className="crossButtonStyle">
+              <IoIosClose
+                onClick={() => setAddIsOpen(false)}
+                size={40}
+              ></IoIosClose>
+            </div>
+            <div className="checkButtonStyle">
+              <BsCheck
+                onClick={() => {
+                  challengeName
+                    ? addChallenge({
+                        challengeName: challengeName,
+                        id: uuidv4(),
+                        membersCompletedChallenge: [],
+                        sortingType: sortingType,
+                      })
+                    : setAddIsOpen(false);
+                }}
+                size={40}
+              ></BsCheck>
             </div>
           </div>
         </div>
@@ -257,7 +288,7 @@ function GroupPageAdd() {
       <div>
         {challenges.map((challenge) => (
           <div>
-            {challenge.length === 3 ? settingIsOpen(challenge) : null}
+            {/* {challenge.length === 3 ? settingIsOpen(challenge) : null} */}
             {!currentUserIsAdmin() ? (
               <div className="display-challenges" key={challenge.id}>
                 <label className="uncompletedChallengesText">

@@ -133,14 +133,14 @@ const LoginPage = () => {
               <button className="loginButtonStyle" onClick={handleSignIn}>
                 Logg inn
               </button>
-              <text
+              <label
                 className="glemtPassordSmall"
                 onClick={() => {
                   resetPassord();
                 }}
               >
                 glemt passord?
-              </text>
+              </label>
             </section>
 
             {/*             <label className="loginTextSmall">eller logg inn med</label>

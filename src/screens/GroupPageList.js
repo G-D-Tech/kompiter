@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
+import "../styles/GroupPageList.css";
 import firebase from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
 import { BsCircle, BsCheckCircle } from "react-icons/bs";
@@ -11,49 +12,7 @@ function GroupPageList() {
   const { group /* , startDate, endDate  */ } = location.state;
   const [challenges, setChallenges] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
-
-  //Checks if challenge is finnished and updates firestore
-  function changeBoolChallenge(challenge) {
-    if (checkGroupMember(challenge)) {
-      firebase
-        .firestore()
-        .collection("groups")
-        .doc(group.id)
-        .collection("challenges")
-        .doc(challenge.id)
-        .update({
-          membersCompletedChallenge: firebase.firestore.FieldValue.arrayRemove(
-            currentUser.uid
-          ),
-        });
-      firebase
-        .firestore()
-        .collection("groups")
-        .doc(group.id)
-        .collection("groupMembers")
-        .doc(currentUser.uid)
-        .update({ score: firebase.firestore.FieldValue.increment(-1) });
-    } else {
-      firebase
-        .firestore()
-        .collection("groups")
-        .doc(group.id)
-        .collection("challenges")
-        .doc(challenge.id)
-        .update({
-          membersCompletedChallenge: firebase.firestore.FieldValue.arrayUnion(
-            currentUser.uid
-          ),
-        });
-      firebase
-        .firestore()
-        .collection("groups")
-        .doc(group.id)
-        .collection("groupMembers")
-        .doc(currentUser.uid)
-        .update({ score: firebase.firestore.FieldValue.increment(1) });
-    }
-  }
+  const [isAdmin, setIsAdmin] = useState(false);
 
   //Gets current user
   useEffect(() => {
@@ -63,11 +22,20 @@ function GroupPageList() {
       } else {
         setCurrentUser("");
       }
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("groupMembers")
+        .doc(user.uid)
+        .onSnapshot((doc) => {
+          setIsAdmin(doc.data().isAdmin);
+        });
     });
     return () => {
       authListener();
     };
-  }, [currentUser]);
+  }, [group.id, currentUser]);
 
   //Gets current challenges
   useEffect(() => {
@@ -88,20 +56,60 @@ function GroupPageList() {
     };
   }, [group.id]);
 
-  //Checks if groupmember has accomblished challenge
-  function checkGroupMember(challenge) {
-    var isMember = false;
+  //For checkBoxGroups
+  function CheckBoxGroup() {
+    //Checks if challenge is finnished and updates firestore
+    function changeBoolChallenge(challenge) {
+      if (checkGroupMember(challenge)) {
+        firebase
+          .firestore()
+          .collection("groups")
+          .doc(group.id)
+          .collection("challenges")
+          .doc(challenge.id)
+          .update({
+            membersCompletedChallenge:
+              firebase.firestore.FieldValue.arrayRemove(currentUser.uid),
+          });
+        firebase
+          .firestore()
+          .collection("groups")
+          .doc(group.id)
+          .collection("groupMembers")
+          .doc(currentUser.uid)
+          .update({ score: firebase.firestore.FieldValue.increment(-1) });
+      } else {
+        firebase
+          .firestore()
+          .collection("groups")
+          .doc(group.id)
+          .collection("challenges")
+          .doc(challenge.id)
+          .update({
+            membersCompletedChallenge: firebase.firestore.FieldValue.arrayUnion(
+              currentUser.uid
+            ),
+          });
+        firebase
+          .firestore()
+          .collection("groups")
+          .doc(group.id)
+          .collection("groupMembers")
+          .doc(currentUser.uid)
+          .update({ score: firebase.firestore.FieldValue.increment(1) });
+      }
+    }
 
-    challenge.membersCompletedChallenge.map((member) =>
-      member === currentUser.uid ? (isMember = true) : null
-    );
+    //Checks if groupmember has accomblished challenge
+    function checkGroupMember(challenge) {
+      var isMember = false;
+      challenge.membersCompletedChallenge.map((member) =>
+        member === currentUser.uid ? (isMember = true) : null
+      );
+      return isMember;
+    }
 
-    return isMember;
-  }
-
-  return (
-    <div className="modalGroup-content">
-      {GroupPageNavBar(group /* , startDate, endDate */)}
+    return (
       <div>
         {challenges.map((challenge) => (
           <div key={challenge.id}>
@@ -140,6 +148,113 @@ function GroupPageList() {
           </div>
         ))}
       </div>
+    );
+  }
+
+  //For rankingGroups
+  function RankingGroup() {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [groupMembers, setGroupMembers] = useState([]);
+
+    //Runs the first time the challenges is displayed
+    function challengeIsOpen(challenge) {
+      challenge.challengeIsOpen = false;
+    }
+
+    function updateChallengeIsOpen(challenge) {
+      challenge.challengeIsOpen = !challenge.challengeIsOpen;
+      setModalIsOpen(!modalIsOpen);
+    }
+
+    useEffect(() => {
+      //Gets groupmembers
+      const unsubscribe = firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("groupMembers")
+        .onSnapshot((querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach((doc) => {
+            items.push({
+              id: doc.data().id,
+              name: doc.data().name,
+              score: doc.data().score,
+              isAdmin: doc.data().isAdmin,
+            });
+          });
+          setGroupMembers(items);
+        });
+      return () => {
+        unsubscribe();
+      };
+    }, [group.id]);
+
+    return (
+      <div>
+        {challenges.map((challenge) => (
+          <div key={challenge.id} className="display-box">
+            <div className="display-challenges-ranking">
+              {/* {challenge.length === 3 ? challengeIsOpen(challenge) : null} */}
+              {console.log(challenge)}
+              <label className="display-header">
+                {challenge.challengeName}
+              </label>
+              <button
+                className="AddResultButton"
+                key={challenge.id}
+                onClick={() => updateChallengeIsOpen(challenge)}
+              >
+                {challenge.challengeIsOpen ? (
+                  <label className="no-margin">Lukk</label>
+                ) : (
+                  <label className="no-margin">Legg til resultat</label>
+                )}
+              </button>
+            </div>
+            {challenge.challengeIsOpen ? (
+              <div className="margin-bottom">
+                {isAdmin ? (
+                  groupMembers.map((groupmember) => (
+                    <div className="display-challenges-ranking margin">
+                      <label>{groupmember.name}</label>
+                      <form>
+                        <div>
+                          <input
+                            className="form-control"
+                            placeholder="Resultatet"
+                            //value={groupName}
+                            //onChange={(e) => setGroupName(e.target.value)}
+                            autoComplete="off"
+                          />
+                        </div>
+                      </form>
+                    </div>
+                  ))
+                ) : (
+                  <div>Mulighet for å oppdatere bare egne resultateter</div>
+                )}
+                <div className="d-flex justify-content-center">
+                  <button
+                    className="SaveResultButton"
+                    key={challenge.id}
+                    onClick={() => updateChallengeIsOpen(challenge)}
+                  >
+                    Lagre
+                  </button>
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="modalGroup-content">
+      {GroupPageNavBar(group /* , startDate, endDate */)}
+      {group.groupType ? RankingGroup() : CheckBoxGroup()}
     </div>
   );
 }

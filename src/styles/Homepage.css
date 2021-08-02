@@ -1,6 +1,6 @@
-.container {
+/* .container {
   margin-top: 30px;
-}
+} */
 
 .inputCodeStyle {
   display: flex;
@@ -62,8 +62,6 @@
   font-family: "Roboto", sans-serif;
   font-weight: 700;
 }
-
-
 
 #groupText {
   font-size: 30px;

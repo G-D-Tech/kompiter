@@ -101,7 +101,6 @@ function GroupPage() {
         .sort((a, b) => b.score - a.score)
         .map((groupMember, index) => (
           <div>
-            {console.log(groupMember.id)}
             {groupMember.length === 3 ? viewIsOpen(groupMember) : null}
             {groupMember.viewIsOpen ? (
               <div
