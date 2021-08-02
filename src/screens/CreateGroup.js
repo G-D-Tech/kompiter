@@ -9,6 +9,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../styles/CreateGroup.css";
 import "../styles/Homepage.css";
 
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
+
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { IoIosArrowBack } from "react-icons/io";
@@ -16,6 +19,10 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowDownSFill } from "react-icons/ri";
 
 import firebase from "../firebase";
+
+import { BsFillInfoCircleFill } from "react-icons/bs";
+
+import "bootstrap/dist/css/bootstrap.min.css"; //Used to display sortingType
 
 const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
@@ -27,6 +34,9 @@ const CreateGroup = () => {
   const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
   const [adminInfo, setAdminInfo] = useState(false);
+  const [groupTypeInfoOpen, setGroupTypeInfoOpen] = useState(false);
+
+  const [groupType, setGroupType] = useState("checkBox");
 
   function showCopiedText() {
     var x = document.getElementById("myLabel");
@@ -173,6 +183,41 @@ const CreateGroup = () => {
         </label>
       ) : null}
 
+      {/* Choosing type of group */}
+      <div className="d-flex flex-column container groupTypeContainer">
+        <div className="groupTypeOuter">
+          <label className="groupTypeText">Type gruppe:</label>
+          <BsFillInfoCircleFill
+            onClick={() => setGroupTypeInfoOpen(!groupTypeInfoOpen)}
+          ></BsFillInfoCircleFill>
+
+          {groupTypeInfoOpen ? (
+            <div id="example-collapse-text">
+              CheckBoxGroup er en type gruppe der hver gjennomførte utfordring
+              gir 1. poeng. RankingGroup gir ulik poengsum avhengig av hvor bra
+              du har gjort det i forhold til de andre gruppemedlemmene på den
+              utfordringen.
+            </div>
+          ) : null}
+        </div>
+
+        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+          <ToggleButton
+            id="tbg-radio-1"
+            value={1}
+            onClick={() => setGroupType("checkBox")}
+          >
+            CheckboxGruppe
+          </ToggleButton>
+          <ToggleButton
+            id="tbg-radio-2"
+            value={2}
+            onClick={() => setGroupType("ranking")}
+          >
+            RankingGruppe
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
       <div className="button-container">
         <button
           className="RedButtonStyle"
@@ -221,6 +266,7 @@ const CreateGroup = () => {
                       numberOfGroupMembers: 1,
                       numberOfChallenges: 0,
                       everyoneIsAdmin: false,
+                      groupType: groupType,
                     })
                   : addGroup({
                       groupName: groupName,
@@ -230,6 +276,7 @@ const CreateGroup = () => {
                       numberOfGroupMembers: 1,
                       numberOfChallenges: 0,
                       everyoneIsAdmin: true,
+                      groupType: groupType,
                     });
               }}
             >

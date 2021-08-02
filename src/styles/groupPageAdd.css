@@ -1,0 +1,19 @@
+.sortingText {
+  color: white;
+  margin-right: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.btn-group > .btn-group:not(:first-child) > .btn,
+.btn-group > .btn:not(:first-child) {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.label {
+  margin-bottom: 0;
+}
