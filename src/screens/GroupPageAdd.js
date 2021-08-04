@@ -260,7 +260,7 @@ function GroupPageAdd() {
               </ToggleButton>
             </ToggleButtonGroup>
           </div>
-          )
+
           <div className="addAndCheckBox">
             <div className="crossButtonStyle">
               <IoIosClose
