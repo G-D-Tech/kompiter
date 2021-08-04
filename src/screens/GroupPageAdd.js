@@ -230,9 +230,15 @@ function GroupPageAdd() {
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group /* , startDate, endDate */)}
-      <div onClick={() => setAddIsOpen(true)} className="crossPlusButtonStyle">
+      <div
+        onClick={() => {
+          currentUserIsAdmin() ? setAddIsOpen(true) : setAddIsOpen(false);
+        }}
+        className="crossPlusButtonStyle"
+      >
         <BsPlus size={40}></BsPlus>
       </div>
+
       {addIsOpen ? (
         <div className="addBox">
           <input
