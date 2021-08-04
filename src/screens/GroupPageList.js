@@ -291,7 +291,7 @@ function GroupPageList() {
                             onImageChange(e);
                           }}
                         />
-                        <label for="file">Velg bilde</label>
+                        <label htmlFor="file">Velg bilde</label>
                         <p className="file-name">{fileName}</p>
                       </div>
                       <div

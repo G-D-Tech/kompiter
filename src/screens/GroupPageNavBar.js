@@ -57,7 +57,11 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
         <label className="display-sendTilVenner">Send koden til venner</label>
       </div>
       <div className="inputGroup-container">
-        <input className="form-control GroupNameBox" value={group.id} />
+        <input
+          className="form-control GroupNameBox"
+          readOnly={true}
+          value={group.id}
+        />
         <CopyToClipboard text={group.id}>
           <FiCopy
             className="icon-copy"
