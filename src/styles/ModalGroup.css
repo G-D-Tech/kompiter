@@ -85,6 +85,24 @@
   box-shadow: inset 0px 0px 5px #aec9fd;
 }
 
+.imageButtonStyle {
+  align-items: center;
+  margin-left: 40%;
+  margin-right: 40%;
+  padding: 5px;
+  color: white;
+  background-color: #f77777;
+  border-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 50px;
+  text-align: center;
+}
+
+.imageButtonStyle:active {
+  background: #fc9e9e;
+  box-shadow: inset 0px 0px 5px #fc9e9e;
+}
+
 .modal-content {
   margin: 30% auto;
   padding: 30px;
@@ -154,10 +172,6 @@
 } */
 
 .display-challengesUndone {
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
   padding: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -168,10 +182,24 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.display-challengesDone {
+.imageIsOpen {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.imageAndButton {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.imageMargin  {
+  padding-left: 5%;
+}
+
+.display-challengesDone {
   padding: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -208,7 +236,8 @@
 
 .display-ScoreChallenges {
   display: flex;
-  padding: 5px;
+  flex-direction: column;
+  padding: 8px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 5%;
@@ -525,4 +554,80 @@
   background-color: #4d85f2;
   border-radius: 15px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.imageProofText {
+  display: flex;
+  color: white;
+  margin-right: 15px;
+  margin-left: 15px;
+  font-size: 15px;
+  margin-top: -10px;
+  font-family: "Roboto", sans-serif;
+}
+
+.imageDeleteButtonStyle {
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  color: white;
+  background-color: #e94e4e;
+  border-color: #e94e4e;
+  border-radius: 12px;
+  margin-top: 5px;
+  text-align: center;
+  padding: 4px 12px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+}
+
+.imageAddButtonStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30%;
+  margin-right: 30%;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  color: white;
+  background-color: #f77777;
+  border-radius: 12px;
+  margin-top: 5px;
+  text-align: center;
+  padding: 4px 12px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+}
+
+.file {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.file-input label {
+  display: flex;
+  justify-content: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  color: white;
+  background-color: #4d85f2;
+  border-radius: 12px;
+  margin-top: 5px;
+  text-align: center;
+  padding: 4px 12px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
+}
+
+.file-name {
+  display: flex;
+  justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  color: white;
 }

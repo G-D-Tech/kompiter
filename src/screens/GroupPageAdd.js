@@ -28,6 +28,7 @@ function GroupPageAdd() {
   const [rename, setRename] = useState();
   const [renameIsOpen, setRenameIsOpen] = useState(false);
   const [sortingType, setSortingType] = useState("høy");
+  const [imageProof, setImageProof] = useState(false);
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -51,7 +52,6 @@ function GroupPageAdd() {
       });
     setChallengeName("");
     setAddIsOpen(false);
-    showAddedText();
   }
 
   function updateSettingIsOpen(challenge) {
@@ -241,30 +241,26 @@ function GroupPageAdd() {
             className="form-control"
             placeholder="Skriv inn utfordring..."
           />
-
-          {/* Ranking functionality */}
-          {group.groupType === "ranking" ? (
-            <div className="d-flex flex-column container">
-              <label className="sortingText">Ranger score etter:</label>
-              <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                <ToggleButton
-                  id="tbg-radio-1"
-                  value={1}
-                  onClick={() => setSortingType("høy")}
-                >
-                  Høyest
-                </ToggleButton>
-                <ToggleButton
-                  id="tbg-radio-2"
-                  value={2}
-                  onClick={() => setSortingType("lav")}
-                >
-                  Lavest
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </div>
-          ) : null}
-
+          <div className="d-flex flex-column container">
+            <label className="sortingText">Krever bildebevis:</label>
+            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+              <ToggleButton
+                id="tbg-radio-1"
+                value={1}
+                onClick={() => setImageProof(false)}
+              >
+                Nei
+              </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-2"
+                value={2}
+                onClick={() => setImageProof(true)}
+              >
+                Ja
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
+          )
           <div className="addAndCheckBox">
             <div className="crossButtonStyle">
               <IoIosClose
@@ -281,6 +277,7 @@ function GroupPageAdd() {
                         id: uuidv4(),
                         membersCompletedChallenge: [],
                         sortingType: sortingType,
+                        imageProof: imageProof,
                       })
                     : setAddIsOpen(false);
                 }}

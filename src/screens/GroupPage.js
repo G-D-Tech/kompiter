@@ -17,19 +17,54 @@ function GroupPage() {
   const [totalChallenges, setTotalChallenges] = useState("0");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const firstMapping = true;
+  const [viewImageModalIsOpen, setViewImageModalIsOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
 
-  function viewIsOpen(groupMember) {
-    groupMember.viewIsOpen = false;
-    console.log(groupMember);
-    firstMapping = false;
+  function downloadFromFirebase(challenge, groupMember) {
+    {
+      closeAllViewImage();
+      viewImageIsOpen(challenge);
+      closeViewIsOpen(groupMember);
+      !imageUrl
+        ? firebase
+            .storage()
+            .ref(`${group.id}/${groupMember.id}/${challenge.id}`)
+            .getDownloadURL()
+            .then((fireBaseUrl) => {
+              setImageUrl(fireBaseUrl);
+              const data = firebase.storage().refFromURL(fireBaseUrl);
+              //console.log(data);
+              //setImageList(data.name);
+            })
+            .catch(console.log("hei"))
+        : closeAllViewImage();
+    }
+  }
+
+  function closeAllViewImage() {
+    for (let i = 0; i < challenges.length; i++) {
+      challenges[i].viewImageIsOpen = false;
+    }
+    setImageUrl("");
+  }
+
+  function viewImageIsOpen(challenge) {
+    challenge.viewImageIsOpen = !challenge.viewImageIsOpen;
+    setViewImageModalIsOpen(!viewImageModalIsOpen);
+  }
+
+  function closeViewIsOpen(groupMember) {
+    for (let i = 0; i < groupMembers.length; i++) {
+      groupMembers[i].viewIsOpen = false;
+    }
+    setImageUrl("");
+    groupMember.viewIsOpen = !groupMember.viewIsOpen;
+    setModalIsOpen(!modalIsOpen);
   }
 
   function updateViewIsOpen(groupMember) {
     groupMember.viewIsOpen = !groupMember.viewIsOpen;
     setModalIsOpen(!modalIsOpen);
-    {
-      console.log(groupMember);
-    }
   }
   //Gets current challenges
   useEffect(() => {
@@ -101,14 +136,12 @@ function GroupPage() {
         .sort((a, b) => b.score - a.score)
         .map((groupMember, index) => (
           <div>
-            {groupMember.length === 3 ? viewIsOpen(groupMember) : null}
             {groupMember.viewIsOpen ? (
               <div
                 className="display-scoreChallenges" //add flex for å ha ved siden av number og navn
                 key={index + 1}
-                onClick={() => updateViewIsOpen(groupMember)}
               >
-                <div>
+                <div onClick={() => updateViewIsOpen(groupMember)}>
                   <label className="display-header">
                     {/* {index + 1}. */}
                     {groupMember.name}
@@ -119,17 +152,30 @@ function GroupPage() {
                   <label className="display-challengeScore">
                     Fullførte utfordringer{" "}
                   </label>
-                  {challenges.map((challenge) =>
-                    checkGroupMember(challenge, groupMember.id) ? (
-                      <div /* className="display-ScoreChallenges" */>
+                </div>
+                {challenges.map((challenge) =>
+                  checkGroupMember(challenge, groupMember.id) ? (
+                    <div
+                      className="display-ScoreChallenges"
+                      onClick={() =>
+                        downloadFromFirebase(challenge, groupMember)
+                      }
+                    >
+                      <div>
                         <label className="display-cDone">
                           {challenge.challengeName}
                         </label>
-                        {/* <div className="navbar-challengeLine"></div> */}
                       </div>
-                    ) : null
-                  )}
-                </div>
+                      <div>
+                        {challenge.viewImageIsOpen && imageUrl ? (
+                          <div className="imageAndButton">
+                            <img src={imageUrl} width="100%" />
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  ) : null
+                )}
               </div>
             ) : (
               <div

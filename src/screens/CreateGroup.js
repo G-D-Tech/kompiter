@@ -182,42 +182,6 @@ const CreateGroup = () => {
           utfordringer. (Kan legge til flere administrator senere)
         </label>
       ) : null}
-
-      {/* Choosing type of group */}
-      <div className="d-flex flex-column container groupTypeContainer">
-        <div className="groupTypeOuter">
-          <label className="groupTypeText">Type gruppe:</label>
-          <BsFillInfoCircleFill
-            onClick={() => setGroupTypeInfoOpen(!groupTypeInfoOpen)}
-          ></BsFillInfoCircleFill>
-
-          {groupTypeInfoOpen ? (
-            <div id="example-collapse-text">
-              CheckBoxGroup er en type gruppe der hver gjennomførte utfordring
-              gir 1. poeng. RankingGroup gir ulik poengsum avhengig av hvor bra
-              du har gjort det i forhold til de andre gruppemedlemmene på den
-              utfordringen.
-            </div>
-          ) : null}
-        </div>
-
-        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-          <ToggleButton
-            id="tbg-radio-1"
-            value={1}
-            onClick={() => setGroupType("checkBox")}
-          >
-            CheckboxGruppe
-          </ToggleButton>
-          <ToggleButton
-            id="tbg-radio-2"
-            value={2}
-            onClick={() => setGroupType("ranking")}
-          >
-            RankingGruppe
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </div>
       <div className="button-container">
         <button
           className="RedButtonStyle"
@@ -266,7 +230,6 @@ const CreateGroup = () => {
                       numberOfGroupMembers: 1,
                       numberOfChallenges: 0,
                       everyoneIsAdmin: false,
-                      groupType: groupType,
                     })
                   : addGroup({
                       groupName: groupName,
@@ -276,7 +239,6 @@ const CreateGroup = () => {
                       numberOfGroupMembers: 1,
                       numberOfChallenges: 0,
                       everyoneIsAdmin: true,
-                      groupType: groupType,
                     });
               }}
             >
