@@ -198,7 +198,11 @@ const CreateGroup = () => {
             Kode kopiert
           </label>
           <div className="codeOutput">
-            <input className="form-control GroupNameBox" value={randomNumber} />
+            <input
+              className="form-control GroupNameBox"
+              readOnly={true}
+              value={randomNumber}
+            />
             <CopyToClipboard text={randomNumber}>
               <FiCopy
                 className="icon-copy"
