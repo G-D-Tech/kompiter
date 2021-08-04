@@ -196,7 +196,8 @@ function GroupPageList() {
   }
 
   return (
-    <div>
+    <div className="modalGroup-content">
+      {GroupPageNavBar(group /* , startDate, endDate */)}
       {challenges.map((challenge) => (
         <div key={challenge.id}>
           {checkGroupMember(challenge) ? (
