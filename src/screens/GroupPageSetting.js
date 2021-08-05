@@ -32,9 +32,11 @@ function GroupPageSetting() {
         .collection("groups")
         .doc(group.id)
         .collection("groupMembers")
-        .doc(user.uid)
+        .doc(currentUser.uid)
         .onSnapshot((doc) => {
-          setIsAdmin(doc.data().isAdmin);
+          if (doc.data() != undefined) {
+            setIsAdmin(doc.data().isAdmin);
+          }
         });
     });
     return () => {

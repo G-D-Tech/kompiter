@@ -29,6 +29,7 @@ function GroupPageAdd() {
   const [rename, setRename] = useState();
   const [renameIsOpen, setRenameIsOpen] = useState(false);
   const [sortingType, setSortingType] = useState("høy");
+  const [groupMembers, setGroupMembers] = useState([]);
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -42,6 +43,21 @@ function GroupPageAdd() {
       .catch((err) => {
         console.error(err);
       });
+    if (group.groupType === "ranking") {
+      //Sets the results as "" when adding a new challenge
+      groupMembers.map((groupmember) => {
+        firebase
+          .firestore()
+          .collection("groups")
+          .doc(group.id)
+          .collection("challenges")
+          .doc(newChallenge.id)
+          .collection("results")
+          .doc(groupmember.id)
+          .set({ id: groupmember.id, challengeResult: "" });
+      });
+    }
+
     //MÅ UNMOUNTE
     firebase
       .firestore()
@@ -66,6 +82,23 @@ function GroupPageAdd() {
       .catch((err) => {
         console.error(err);
       });
+    //For deleting results-collection
+    /* firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("challenges")
+      .doc(challenge.id)
+      .collection("results")
+      .get()
+      .then((val) => {
+        val.map((val) => {
+          val.delete();
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      }); */
     firebase
       .firestore()
       .collection("groups")
@@ -135,7 +168,7 @@ function GroupPageAdd() {
   function updateSettingIsOpen(challenge) {
     challenge.settingIsOpen = !challenge.settingIsOpen;
     setModalIsOpen(!modalIsOpen);
-    console.log(challenge);
+    /* console.log(group.challenges); */
   }
 
   //Gets all challenges belonging to current group
@@ -157,7 +190,7 @@ function GroupPageAdd() {
     };
   }, [group.id]);
 
-  //For updateing total score
+  //For updating total score
   useEffect(() => {
     const authListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -179,10 +212,37 @@ function GroupPageAdd() {
       .collection("groupMembers")
       .doc(currentUser.uid)
       .onSnapshot((doc) => {
-        setIsAdmin(doc.data().isAdmin);
+        if (doc.data() != undefined) {
+          setIsAdmin(doc.data().isAdmin);
+        }
       });
+
     return isAdmin;
   }
+
+  useEffect(() => {
+    //Gets groupmembers
+    const unsubscribe = firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("groupMembers")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push({
+            id: doc.data().id,
+            name: doc.data().name,
+            score: doc.data().score,
+            isAdmin: doc.data().isAdmin,
+          });
+        });
+        setGroupMembers(items);
+      });
+    return () => {
+      unsubscribe();
+    };
+  }, [group.id]);
 
   //Må fikses på et senere tidspunkt, men fungerer ikke nå da Modal displayes i bakgrunnen grunnet posisjon til foreldre
   /* function modalIsOpen2(challenge) {

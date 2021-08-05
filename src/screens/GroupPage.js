@@ -8,6 +8,7 @@ import GroupPageNavBar from "../screens/GroupPageNavBar";
 import React, { useEffect, useState } from "react";
 import firebase from "../firebase";
 import { BsCheck } from "react-icons/bs";
+import { getAllByPlaceholderText } from "@testing-library/dom";
 
 function GroupPage() {
   const location = useLocation();
@@ -20,16 +21,13 @@ function GroupPage() {
 
   function viewIsOpen(groupMember) {
     groupMember.viewIsOpen = false;
-    console.log(groupMember);
+
     firstMapping = false;
   }
 
   function updateViewIsOpen(groupMember) {
     groupMember.viewIsOpen = !groupMember.viewIsOpen;
     setModalIsOpen(!modalIsOpen);
-    {
-      console.log(groupMember);
-    }
   }
   //Gets current challenges
   useEffect(() => {
@@ -69,7 +67,6 @@ function GroupPage() {
       .collection("groupMembers")
       .onSnapshot((querySnapshot) => {
         const items = [];
-
         querySnapshot.forEach((doc) => {
           items.push({
             id: doc.data().id,
@@ -81,22 +78,24 @@ function GroupPage() {
         setGroupMembers(items);
       });
     //Gets total number of challenges for each group
-    const unsubscribe2 = firebase
+    /* const unsubscribe2 = firebase
       .firestore()
       .collection("groups")
       .doc(group.id)
       .onSnapshot((snapshot) =>
         setTotalChallenges(snapshot.data().numberOfChallenges)
-      );
+      ); */
+
     return () => {
       unsubscribe();
-      unsubscribe2();
+      /* unsubscribe2(); */
     };
   }, [group.id]);
 
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group /* , startDate, endDate */)}
+
       {groupMembers
         .sort((a, b) => b.score - a.score)
         .map((groupMember, index) => (
@@ -114,7 +113,7 @@ function GroupPage() {
                     {groupMember.name}
                   </label>
                   <label className="display-score">
-                    Score: {groupMember.score} / {totalChallenges}
+                    Score: {groupMember.score} / {challenges.length}
                   </label>
                   {challenges.map((challenge) =>
                     checkGroupMember(challenge, groupMember.id) ? (
@@ -138,9 +137,16 @@ function GroupPage() {
                     {/* <label className="display-headerNumber"> {index + 1}. </label> */}
                     {groupMember.name}
                   </label>
-                  <label className="display-score">
-                    Score: {groupMember.score} / {totalChallenges}
-                  </label>
+                  {group.groupType === "ranking" ? (
+                    <label className="display-score">
+                      Score: {groupMember.score} /{" "}
+                      {groupMembers.length * challenges.length}
+                    </label>
+                  ) : (
+                    <label className="display-score">
+                      Score: {groupMember.score} / {challenges.length}
+                    </label>
+                  )}
                 </div>
               </div>
             )}

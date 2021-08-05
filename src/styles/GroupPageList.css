@@ -71,3 +71,8 @@
 .no-margin {
   margin: 0;
 }
+
+.form-control-width {
+  width: 40%;
+  float: right;
+}

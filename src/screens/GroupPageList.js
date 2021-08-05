@@ -13,6 +13,7 @@ function GroupPageList() {
   const [challenges, setChallenges] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [groupMembers, setGroupMembers] = useState([]);
 
   //Gets current user
   useEffect(() => {
@@ -27,9 +28,11 @@ function GroupPageList() {
         .collection("groups")
         .doc(group.id)
         .collection("groupMembers")
-        .doc(user.uid)
+        .doc(currentUser.uid)
         .onSnapshot((doc) => {
-          setIsAdmin(doc.data().isAdmin);
+          if (doc.data() != undefined) {
+            setIsAdmin(doc.data().isAdmin);
+          }
         });
     });
     return () => {
@@ -50,6 +53,30 @@ function GroupPageList() {
           items.push(doc.data());
         });
         setChallenges(items);
+      });
+    return () => {
+      unsubscribe();
+    };
+  }, [group.id]);
+
+  useEffect(() => {
+    //Gets groupmembers
+    const unsubscribe = firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("groupMembers")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push({
+            id: doc.data().id,
+            name: doc.data().name,
+            score: doc.data().score,
+            isAdmin: doc.data().isAdmin,
+          });
+        });
+        setGroupMembers(items);
       });
     return () => {
       unsubscribe();
@@ -153,92 +180,208 @@ function GroupPageList() {
 
   //For rankingGroups
   function RankingGroup() {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [groupMembers, setGroupMembers] = useState([]);
+    const [resultsForChallenge, setResultsForChallenge] = useState([]);
+    const [score, setScore] = useState(0);
 
-    //Runs the first time the challenges is displayed
-    function challengeIsOpen(challenge) {
+    //Closes the challenge
+    function closeOneChallenge(challenge) {
       challenge.challengeIsOpen = false;
+      setResultsForChallenge([]);
     }
 
-    function updateChallengeIsOpen(challenge) {
-      challenge.challengeIsOpen = !challenge.challengeIsOpen;
-      setModalIsOpen(!modalIsOpen);
-    }
-
-    useEffect(() => {
-      //Gets groupmembers
-      const unsubscribe = firebase
+    //Opens one specific challenge and gets the results
+    function openCorrectChallenge(challenge) {
+      for (let i = 0; i < challenges.length; i++) {
+        //Closes all challenges
+        challenges[i].challengeIsOpen = false;
+      }
+      challenge.challengeIsOpen = true;
+      //Gets saved results for challenge
+      firebase
         .firestore()
         .collection("groups")
         .doc(group.id)
-        .collection("groupMembers")
+        .collection("challenges")
+        .doc(challenge.id)
+        .collection("results")
         .onSnapshot((querySnapshot) => {
           const items = [];
           querySnapshot.forEach((doc) => {
-            items.push({
-              id: doc.data().id,
-              name: doc.data().name,
-              score: doc.data().score,
-              isAdmin: doc.data().isAdmin,
-            });
+            items.push(doc.data());
           });
-          setGroupMembers(items);
+          setResultsForChallenge(items);
         });
-      return () => {
-        unsubscribe();
-      };
-    }, [group.id]);
+    }
+
+    //Saves the updated results to firebase when the save-button is pressed
+    function setResultInFirestore(challenge) {
+      resultsForChallenge.map((res) => {
+        firebase
+          .firestore()
+          .collection("groups")
+          .doc(group.id)
+          .collection("challenges")
+          .doc(challenge.id)
+          .collection("results")
+          .doc(res.id)
+          .set({
+            id: res.id,
+            challengeResult: res.challengeResult,
+            challengeScore: res.score,
+          });
+      });
+      setResultsForChallenge([]);
+      groupMembers.map((groupmember) => {
+        updateTotalScore(groupmember);
+      });
+      closeOneChallenge(challenge);
+    }
+
+    //Update challenge
+    function updateTotalScore(groupmember) {
+      groupmember.score = 0;
+      if (groupmember !== undefined) {
+        challenges.map((challenge) => {
+          firebase
+            .firestore()
+            .collection("groups")
+            .doc(group.id)
+            .collection("challenges")
+            .doc(challenge.id)
+            .collection("results")
+            .onSnapshot((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                if (groupmember.id === doc.data().id) {
+                  groupmember.score += doc.data().challengeScore;
+                }
+              });
+              /* console.log(groupmember.id + " " + groupmember.score); */
+              firebase
+                .firestore()
+                .collection("groups")
+                .doc(group.id)
+                .collection("groupMembers")
+                .doc(groupmember.id)
+                .update({ score: groupmember.score });
+            });
+        });
+      }
+    }
+
+    //Gets the results that is displayed as default value in the input field
+    function getResultForMember(groupmember) {
+      let memberResult = "";
+      for (let i = 0; i < resultsForChallenge.length; i++) {
+        if (resultsForChallenge[i].id === groupmember.id) {
+          memberResult = resultsForChallenge[i].challengeResult;
+        }
+      }
+      return memberResult;
+    }
+
+    //Gets the results that is displayed as default value in the input field
+    function sortingResultForMember(groupmember, challenge) {
+      if (challenge.sortingType === "høy") {
+        return getResultForMember(groupmember);
+      } else {
+        return -getResultForMember(groupmember);
+      }
+    }
+
+    //Sets results when the results is changed in the input field
+    function setResultForMember(result, groupmember) {
+      resultsForChallenge.map((ress) => {
+        if (groupmember.id === ress.id) {
+          ress.challengeResult = result;
+        }
+      });
+    }
+
+    function setChallengeScore(challenge) {
+      challenge.score = groupMembers.length;
+    }
+
+    function addRankForMember(groupmember, challenge) {
+      resultsForChallenge.map((ress) => {
+        if (groupmember.id === ress.id) {
+          ress.score = challenge.score;
+
+          challenge.score--;
+        }
+      });
+    }
 
     return (
       <div>
         {challenges.map((challenge) => (
           <div key={challenge.id} className="display-box">
+            {setChallengeScore(challenge)}
             <div className="display-challenges-ranking">
               {/* {challenge.length === 3 ? challengeIsOpen(challenge) : null} */}
-              {console.log(challenge)}
+              {/* {console.log(challenge)} */}
+
               <label className="display-header">
                 {challenge.challengeName}
               </label>
-              <button
-                className="AddResultButton"
-                key={challenge.id}
-                onClick={() => updateChallengeIsOpen(challenge)}
-              >
-                {challenge.challengeIsOpen ? (
+              {challenge.challengeIsOpen ? (
+                <button
+                  className="AddResultButton"
+                  key={challenge.id}
+                  onClick={() => closeOneChallenge(challenge)}
+                >
                   <label className="no-margin">Lukk</label>
-                ) : (
+                </button>
+              ) : (
+                <button
+                  className="AddResultButton"
+                  key={challenge.id}
+                  onClick={() => openCorrectChallenge(challenge)}
+                >
                   <label className="no-margin">Legg til resultat</label>
-                )}
-              </button>
+                </button>
+              )}
             </div>
             {challenge.challengeIsOpen ? (
               <div className="margin-bottom">
                 {isAdmin ? (
-                  groupMembers.map((groupmember) => (
-                    <div className="display-challenges-ranking margin">
-                      <label>{groupmember.name}</label>
-                      <form>
-                        <div>
-                          <input
-                            className="form-control"
-                            placeholder="Resultatet"
-                            //value={groupName}
-                            //onChange={(e) => setGroupName(e.target.value)}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </form>
-                    </div>
-                  ))
+                  groupMembers
+                    .sort(
+                      (a, b) =>
+                        sortingResultForMember(b, challenge) -
+                        sortingResultForMember(a, challenge)
+                    )
+                    .map((groupmember) => (
+                      <div
+                        className="display-challenges-ranking margin"
+                        key={groupmember.id}
+                      >
+                        {addRankForMember(groupmember, challenge)}
+
+                        <label>{groupmember.name}</label>
+                        <form>
+                          <div className="result-form-div">
+                            <input
+                              type="number"
+                              className="form-control form-control-width"
+                              defaultValue={getResultForMember(groupmember)}
+                              onChange={(e) =>
+                                setResultForMember(e.target.value, groupmember)
+                              }
+                              autoComplete="off"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                    ))
                 ) : (
-                  <div>Mulighet for å oppdatere bare egne resultateter</div>
+                  <div>Mulighet for å oppdatere bare egne resultater</div>
                 )}
                 <div className="d-flex justify-content-center">
+                  {console.log(resultsForChallenge)}
                   <button
                     className="SaveResultButton"
                     key={challenge.id}
-                    onClick={() => updateChallengeIsOpen(challenge)}
+                    onClick={() => setResultInFirestore(challenge)}
                   >
                     Lagre
                   </button>
@@ -254,7 +397,7 @@ function GroupPageList() {
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group /* , startDate, endDate */)}
-      {group.groupType ? RankingGroup() : CheckBoxGroup()}
+      {group.groupType === "ranking" ? RankingGroup() : CheckBoxGroup()}
     </div>
   );
 }
