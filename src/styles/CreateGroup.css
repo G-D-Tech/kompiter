@@ -128,7 +128,7 @@
 
 input[type="checkbox"] {
   transform: scale(2);
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 .groupTypeText {
@@ -156,7 +156,7 @@ input[type="checkbox"] {
 .opprettGruppeHeader {
   font-size: 23px;
   margin-top: 10px;
-  margin-left: -35px;
+  margin-left: -45px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
 }
@@ -198,8 +198,4 @@ input[type="checkbox"] {
   border-radius: 10px !important;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
-}
-
-.input[type="checkbox"] {
-  margin-left: 20px;
 }
