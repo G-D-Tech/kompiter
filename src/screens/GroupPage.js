@@ -137,7 +137,7 @@ function GroupPage() {
         .map((groupMember, index) => (
           <div>
             {groupMember.viewIsOpen ? (
-              <div
+              <button
                 className="display-scoreChallenges" //add flex for å ha ved siden av number og navn
                 key={index + 1}
               >
@@ -155,7 +155,7 @@ function GroupPage() {
                 </div>
                 {challenges.map((challenge) =>
                   checkGroupMember(challenge, groupMember.id) ? (
-                    <div
+                    <button
                       className="display-ScoreChallenges"
                       onClick={() =>
                         downloadFromFirebase(challenge, groupMember)
@@ -173,12 +173,12 @@ function GroupPage() {
                           </div>
                         ) : null}
                       </div>
-                    </div>
+                    </button>
                   ) : null
                 )}
-              </div>
+              </button>
             ) : (
-              <div
+              <button
                 className="display-scoreChallenges"
                 key={index + 1}
                 onClick={() => updateViewIsOpen(groupMember)}
@@ -192,7 +192,7 @@ function GroupPage() {
                     Score: {groupMember.score} / {totalChallenges}
                   </label>
                 </div>
-              </div>
+              </button>
             )}
           </div>
         ))}

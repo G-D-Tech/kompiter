@@ -58,7 +58,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
       </div>
       <div className="inputGroup-container">
         <input
-          className="form-control GroupNameBox"
+          className="form-control GroupCodeBox "
           readOnly={true}
           value={group.id}
         />

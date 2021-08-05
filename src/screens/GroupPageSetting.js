@@ -205,7 +205,16 @@ function GroupPageSetting() {
             </div>
           ) : null}
         </div>
-      ) : null}
+      ) : (
+        <div className="display-membersNotAdminOuter">
+          <label
+            className="uncompletedChallengesText"
+            onClick={() => setOpenAdmins(!openAdmins)}
+          >
+            Du er ikke administrator
+          </label>
+        </div>
+      )}
       <div className="display-challenges">
         <label className="uncompletedChallengesText">
           {deleteOrLeave} denne gruppa

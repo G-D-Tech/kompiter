@@ -27,8 +27,8 @@ function GroupPageAdd() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [rename, setRename] = useState();
   const [renameIsOpen, setRenameIsOpen] = useState(false);
-  const [sortingType, setSortingType] = useState("høy");
   const [imageProof, setImageProof] = useState(false);
+  /*  const [groupMembers, setGroupMembers] = useState([]); */
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -58,6 +58,14 @@ function GroupPageAdd() {
     challenge.settingIsOpen = !challenge.settingIsOpen;
     setRenameIsOpen(false);
     setModalIsOpen(!modalIsOpen);
+  }
+
+  function checkGroupMember(challenge, groupMember) {
+    var isMember = false;
+    challenge.membersCompletedChallenge.map((member) =>
+      member === groupMember ? (isMember = true) : null
+    );
+    return isMember;
   }
 
   //Deletes challenge from group
@@ -92,13 +100,25 @@ function GroupPageAdd() {
         });
         items.map((i) =>
           i.score > 0
-            ? firebase
-                .firestore()
-                .collection("groups")
-                .doc(group.id)
-                .collection("groupMembers")
-                .doc(i.id)
-                .update({ score: firebase.firestore.FieldValue.increment(-1) })
+            ? checkGroupMember(challenge, i.id)
+              ? firebase
+                  .firestore()
+                  .collection("groups")
+                  .doc(group.id)
+                  .collection("groupMembers")
+                  .doc(i.id)
+                  .update({
+                    score: firebase.firestore.FieldValue.increment(-1),
+                  })
+              : firebase
+                  .firestore()
+                  .collection("groups")
+                  .doc(group.id)
+                  .collection("groupMembers")
+                  .doc(i.id)
+                  .update({
+                    score: firebase.firestore.FieldValue.increment(0),
+                  })
             : null
         );
       });
@@ -141,7 +161,6 @@ function GroupPageAdd() {
   function updateSettingIsOpen(challenge) {
     challenge.settingIsOpen = !challenge.settingIsOpen;
     setModalIsOpen(!modalIsOpen);
-    console.log(challenge);
   }
 
   //Gets all challenges belonging to current group
@@ -282,7 +301,6 @@ function GroupPageAdd() {
                         challengeName: challengeName,
                         id: uuidv4(),
                         membersCompletedChallenge: [],
-                        sortingType: sortingType,
                         imageProof: imageProof,
                       })
                     : setAddIsOpen(false);
@@ -323,7 +341,10 @@ function GroupPageAdd() {
                           <BsThreeDots
                             className="unchecked-circle"
                             size={40}
-                            onClick={() => updateSettingIsOpen(challenge)}
+                            onClick={() => {
+                              updateSettingIsOpen(challenge);
+                              setRenameIsOpen(!renameIsOpen);
+                            }}
                           ></BsThreeDots>
                         </div>
                       </div>

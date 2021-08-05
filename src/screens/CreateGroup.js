@@ -93,18 +93,21 @@ const CreateGroup = () => {
         ? (setFirstRun(false),
           setRandomNumber("" + Math.floor(100000 + Math.random() * 900000)))
         : null}
-      <div className="container">
+      <div className="container opprettGruppeTop">
         <Link to="/">
           <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
         </Link>
-        <h1 className="groupHead">Ny gruppe</h1>
+        <h1 className="opprettGruppeHeader">Opprett gruppe</h1>
+        <label></label>
       </div>
-      <div className="input-container">
-        <label className="text">Gruppenavn</label>
+      <div className="navbarTopOpprettGruppe"></div>
+      <div>
+        <label className="opprettGruppeSecondHeader">Navn</label>
         <form>
           <div className="GroupNameBox">
             <input
-              className="form-control"
+              className="form-control form-control1"
+              type="text"
               id="exampleFormControlInput"
               placeholder="Gruppenavn"
               value={groupName}
@@ -114,6 +117,7 @@ const CreateGroup = () => {
           </div>
         </form>
       </div>
+      <div className="navbarTopOpprettUnder"></div>
       {/* <div className="inputDate-container">
         <label className="text">Startdato</label>
         <div className="dateBox">
@@ -143,35 +147,39 @@ const CreateGroup = () => {
         </div>
       </div> */}
 
-      <div className="d-flex justify-content-center container">
-        <label className="checkboxContainer">
-          <input type="checkbox" id="adminCheckbox"></input>
-          <span className="checkmark"></span>
-        </label>
-        <label
-          className="textAdmin"
-          onClick={() => {
-            setAdminInfo(!adminInfo);
-          }}
-        >
-          Administrator
-        </label>
-        <RiArrowDownSFill
-          size={20}
-          className="iconArrowDown "
-          onClick={() => {
-            setAdminInfo(!adminInfo);
-          }}
-        ></RiArrowDownSFill>
-      </div>
-      {adminInfo ? (
-        <label className="infoAdmin">
-          {/* Ved å huke av her vil bare du kunne legge til utfordringer i denne
+      <div>
+        <label className="opprettGruppeSecondHeader">Administrator</label>
+        <form>
+          <div className="GroupNameBox">
+            <div className="form-control form-control1">
+              <input type="checkbox" id="adminCheckbox"></input>
+              <label
+                className="textAdmin"
+                onClick={() => {
+                  setAdminInfo(!adminInfo);
+                }}
+              >
+                Administrator
+              </label>
+              <RiArrowDownSFill
+                size={27}
+                className="iconArrowDown "
+                onClick={() => {
+                  setAdminInfo(!adminInfo);
+                }}
+              ></RiArrowDownSFill>
+            </div>
+          </div>
+          {adminInfo ? (
+            <label className="infoAdmin">
+              {/* Ved å huke av her vil bare du kunne legge til utfordringer i denne
           gruppa. */}
-          Administrator er den eneste som kan legge til eller slette
-          utfordringer. (Kan legge til flere administrator senere)
-        </label>
-      ) : null}
+              Administrator er den eneste som kan legge til eller slette
+              utfordringer. (Kan legge til flere administrator senere)
+            </label>
+          ) : null}
+        </form>
+      </div>
 
       <div className="button-container">
         <button

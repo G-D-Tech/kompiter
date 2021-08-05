@@ -3,8 +3,6 @@
   padding-bottom: 70px;
   margin-top: 20px;
   background-color: #4d85f2;
-  margin-left: 2%;
-  margin-right: 2%;
   border-radius: 40px;
 }
 
@@ -38,7 +36,7 @@
   align-items: center;
   margin-top: 15px;
   margin-left: 9%;
-  margin-right: 9%;
+  margin-right: 40%;
 }
 
 .sendTilVenner {
@@ -129,20 +127,22 @@
   display: flex;
   justify-content: space-around !important;
   margin-top: 30px;
+  margin-left: -5%;
+  margin-right: -5%;
   color: white;
 }
 
 .navbar-line {
   border-bottom: 2px solid;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
   margin-bottom: 20px;
 }
 
 .navbar-challengeLine {
   border-bottom: 1px solid;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2%;
+  margin-right: 2%;
   margin-bottom: 20px;
   color: white;
 }
@@ -214,10 +214,11 @@
   padding: 15px;
   margin-top: 20px;
   background-color: #4d85f2;
+  border-width: 1px;
+  border-color: white;
   border-radius: 15px;
-  margin-left: 5%;
-  margin-right: 5%;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  width: 96%;
+  margin-left: 2%;
 }
 
 .display-challenges {
@@ -227,35 +228,35 @@
   padding: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 5%;
-  margin-right: 5%;
-  background-color: #4d85f2;
+  width: 96%;
+  margin-left: 2%;
+  background-color: #2e54ad;
   border-radius: 15px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .display-ScoreChallenges {
+  background-color: #4d85f2;
+  border-width: 1px;
+  border-color: white;
+  border-radius: 15px;
+  width: 96%;
+  margin-left: 2%;
   display: flex;
   flex-direction: column;
+  justify-content: left;
   padding: 8px;
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: 5%;
-  margin-right: 5%;
-  background-color: #4d85f2;
-  border-radius: 15px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .display-challengesSettings {
   padding: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 5%;
-  margin-right: 5%;
-  background-color: #4d85f2;
+  width: 96%;
+  margin-left: 2%;
+  background-color: #2e54ad;
   border-radius: 15px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .settings {
@@ -347,14 +348,10 @@
 }
 
 .display-cDone {
-  display: flex;
-  margin-left: 10px;
   color: white;
   font-size: 17px;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
-  margin-left: 5%;
-  margin-right: 5%;
 }
 
 .display-sendTilVenner {

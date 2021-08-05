@@ -1,12 +1,16 @@
-/* .container {
+.container {
   margin-top: 30px;
-} */
+}
 
 .inputCodeStyle {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.inputCode {
+  font-size: 18px;
 }
 
 .leftColumn {
@@ -64,13 +68,14 @@
 }
 
 #groupText {
-  font-size: 30px;
+  font-size: 26px;
   font-family: "Roboto", sans-serif;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-top: 30px;
-  padding-bottom: 40px;
+  padding-top: 20px;
+  padding-left: 30px;
+  color: rgb(61, 61, 61);
   font-weight: 700;
+  display: flex;
+  justify-content: space-between;
 }
 
 .memberNumber {
@@ -78,11 +83,21 @@
   font-family: "Roboto", sans-serif;
   margin-left: 1%;
   font-weight: 700;
+  color: rgb(61, 61, 61);
+}
+
+.iconLongArrow {
+  display: flex;
+  color: rgb(61, 61, 61);
+  justify-content: left;
+  margin-right: 30px;
 }
 
 .members {
   display: flex;
   justify-content: right;
+  margin-bottom: 30px;
+  margin-left: 30px;
 }
 
 .RedButtonStyle {
@@ -90,16 +105,12 @@
   font-size: 18px;
   color: white;
   letter-spacing: 1px;
-  background-color: #e94e4e;
-  border-color: #e94e4e;
+  background-color: #e93f36;
   border-radius: 12px;
   text-align: center;
   padding: 8px 23px;
   margin-right: 20px;
   margin-left: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
   font-weight: 700;
 }
 
@@ -154,30 +165,23 @@ a:active {
 }
 
 .GroupButtonStyle {
-  position: relative;
   font-family: "Roboto", sans-serif;
-  width: 90%;
+  width: 92%;
   color: white;
   letter-spacing: 1px;
-  background-color: #4d85f2;
-  border-radius: 12px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.6);
-  transition-duration: 0.2s;
-  cursor: pointer;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 5%;
-  margin-right: 5%;
+  background-color: #f9f9f9;
+  border-radius: 22px;
+  border-width: 1px;
+  border-color: #f9f9f9;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+  margin: -15px;
+  margin-left: 4%;
   font-weight: 700;
 }
 
-.GroupButtonStyle:hover {
-  background-color: #4d85f2;
-}
-
 .GroupButtonStyle:active {
-  background: #96b3e2;
-  box-shadow: inset 0px 0px 5px #96b3e2;
+  background: #adadad;
+  box-shadow: inset 0px 0px 5px #adadad;
 }
 
 html {
@@ -193,15 +197,11 @@ html {
   font-size: 18px;
   color: white;
   letter-spacing: 1px;
-  background-color: #e94e4e;
-  border-color: #e94e4e;
-  border-radius: 12px;
+  background-color: #e93f36;
+  border-radius: 10px;
   text-align: center;
   padding: 8px 23px;
   margin-left: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
   font-weight: 700;
 }
 
@@ -209,4 +209,13 @@ html {
   padding-top: 30px;
   margin-left: -5px;
   padding-bottom: 20px;
+}
+
+/* .background {
+  background-color: #f9f9f9;
+}
+ */
+.form-control2 {
+  font-size: 18px !important;
+  border-radius: 10px !important;
 }

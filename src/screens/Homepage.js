@@ -8,6 +8,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import Modal from "react-modal";
 import { HiUserGroup } from "react-icons/hi";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 const Homepage = () => {
   const [groups, setGroups] = useState([]);
@@ -221,7 +222,7 @@ const Homepage = () => {
   }, [currentUser]);
 
   return (
-    <div>
+    <div className="background">
       <div className="container">
         <div>
           {currentUser ? (
@@ -251,7 +252,7 @@ const Homepage = () => {
           <div className="leftColumn">
             <form>
               <input
-                className="form-control"
+                className="form-control form-control2"
                 id="exampleFormControlInput"
                 placeholder="Gruppekode"
                 value={groupCode}
@@ -336,12 +337,13 @@ const Homepage = () => {
             }}
           >
             <button className="GroupButtonStyle" id="createGroupButton">
-              <div className="members">
-                <HiUserGroup color="white" size={20} />
-                <div className="memberNumber">{group.numberOfGroupMembers}</div>
-              </div>
-              <div className="d-flex justify-content-center" id="groupText">
+              <div className="d-flex justify-content-left" id="groupText">
                 {group.groupName}
+                <FaLongArrowAltRight className="iconLongArrow" size={28} />
+              </div>
+              <div className="members">
+                <HiUserGroup color="#5989F5" size={20} />
+                <div className="memberNumber">{group.numberOfGroupMembers}</div>
               </div>
             </button>
           </Link>

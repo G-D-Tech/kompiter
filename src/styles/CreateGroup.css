@@ -37,7 +37,9 @@
 } */
 
 .GroupNameBox {
-  width: 200px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 20px;
 }
 
 .dateBox {
@@ -45,15 +47,15 @@
 }
 
 .IoIosArrowBack {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   color: black;
   margin-left: 15px;
 }
 
-.input-container {
+.inputOpprettGruppe {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
@@ -95,17 +97,18 @@
   margin-top: 45px;
 }
 
-.input-container .react-datepicker-wrapper {
+/* .input-container .react-datepicker-wrapper {
   margin-top: 30px;
 }
 
 .input-container .react-datepicker-wrapper input {
   padding: 5px;
-}
+} */
 
 .iconArrowDown {
-  margin-left: -15px;
-  margin-top: 4px;
+  color: #4d85f2;
+  margin-top: -5px;
+  margin-right: -10px;
 }
 
 .infoAdmin {
@@ -118,10 +121,9 @@
 
 .textAdmin {
   font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  margin-left: 2%;
+  font-size: 23px;
   margin-right: 5%;
-  font-weight: 700;
+  margin-left: 20%;
 }
 
 input[type="checkbox"] {
@@ -149,4 +151,55 @@ input[type="checkbox"] {
 
 .groupTypeOuter {
   margin-bottom: 5%;
+}
+
+.opprettGruppeHeader {
+  font-size: 23px;
+  margin-top: 10px;
+  margin-left: -35px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.opprettGruppeSecondHeader {
+  font-size: 23px;
+  margin-top: 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  display: flex;
+  justify-content: left;
+  margin-left: 30px;
+}
+
+.opprettGruppeTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.navbarTopOpprettGruppe {
+  border-bottom: 1px solid;
+  color: gray;
+  margin-bottom: 15px;
+}
+
+.navbarTopOpprettUnder {
+  border-bottom: 1px solid;
+  color: gray;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 15px;
+}
+
+.form-control1 {
+  font-size: 23px !important;
+  border-radius: 10px !important;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+.input[type="checkbox"] {
+  margin-left: 20px;
 }
