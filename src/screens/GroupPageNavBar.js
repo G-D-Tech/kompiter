@@ -12,6 +12,7 @@ import {
   /* BsListOl, */
   BsPlus,
   BsThreeDots,
+  BsPencil,
 } from "react-icons/bs";
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -57,9 +58,9 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
       </div>
       <div className="inputGroup-container">
         <input
-          className="form-control GroupNameBox"
-          /*           value={group.id} */
-          defaultValue={group.id}
+          className="form-control GroupCodeBox "
+          readOnly={true}
+          value={group.id}
         />
         <CopyToClipboard text={group.id}>
           <FiCopy
@@ -102,7 +103,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
             },
           }}
         >
-          <BsPlus size={40} className="navBarIcon"></BsPlus>
+          <BsPencil size={33} className="navBarIcon"></BsPencil>
         </NavLink>
         <NavLink
           to={{

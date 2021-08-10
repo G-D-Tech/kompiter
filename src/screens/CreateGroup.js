@@ -9,9 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../styles/CreateGroup.css";
 import "../styles/Homepage.css";
 
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
-
 import { FiCopy } from "react-icons/fi";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { IoIosArrowBack } from "react-icons/io";
@@ -19,10 +16,6 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowDownSFill } from "react-icons/ri";
 
 import firebase from "../firebase";
-
-import { BsFillInfoCircleFill } from "react-icons/bs";
-
-import "bootstrap/dist/css/bootstrap.min.css"; //Used to display sortingType
 
 const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
@@ -34,9 +27,17 @@ const CreateGroup = () => {
   const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
   const [adminInfo, setAdminInfo] = useState(false);
-  const [groupTypeInfoOpen, setGroupTypeInfoOpen] = useState(false);
 
-  const [groupType, setGroupType] = useState("checkBox");
+  function showCopiedText() {
+    var x = document.getElementById("myLabel");
+    if (x.style.display === "none") {
+      x.style.marginLeft = "50%";
+      x.style.display = "block";
+      setTimeout(function () {
+        x.style.display = "none";
+      }, 1000);
+    }
+  }
 
   //Adds a new group to current user
   function addGroup(newGroup) {
@@ -92,18 +93,21 @@ const CreateGroup = () => {
         ? (setFirstRun(false),
           setRandomNumber("" + Math.floor(100000 + Math.random() * 900000)))
         : null}
-      <div className="container">
+      <div className="container opprettGruppeTop">
         <Link to="/">
           <IoIosArrowBack className="IoIosArrowBack"></IoIosArrowBack>
         </Link>
-        <h1 className="groupHead">Ny gruppe</h1>
+        <h1 className="opprettGruppeHeader">Opprett gruppe</h1>
+        <label></label>
       </div>
-      <div className="input-container">
-        <label className="text">Gruppenavn</label>
+      <div className="navbarTopOpprettGruppe"></div>
+      <div>
+        <label className="opprettGruppeSecondHeader">Navn</label>
         <form>
           <div className="GroupNameBox">
             <input
-              className="form-control"
+              className="form-control form-control1"
+              type="text"
               id="exampleFormControlInput"
               placeholder="Gruppenavn"
               value={groupName}
@@ -113,6 +117,7 @@ const CreateGroup = () => {
           </div>
         </form>
       </div>
+      <div className="navbarTopOpprettUnder"></div>
       {/* <div className="inputDate-container">
         <label className="text">Startdato</label>
         <div className="dateBox">
@@ -142,69 +147,40 @@ const CreateGroup = () => {
         </div>
       </div> */}
 
-      <div className="d-flex justify-content-center container">
-        <label className="checkboxContainer">
-          <input type="checkbox" id="adminCheckbox"></input>
-          <span className="checkmark"></span>
-        </label>
-        <label
-          className="textAdmin"
-          onClick={() => {
-            setAdminInfo(!adminInfo);
-          }}
-        >
-          Administrator
-        </label>
-        <RiArrowDownSFill
-          size={20}
-          className="iconArrowDown "
-          onClick={() => {
-            setAdminInfo(!adminInfo);
-          }}
-        ></RiArrowDownSFill>
-      </div>
-      {adminInfo ? (
-        <label className="infoAdmin">
-          Ved å huke av her vil bare du kunne legge til utfordringer i denne
-          gruppa.
-        </label>
-      ) : null}
-
-      {/* Choosing type of group */}
-      <div className="d-flex flex-column container groupTypeContainer">
-        <div className="groupTypeOuter">
-          <label className="groupTypeText">Type gruppe:</label>
-          <BsFillInfoCircleFill
-            onClick={() => setGroupTypeInfoOpen(!groupTypeInfoOpen)}
-          ></BsFillInfoCircleFill>
-
-          {groupTypeInfoOpen ? (
-            <div id="example-collapse-text">
-              CheckBoxGroup er en type gruppe der hver gjennomførte utfordring
-              gir 1. poeng. RankingGroup gir ulik poengsum avhengig av hvor bra
-              du har gjort det i forhold til de andre gruppemedlemmene på den
-              utfordringen.
+      <div>
+        <label className="opprettGruppeSecondHeader">Administrator</label>
+        <form>
+          <div className="GroupNameBox">
+            <div className="form-control form-control1">
+              <input type="checkbox" id="adminCheckbox"></input>
+              <label
+                className="textAdmin"
+                onClick={() => {
+                  setAdminInfo(!adminInfo);
+                }}
+              >
+                Administrator
+              </label>
+              <RiArrowDownSFill
+                size={27}
+                className="iconArrowDown "
+                onClick={() => {
+                  setAdminInfo(!adminInfo);
+                }}
+              ></RiArrowDownSFill>
             </div>
+          </div>
+          {adminInfo ? (
+            <label className="infoAdmin">
+              {/* Ved å huke av her vil bare du kunne legge til utfordringer i denne
+          gruppa. */}
+              Administrator er den eneste som kan legge til eller slette
+              utfordringer. (Kan legge til flere administrator senere)
+            </label>
           ) : null}
-        </div>
-
-        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-          <ToggleButton
-            id="tbg-radio-1"
-            value={1}
-            onClick={() => setGroupType("checkBox")}
-          >
-            CheckboxGruppe
-          </ToggleButton>
-          <ToggleButton
-            id="tbg-radio-2"
-            value={2}
-            onClick={() => setGroupType("ranking")}
-          >
-            RankingGruppe
-          </ToggleButton>
-        </ToggleButtonGroup>
+        </form>
       </div>
+
       <div className="button-container">
         <button
           className="RedButtonStyle"
@@ -226,45 +202,53 @@ const CreateGroup = () => {
               {groupName} har blitt lagt til i grupper
             </label>
           </div>
+          <label id="myLabel" style={{ display: "none" }}>
+            Kode kopiert
+          </label>
           <div className="codeOutput">
             <input
               className="form-control GroupNameBox"
-              placeholder={randomNumber}
+              readOnly={true}
+              value={randomNumber}
             />
             <CopyToClipboard text={randomNumber}>
-              <FiCopy className="icon-copy" size={30}></FiCopy>
+              <FiCopy
+                className="icon-copy"
+                size={30}
+                onClick={() => showCopiedText()}
+              ></FiCopy>
             </CopyToClipboard>
           </div>
 
           <div className="button-container">
-            <button
-              className="RedButtonStyle"
-              onClick={() => {
-                document.getElementById("adminCheckbox").checked
-                  ? addGroup({
-                      groupName: groupName,
-                      id: randomNumber,
-                      //startDate: startDate,
-                      //endDate: endDate,
-                      numberOfGroupMembers: 1,
-                      numberOfChallenges: 0,
-                      everyoneIsAdmin: false,
-                      groupType: groupType,
-                    })
-                  : addGroup({
-                      groupName: groupName,
-                      id: randomNumber,
-                      //startDate: startDate,
-                      //endDate: endDate,
-                      numberOfGroupMembers: 1,
-                      numberOfChallenges: 0,
-                      everyoneIsAdmin: true,
-                      groupType: groupType,
-                    });
-              }}
-            >
-              <Link to="/">ferdig</Link>
-            </button>
+            <Link to="/">
+              <button
+                className="RedButtonStyle"
+                onClick={() => {
+                  document.getElementById("adminCheckbox").checked
+                    ? addGroup({
+                        groupName: groupName,
+                        id: randomNumber,
+                        //startDate: startDate,
+                        //endDate: endDate,
+                        numberOfGroupMembers: 1,
+                        numberOfChallenges: 0,
+                        everyoneIsAdmin: false,
+                      })
+                    : addGroup({
+                        groupName: groupName,
+                        id: randomNumber,
+                        //startDate: startDate,
+                        //endDate: endDate,
+                        numberOfGroupMembers: 1,
+                        numberOfChallenges: 0,
+                        everyoneIsAdmin: true,
+                      });
+                }}
+              >
+                ferdig
+              </button>
+            </Link>
           </div>
         </Modal>
       ) : (

@@ -24,12 +24,13 @@ function GroupPageAdd() {
   const [challengeName, setChallengeName] = useState("");
   const [challenges, setChallenges] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  /* const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false); */
   const [isAdmin, setIsAdmin] = useState(false);
   const [rename, setRename] = useState();
   const [renameIsOpen, setRenameIsOpen] = useState(false);
   const [sortingType, setSortingType] = useState("høy");
   const [groupMembers, setGroupMembers] = useState([]);
+  const [imageProof, setImageProof] = useState(false);
+  /*  const [groupMembers, setGroupMembers] = useState([]); */
 
   //Adds challenge to current group
   function addChallenge(newChallenge) {
@@ -68,6 +69,20 @@ function GroupPageAdd() {
       });
     setChallengeName("");
     setAddIsOpen(false);
+  }
+
+  function updateSettingIsOpen(challenge) {
+    challenge.settingIsOpen = !challenge.settingIsOpen;
+    setRenameIsOpen(false);
+    setModalIsOpen(!modalIsOpen);
+  }
+
+  function checkGroupMember(challenge, groupMember) {
+    var isMember = false;
+    challenge.membersCompletedChallenge.map((member) =>
+      member === groupMember ? (isMember = true) : null
+    );
+    return isMember;
   }
 
   //Deletes challenge from group
@@ -119,13 +134,25 @@ function GroupPageAdd() {
         });
         items.map((i) =>
           i.score > 0
-            ? firebase
-                .firestore()
-                .collection("groups")
-                .doc(group.id)
-                .collection("groupMembers")
-                .doc(i.id)
-                .update({ score: firebase.firestore.FieldValue.increment(-1) })
+            ? checkGroupMember(challenge, i.id)
+              ? firebase
+                  .firestore()
+                  .collection("groups")
+                  .doc(group.id)
+                  .collection("groupMembers")
+                  .doc(i.id)
+                  .update({
+                    score: firebase.firestore.FieldValue.increment(-1),
+                  })
+              : firebase
+                  .firestore()
+                  .collection("groups")
+                  .doc(group.id)
+                  .collection("groupMembers")
+                  .doc(i.id)
+                  .update({
+                    score: firebase.firestore.FieldValue.increment(0),
+                  })
             : null
         );
       });
@@ -251,13 +278,13 @@ function GroupPageAdd() {
     return (
       <div>
         <Modal
-          isOpen={deleteModalIsOpen}
+          isOpen={modalIsOpen}
           className="modal-content"
           //onRequestClose={() => setModalIsOpen(false)}
           ariaHideApp={false}
         >
           <IoIosClose
-            onClick={() => setDeleteModalIsOpen(false)}
+            onClick={() => setModalIsOpen(false)}
             className="modalClose"
             size={40}
           ></IoIosClose>
@@ -271,7 +298,7 @@ function GroupPageAdd() {
               className="RedButtonStyle"
               onClick={() => {
                 deleteChallenge(challenge);
-                setDeleteModalIsOpen(false);
+                setModalIsOpen(false);
               }}
             >
               slett
@@ -280,14 +307,20 @@ function GroupPageAdd() {
         </Modal>
       </div>
     );
-  } */
-
+  }
+ */
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group /* , startDate, endDate */)}
-      <div onClick={() => setAddIsOpen(true)} className="crossPlusButtonStyle">
+      <div
+        onClick={() => {
+          currentUserIsAdmin() ? setAddIsOpen(true) : setAddIsOpen(false);
+        }}
+        className="crossPlusButtonStyle"
+      >
         <BsPlus size={40}></BsPlus>
       </div>
+
       {addIsOpen ? (
         <div className="addBox">
           <input
@@ -296,29 +329,25 @@ function GroupPageAdd() {
             className="form-control"
             placeholder="Skriv inn utfordring..."
           />
-
-          {/* Ranking functionality */}
-          {group.groupType === "ranking" ? (
-            <div className="d-flex flex-column container">
-              <label className="sortingText">Ranger score etter:</label>
-              <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                <ToggleButton
-                  id="tbg-radio-1"
-                  value={1}
-                  onClick={() => setSortingType("høy")}
-                >
-                  Høyest
-                </ToggleButton>
-                <ToggleButton
-                  id="tbg-radio-2"
-                  value={2}
-                  onClick={() => setSortingType("lav")}
-                >
-                  Lavest
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </div>
-          ) : null}
+          <div className="d-flex flex-column container">
+            <label className="sortingText">Krever bildebevis:</label>
+            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+              <ToggleButton
+                id="tbg-radio-1"
+                value={1}
+                onClick={() => setImageProof(false)}
+              >
+                Nei
+              </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-2"
+                value={2}
+                onClick={() => setImageProof(true)}
+              >
+                Ja
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
 
           <div className="addAndCheckBox">
             <div className="crossButtonStyle">
@@ -335,7 +364,7 @@ function GroupPageAdd() {
                         challengeName: challengeName,
                         id: uuidv4(),
                         membersCompletedChallenge: [],
-                        sortingType: sortingType,
+                        imageProof: imageProof,
                       })
                     : setAddIsOpen(false);
                 }}
@@ -375,10 +404,10 @@ function GroupPageAdd() {
                           <BsThreeDots
                             className="unchecked-circle"
                             size={40}
-                            onClick={
-                              (() => updateSettingIsOpen(challenge),
-                              setRenameIsOpen(!renameIsOpen))
-                            }
+                            onClick={() => {
+                              updateSettingIsOpen(challenge);
+                              setRenameIsOpen(!renameIsOpen);
+                            }}
                           ></BsThreeDots>
                         </div>
                       </div>
@@ -400,7 +429,7 @@ function GroupPageAdd() {
                             setRenameIsOpen(!renameIsOpen);
                           }}
                         >
-                          rediger
+                          Rediger
                         </button>
                       </div>
                       <div className="settings">
@@ -409,14 +438,9 @@ function GroupPageAdd() {
                         </label>
                         <button
                           className="settingDeleteButtonStyle"
-                          onClick={
-                            () =>
-                              deleteChallenge(
-                                challenge
-                              ) /* modalIsOpen2(challenge) */
-                          }
+                          onClick={() => deleteChallenge(challenge)}
                         >
-                          slett
+                          Slett
                         </button>
                       </div>
                     </div>
@@ -446,7 +470,7 @@ function GroupPageAdd() {
                             setRenameIsOpen(!renameIsOpen);
                           }}
                         >
-                          rediger
+                          Rediger
                         </button>
                       </div>
                       <div className="settings">
@@ -455,14 +479,9 @@ function GroupPageAdd() {
                         </label>
                         <button
                           className="settingDeleteButtonStyle"
-                          onClick={
-                            () =>
-                              deleteChallenge(
-                                challenge
-                              ) /* modalIsOpen2(challenge) */
-                          }
+                          onClick={() => deleteChallenge(challenge)}
                         >
-                          slett
+                          Slett
                         </button>
                       </div>
                     </div>

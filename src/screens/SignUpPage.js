@@ -139,6 +139,7 @@ const SignUpPage = () => {
             </Link>
           </div>
           <div className="container-center">
+            <img src="/fullLogoKompit.png" height="50px" />
             <section className="container-center">
               <label className="loginTextSmall">Opprett en ny konto</label>
               <input

@@ -4,8 +4,9 @@ import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import "../styles/GroupPageList.css";
 import firebase from "../firebase";
+import storage from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
-import { BsCircle, BsCheckCircle } from "react-icons/bs";
+import { BsCircle, BsCheckCircle, BsCheck } from "react-icons/bs";
 
 function GroupPageList() {
   const location = useLocation();
@@ -14,6 +15,13 @@ function GroupPageList() {
   const [currentUser, setCurrentUser] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [groupMembers, setGroupMembers] = useState([]);
+  const [imageModalIsOpen, setImageModalIsOpen] = useState(false);
+  const [viewImageModalIsOpen, setViewImageModalIsOpen] = useState(false);
+  const [imageIsSent, setImageIsSent] = useState(false);
+  const [image, setImage] = useState(null);
+  const [imageList, setImageList] = useState();
+  const [imageUrl, setImageUrl] = useState();
+  const [fileName, setFileName] = useState();
 
   //Gets current user
   useEffect(() => {
@@ -85,6 +93,85 @@ function GroupPageList() {
 
   //For checkBoxGroups
   function CheckBoxGroup() {
+    function uploadToFirebase(challenge) {
+      firebase
+        .storage()
+        .ref(`${group.id}/${currentUser.uid}/${challenge.id}`)
+        .put(image)
+        .then(() => {
+          challenge.imageIsSent = !challenge.imageIsSent;
+          setImageIsSent(!imageIsSent);
+          changeBoolChallenge(challenge);
+        });
+    }
+
+    function deleteImage(challenge) {
+      setImageUrl("");
+      viewImageIsOpen(challenge);
+      changeBoolChallenge(challenge);
+      firebase
+        .storage()
+        .ref(`${group.id}/${currentUser.uid}/${challenge.id}`)
+        .delete();
+    }
+
+    function downloadFromFirebase(challenge) {
+      {
+        closeAllViewImage();
+        viewImageIsOpen(challenge);
+        !imageUrl
+          ? firebase
+              .storage()
+              .ref(`${group.id}/${currentUser.uid}/${challenge.id}`)
+              .getDownloadURL()
+              .then((fireBaseUrl) => {
+                setImageUrl(fireBaseUrl);
+                const data = firebase.storage().refFromURL(fireBaseUrl);
+                //console.log(data);
+                //setImageList(data.name);
+              })
+              .catch((err) => {
+                console.log("hei");
+              })
+          : closeAllViewImage();
+      }
+    }
+
+    function closeAllViewImage() {
+      for (let i = 0; i < challenges.length; i++) {
+        challenges[i].viewImageIsOpen = false;
+      }
+      setImageUrl("");
+    }
+
+    function onImageChange(e) {
+      const reader = new FileReader();
+      let file = e.target.files[0]; // get the supplied file
+      // if there is a file, set image to that file
+      if (file) {
+        reader.onload = () => {
+          if (reader.readyState === 2) {
+            setImage(file);
+            setFileName(file.name);
+          }
+        };
+        reader.readAsDataURL(e.target.files[0]);
+        // if there is no file, set image back to null
+      } else {
+        setImage(null);
+      }
+    }
+
+    function updateImageIsOpen(challenge) {
+      challenge.imageIsOpen = !challenge.imageIsOpen;
+      setImageModalIsOpen(!imageModalIsOpen);
+    }
+
+    function viewImageIsOpen(challenge) {
+      challenge.viewImageIsOpen = !challenge.viewImageIsOpen;
+      setViewImageModalIsOpen(!viewImageModalIsOpen);
+    }
+
     //Checks if challenge is finnished and updates firestore
     function changeBoolChallenge(challenge) {
       if (checkGroupMember(challenge)) {
@@ -141,35 +228,124 @@ function GroupPageList() {
         {challenges.map((challenge) => (
           <div key={challenge.id}>
             {checkGroupMember(challenge) ? (
-              <div
-                className="display-challengesDone"
-                onClick={() => {
-                  changeBoolChallenge(challenge);
-                }}
-              >
-                <label className="display-header">
-                  {challenge.challengeName}
-                </label>
+              <div className="display-challengesDone">
                 <div>
-                  <BsCheckCircle
-                    className="unchecked-circle"
-                    size={39}
-                  ></BsCheckCircle>
+                  <div
+                    className="imageIsOpen"
+                    onClick={() => {
+                      {
+                        challenge.imageProof
+                          ? downloadFromFirebase(challenge)
+                          : changeBoolChallenge(challenge);
+                      }
+                    }}
+                  >
+                    <div>
+                      <label className="display-header">
+                        {challenge.challengeName}
+                      </label>
+                      {challenge.imageProof ? (
+                        <label className="imageProofText">Vis bilde</label>
+                      ) : null}
+                    </div>
+                    <div>
+                      <BsCheckCircle
+                        className="unchecked-circle"
+                        size={39}
+                      ></BsCheckCircle>
+                    </div>
+                  </div>
+
+                  {challenge.viewImageIsOpen ? (
+                    <div className="imageAndButton">
+                      <img src={imageUrl} width="100%" />
+                      <div>
+                        <button
+                          className="imageDeleteButtonStyle"
+                          onClick={() => {
+                            deleteImage(challenge);
+                          }}
+                        >
+                          Slett
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             ) : (
-              <div
-                className="display-challengesUndone"
-                onClick={() => {
-                  changeBoolChallenge(challenge);
-                }}
-              >
-                <label className="display-header">
-                  {challenge.challengeName}
-                </label>
-                <div>
-                  <BsCircle className="unchecked-circle" size={35}></BsCircle>
-                </div>
+              <div>
+                {challenge.imageProof ? (
+                  <div className="display-challengesUndone">
+                    <div
+                      className="imageIsOpen"
+                      onClick={() => {
+                        updateImageIsOpen(challenge);
+                      }}
+                    >
+                      <div>
+                        <label className="display-header">
+                          {challenge.challengeName}
+                        </label>
+                        <label className="imageProofText">
+                          Krever bildebevis
+                        </label>
+                      </div>
+                      <div>
+                        <BsCircle
+                          className="unchecked-circle"
+                          size={30}
+                        ></BsCircle>
+                      </div>
+                    </div>
+
+                    {challenge.imageIsOpen ? (
+                      <div>
+                        <div className="file-input">
+                          <input
+                            type="file"
+                            id="file"
+                            class="file"
+                            onChange={(e) => {
+                              onImageChange(e);
+                            }}
+                          />
+                          <label htmlFor="file">Velg bilde</label>
+                          <p className="file-name">{fileName}</p>
+                        </div>
+                        <div
+                          className="imageAddButtonStyle"
+                          onClick={() =>
+                            image
+                              ? (uploadToFirebase(challenge), setImage(""))
+                              : null
+                          }
+                        >
+                          Legg til
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : (
+                  <div
+                    className="display-challengesUndone"
+                    onClick={() => {
+                      changeBoolChallenge(challenge);
+                    }}
+                  >
+                    <div className="imageIsOpen">
+                      <label className="display-header">
+                        {challenge.challengeName}
+                      </label>
+                      <div>
+                        <BsCircle
+                          className="unchecked-circle"
+                          size={35}
+                        ></BsCircle>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -196,22 +372,8 @@ function GroupPageList() {
         challenges[i].challengeIsOpen = false;
       }
       challenge.challengeIsOpen = true;
-      //Gets saved results for challenge
-      firebase
-        .firestore()
-        .collection("groups")
-        .doc(group.id)
-        .collection("challenges")
-        .doc(challenge.id)
-        .collection("results")
-        .onSnapshot((querySnapshot) => {
-          const items = [];
-          querySnapshot.forEach((doc) => {
-            items.push(doc.data());
-          });
-          setResultsForChallenge(items);
-        });
     }
+    //Gets saved results for challenge
 
     //Saves the updated results to firebase when the save-button is pressed
     function setResultInFirestore(challenge) {

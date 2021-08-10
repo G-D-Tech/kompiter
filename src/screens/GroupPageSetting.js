@@ -18,6 +18,7 @@ function GroupPageSetting() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [groupMembers, setGroupMembers] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [openAdmins, setOpenAdmins] = useState(false);
 
   //Gets current user
   useEffect(() => {
@@ -127,17 +128,31 @@ function GroupPageSetting() {
       .update({ isAdmin: true });
   }
 
+  function deleteAdmin(member) {
+    firebase
+      .firestore()
+      .collection("groups")
+      .doc(group.id)
+      .collection("groupMembers")
+      .doc(member.id)
+      .update({ isAdmin: false });
+  }
+
   return (
     <div className="modalGroup-content">
       {GroupPageNavBar(group /* , startDate, endDate */)}
 
       {isAdmin && !group.everyoneIsAdmin ? (
         <div className="display-membersNotAdminOuter">
-          <label className="uncompletedChallengesText">
-            Legg til nye medlem som admin i gruppa
+          <label
+            className="uncompletedChallengesText"
+            onClick={() => setOpenAdmins(!openAdmins)}
+          >
+            Legg til administrator
           </label>
-          <div>
-            {groupMembers.map((member) =>
+          {openAdmins ? (
+            <div>
+              {/* {groupMembers.map((member) =>
               !member.isAdmin ? (
                 <div
                   className="display-membersNotAdminInner settings"
@@ -155,10 +170,53 @@ function GroupPageSetting() {
                   </button>
                 </div>
               ) : null
-            )}
-          </div>
+            )} */}
+              {groupMembers.map((member) => (
+                <div
+                  className="display-membersNotAdminInner settings"
+                  key={member.id}
+                >
+                  <label className="mediumText">{member.name}</label>
+                  {member.isAdmin ? (
+                    member.id === currentUser.uid ? (
+                      <button className="settingChangeButtonStyle">
+                        Admin
+                      </button>
+                    ) : (
+                      <button
+                        className="settingChangeButtonStyle"
+                        onClick={() => {
+                          deleteAdmin(member);
+                        }}
+                      >
+                        Admin
+                      </button>
+                    )
+                  ) : (
+                    <button
+                      className="settingAddButtonStyle"
+                      onClick={() => {
+                        makeAdmin(member);
+                      }}
+                    >
+                      Legg til
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      ) : (
+        <div className="display-membersNotAdminOuter">
+          <label
+            className="uncompletedChallengesText"
+            onClick={() => setOpenAdmins(!openAdmins)}
+          >
+            Du er ikke administrator
+          </label>
+        </div>
+      )}
       <div className="display-challenges">
         <label className="uncompletedChallengesText">
           {deleteOrLeave} denne gruppa
