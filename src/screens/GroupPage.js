@@ -18,6 +18,8 @@ function GroupPage() {
   const [totalChallenges, setTotalChallenges] = useState("0");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const firstMapping = true;
+  const [viewImageModalIsOpen, setViewImageModalIsOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
 
   function viewIsOpen(groupMember) {
     groupMember.viewIsOpen = false;
