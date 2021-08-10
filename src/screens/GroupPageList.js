@@ -372,8 +372,22 @@ function GroupPageList() {
         challenges[i].challengeIsOpen = false;
       }
       challenge.challengeIsOpen = true;
+      //Gets saved results for challenge
+      firebase
+        .firestore()
+        .collection("groups")
+        .doc(group.id)
+        .collection("challenges")
+        .doc(challenge.id)
+        .collection("results")
+        .onSnapshot((querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach((doc) => {
+            items.push(doc.data());
+          });
+          setResultsForChallenge(items);
+        });
     }
-    //Gets saved results for challenge
 
     //Saves the updated results to firebase when the save-button is pressed
     function setResultInFirestore(challenge) {

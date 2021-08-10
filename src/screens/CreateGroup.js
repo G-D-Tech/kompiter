@@ -16,6 +16,11 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiArrowDownSFill } from "react-icons/ri";
 
 import firebase from "../firebase";
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
+import { BsFillInfoCircleFill } from "react-icons/bs";
+
+import "bootstrap/dist/css/bootstrap.min.css"; //Used to display sortingType
 
 const CreateGroup = () => {
   const [groupName, setGroupName] = useState("");
@@ -27,6 +32,9 @@ const CreateGroup = () => {
   const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
   const [adminInfo, setAdminInfo] = useState(false);
+  const [groupTypeInfoOpen, setGroupTypeInfoOpen] = useState(false);
+
+  const [groupType, setGroupType] = useState("checkBox");
 
   function showCopiedText() {
     var x = document.getElementById("myLabel");
@@ -184,7 +192,24 @@ const CreateGroup = () => {
               Administrator er den eneste som kan legge til eller slette
               utfordringer. (Kan legge til flere administrator senere)
             </label>
-          ) : null}
+          ) : (
+            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+              <ToggleButton
+                id="tbg-radio-1"
+                value={1}
+                onClick={() => setGroupType("checkBox")}
+              >
+                CheckboxGruppe
+              </ToggleButton>
+              <ToggleButton
+                id="tbg-radio-2"
+                value={2}
+                onClick={() => setGroupType("ranking")}
+              >
+                RankingGruppe
+              </ToggleButton>
+            </ToggleButtonGroup>
+          )}
         </form>
       </div>
 
@@ -241,6 +266,7 @@ const CreateGroup = () => {
                         numberOfGroupMembers: 1,
                         numberOfChallenges: 0,
                         everyoneIsAdmin: false,
+                        groupType: groupType,
                       })
                     : addGroup({
                         groupName: groupName,
@@ -250,6 +276,7 @@ const CreateGroup = () => {
                         numberOfGroupMembers: 1,
                         numberOfChallenges: 0,
                         everyoneIsAdmin: true,
+                        groupType: groupType,
                       });
                 }}
               >

@@ -329,25 +329,47 @@ function GroupPageAdd() {
             className="form-control"
             placeholder="Skriv inn utfordring..."
           />
-          <div className="d-flex flex-column container">
-            <label className="sortingText">Krever bildebevis:</label>
-            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton
-                id="tbg-radio-1"
-                value={1}
-                onClick={() => setImageProof(false)}
-              >
-                Nei
-              </ToggleButton>
-              <ToggleButton
-                id="tbg-radio-2"
-                value={2}
-                onClick={() => setImageProof(true)}
-              >
-                Ja
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </div>
+          {group.groupType === "ranking" ? (
+            <div className="d-flex flex-column container">
+              <label className="sortingText">Ranger score etter:</label>
+              <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                <ToggleButton
+                  id="tbg-radio-1"
+                  value={1}
+                  onClick={() => setSortingType("høy")}
+                >
+                  Høyest
+                </ToggleButton>
+                <ToggleButton
+                  id="tbg-radio-2"
+                  value={2}
+                  onClick={() => setSortingType("lav")}
+                >
+                  Lavest
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div>
+          ) : (
+            <div className="d-flex flex-column container">
+              <label className="sortingText">Krever bildebevis:</label>
+              <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                <ToggleButton
+                  id="tbg-radio-1"
+                  value={1}
+                  onClick={() => setImageProof(false)}
+                >
+                  Nei
+                </ToggleButton>
+                <ToggleButton
+                  id="tbg-radio-2"
+                  value={2}
+                  onClick={() => setImageProof(true)}
+                >
+                  Ja
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div>
+          )}
 
           <div className="addAndCheckBox">
             <div className="crossButtonStyle">
@@ -357,19 +379,36 @@ function GroupPageAdd() {
               ></IoIosClose>
             </div>
             <div className="checkButtonStyle">
-              <BsCheck
-                onClick={() => {
-                  challengeName
-                    ? addChallenge({
-                        challengeName: challengeName,
-                        id: uuidv4(),
-                        membersCompletedChallenge: [],
-                        imageProof: imageProof,
-                      })
-                    : setAddIsOpen(false);
-                }}
-                size={40}
-              ></BsCheck>
+              {group.groupType === "ranking" ? (
+                <BsCheck
+                  onClick={() => {
+                    challengeName
+                      ? addChallenge({
+                          challengeName: challengeName,
+                          id: uuidv4(),
+                          membersCompletedChallenge: [],
+                          sortingType: sortingType,
+                        })
+                      : setAddIsOpen(false);
+                  }}
+                  size={40}
+                ></BsCheck>
+              ) : (
+                <BsCheck
+                  onClick={() => {
+                    challengeName
+                      ? addChallenge({
+                          challengeName: challengeName,
+                          id: uuidv4(),
+                          membersCompletedChallenge: [],
+
+                          imageProof: imageProof,
+                        })
+                      : setAddIsOpen(false);
+                  }}
+                  size={40}
+                ></BsCheck>
+              )}
             </div>
           </div>
         </div>
