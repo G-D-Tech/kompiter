@@ -350,7 +350,7 @@ function GroupPageAdd() {
               </ToggleButtonGroup>
             </div>
           ) : (
-            <div className="d-flex flex-column container">
+            <div className="d-flex flex-column container form-controlAdd">
               <label className="sortingText">Krever bildebevis:</label>
               <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
                 <ToggleButton
@@ -432,12 +432,13 @@ function GroupPageAdd() {
                       key={challenge.id}
                     >
                       <div className="settings">
-                        <input
-                          className="form-control"
-                          defaultValue={challenge.challengeName}
-                          value={rename}
-                          onChange={(e) => setRename(e.target.value)}
-                        />
+                        <div className="form-control ">
+                          <input
+                            defaultValue={challenge.challengeName}
+                            value={rename}
+                            onChange={(e) => setRename(e.target.value)}
+                          />
+                        </div>
 
                         <div>
                           <BsThreeDots

@@ -161,7 +161,7 @@ function GroupPage() {
                     {groupMember.name}
                   </label>
                   <label className="display-score">
-                    Score: {groupMember.score} / {totalChallenges}
+                    Score: {groupMember.score} / {challenges.length}
                   </label>
                   <label className="display-challengeScore">
                     Fullførte utfordringer{" "}
