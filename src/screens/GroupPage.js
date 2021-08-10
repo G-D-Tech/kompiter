@@ -21,6 +21,53 @@ function GroupPage() {
   const [viewImageModalIsOpen, setViewImageModalIsOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState();
 
+  function downloadFromFirebase(challenge, groupMember) {
+    {
+      closeAllViewImage();
+      viewImageIsOpen(challenge);
+      closeViewIsOpen(groupMember);
+      !imageUrl
+        ? firebase
+            .storage()
+            .ref(`${group.id}/${groupMember.id}/${challenge.id}`)
+            .getDownloadURL()
+            .then((fireBaseUrl) => {
+              setImageUrl(fireBaseUrl);
+              const data = firebase.storage().refFromURL(fireBaseUrl);
+              //console.log(data);
+              //setImageList(data.name);
+            })
+            .catch(console.log("hei"))
+        : closeAllViewImage();
+    }
+  }
+
+  function closeAllViewImage() {
+    for (let i = 0; i < challenges.length; i++) {
+      challenges[i].viewImageIsOpen = false;
+    }
+    setImageUrl("");
+  }
+
+  function viewImageIsOpen(challenge) {
+    challenge.viewImageIsOpen = !challenge.viewImageIsOpen;
+    setViewImageModalIsOpen(!viewImageModalIsOpen);
+  }
+
+  function closeViewIsOpen(groupMember) {
+    for (let i = 0; i < groupMembers.length; i++) {
+      groupMembers[i].viewIsOpen = false;
+    }
+    setImageUrl("");
+    groupMember.viewIsOpen = !groupMember.viewIsOpen;
+    setModalIsOpen(!modalIsOpen);
+  }
+
+  function updateViewIsOpen(groupMember) {
+    groupMember.viewIsOpen = !groupMember.viewIsOpen;
+    setModalIsOpen(!modalIsOpen);
+  }
+
   function viewIsOpen(groupMember) {
     groupMember.viewIsOpen = false;
 
@@ -145,30 +192,6 @@ function GroupPage() {
                 )}
               </button>
             ) : (
-              /* <button
-                className="display-scoreChallenges" //add flex for å ha ved siden av number og navn
-                key={index + 1}
-                onClick={() => updateViewIsOpen(groupMember)}
-              >
-                <div>
-                  <label className="display-header">
-                    
-                    {groupMember.name}
-                  </label>
-                  <label className="display-score">
-                    Score: {groupMember.score} / {challenges.length}
-                  </label>
-                  {challenges.map((challenge) =>
-                    checkGroupMember(challenge, groupMember.id) ? (
-                      <button className="display-ScoreChallenges">
-                        <label className="display-challengeScore">
-                          {challenge.challengeName}
-                        </label>
-                      </button>
-                    ) : null
-                  )}
-                </div>
-              </button> */
               <button
                 className="display-scoreChallenges"
                 key={index + 1}
@@ -181,7 +204,7 @@ function GroupPage() {
                   </label>
                   {group.groupType === "ranking" ? (
                     <label className="display-score">
-                      Score: {groupMember.score} /{" "}
+                      Score: {groupMember.score} /
                       {groupMembers.length * challenges.length}
                     </label>
                   ) : (
