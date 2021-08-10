@@ -102,7 +102,7 @@ function GroupPage() {
           <div>
             {groupMember.length === 3 ? viewIsOpen(groupMember) : null}
             {groupMember.viewIsOpen ? (
-              <div
+              <button
                 className="display-scoreChallenges" //add flex for å ha ved siden av number og navn
                 key={index + 1}
                 onClick={() => updateViewIsOpen(groupMember)}
@@ -117,17 +117,17 @@ function GroupPage() {
                   </label>
                   {challenges.map((challenge) =>
                     checkGroupMember(challenge, groupMember.id) ? (
-                      <div className="display-ScoreChallenges">
+                      <button className="display-ScoreChallenges">
                         <label className="display-challengeScore">
                           {challenge.challengeName}
                         </label>
-                      </div>
+                      </button>
                     ) : null
                   )}
                 </div>
-              </div>
+              </button>
             ) : (
-              <div
+              <button
                 className="display-scoreChallenges"
                 key={index + 1}
                 onClick={() => updateViewIsOpen(groupMember)}
@@ -148,7 +148,7 @@ function GroupPage() {
                     </label>
                   )}
                 </div>
-              </div>
+              </button>
             )}
           </div>
         ))}

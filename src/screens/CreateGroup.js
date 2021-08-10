@@ -152,22 +152,29 @@ const CreateGroup = () => {
         <form>
           <div className="GroupNameBox">
             <div className="form-control form-control1">
-              <input type="checkbox" id="adminCheckbox"></input>
-              <label
-                className="textAdmin"
-                onClick={() => {
-                  setAdminInfo(!adminInfo);
-                }}
-              >
-                Administrator
-              </label>
-              <RiArrowDownSFill
-                size={27}
-                className="iconArrowDown "
-                onClick={() => {
-                  setAdminInfo(!adminInfo);
-                }}
-              ></RiArrowDownSFill>
+              {/* <input type="checkbox" id="adminCheckbox"></input> */}
+              <div className="adminDiv">
+                <label className="checkboxContainer">
+                  <input type="checkbox" id="adminCheckbox"></input>
+                  <span className="checkmark"></span>
+                </label>
+                <label
+                  className="textAdmin"
+                  onClick={() => {
+                    setAdminInfo(!adminInfo);
+                  }}
+                >
+                  Administrator
+                </label>
+
+                <RiArrowDownSFill
+                  size={27}
+                  className="iconArrowDown "
+                  onClick={() => {
+                    setAdminInfo(!adminInfo);
+                  }}
+                ></RiArrowDownSFill>
+              </div>
             </div>
           </div>
           {adminInfo ? (
