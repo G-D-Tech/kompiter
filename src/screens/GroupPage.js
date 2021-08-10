@@ -105,11 +105,52 @@ function GroupPage() {
               <button
                 className="display-scoreChallenges" //add flex for å ha ved siden av number og navn
                 key={index + 1}
+              >
+                <div onClick={() => updateViewIsOpen(groupMember)}>
+                  <label className="display-header">
+                    {/* {index + 1}. */}
+                    {groupMember.name}
+                  </label>
+                  <label className="display-score">
+                    Score: {groupMember.score} / {totalChallenges}
+                  </label>
+                  <label className="display-challengeScore">
+                    Fullførte utfordringer{" "}
+                  </label>
+                </div>
+                {challenges.map((challenge) =>
+                  checkGroupMember(challenge, groupMember.id) ? (
+                    <button
+                      className="display-ScoreChallenges"
+                      onClick={() =>
+                        downloadFromFirebase(challenge, groupMember)
+                      }
+                    >
+                      <div>
+                        <label className="display-cDone">
+                          {challenge.challengeName}
+                        </label>
+                      </div>
+                      <div>
+                        {challenge.viewImageIsOpen && imageUrl ? (
+                          <div className="imageAndButton">
+                            <img src={imageUrl} width="100%" />
+                          </div>
+                        ) : null}
+                      </div>
+                    </button>
+                  ) : null
+                )}
+              </button>
+            ) : (
+              /* <button
+                className="display-scoreChallenges" //add flex for å ha ved siden av number og navn
+                key={index + 1}
                 onClick={() => updateViewIsOpen(groupMember)}
               >
                 <div>
                   <label className="display-header">
-                    {/* {index + 1}. */}
+                    
                     {groupMember.name}
                   </label>
                   <label className="display-score">
@@ -125,8 +166,7 @@ function GroupPage() {
                     ) : null
                   )}
                 </div>
-              </button>
-            ) : (
+              </button> */
               <button
                 className="display-scoreChallenges"
                 key={index + 1}
