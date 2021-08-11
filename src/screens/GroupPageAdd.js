@@ -183,7 +183,7 @@ function GroupPageAdd() {
       .collection("groups")
       .doc(group.id)
       .collection("challenges")
-      .doc(challenge)
+      .doc(challenge.id)
       .update({ challengeName: rename });
   }
 
@@ -459,7 +459,7 @@ function GroupPageAdd() {
                       <div
                         className="renameSaveButtonStyle"
                         onClick={() => {
-                          renameChallenge(challenge.id);
+                          renameChallenge(challenge);
                           setRenameIsOpen(!renameIsOpen);
                         }}
                       >

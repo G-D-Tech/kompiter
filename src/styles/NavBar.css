@@ -21,12 +21,12 @@
 }
 
 .navbarStyle {
-  width: 100%;
   background-color: white;
   border-top-left-radius: 60px;
   border-top-right-radius: 60px;
   border-color: white;
-  padding: 1px;
+  padding-top: 1px;
+  margin-top: 10px;
 }
 
 .closeIcon {

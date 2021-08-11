@@ -192,25 +192,30 @@ const CreateGroup = () => {
               Administrator er den eneste som kan legge til eller slette
               utfordringer. (Kan legge til flere administrator senere)
             </label>
-          ) : (
-            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-              <ToggleButton
-                id="tbg-radio-1"
-                value={1}
-                onClick={() => setGroupType("checkBox")}
-              >
-                CheckboxGruppe
-              </ToggleButton>
-              <ToggleButton
-                id="tbg-radio-2"
-                value={2}
-                onClick={() => setGroupType("ranking")}
-              >
-                RankingGruppe
-              </ToggleButton>
-            </ToggleButtonGroup>
-          )}
+          ) : null}
         </form>
+        <div className="navbarTopOpprettUnder"></div>
+      </div>
+      <div>
+        <label className="opprettGruppeSecondHeader">Type gruppe</label>
+        <div className="d-flex justify-content-center">
+          <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+            <ToggleButton
+              id="tbg-radio-1"
+              value={1}
+              onClick={() => setGroupType("checkBox")}
+            >
+              Huke av
+            </ToggleButton>
+            <ToggleButton
+              id="tbg-radio-2"
+              value={2}
+              onClick={() => setGroupType("ranking")}
+            >
+              Rankering
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
       </div>
 
       <div className="button-container">
