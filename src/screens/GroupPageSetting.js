@@ -139,9 +139,10 @@ function GroupPageSetting() {
   }
 
   return (
-    <div className="modalGroup-content">
-      {GroupPageNavBar(group /* , startDate, endDate */)}
-
+    <div>
+      <div className="modalGroup-content">
+        {GroupPageNavBar(group /* , startDate, endDate */)}
+      </div>
       {isAdmin && !group.everyoneIsAdmin ? (
         <div className="display-membersNotAdminOuter">
           <label
@@ -172,10 +173,7 @@ function GroupPageSetting() {
               ) : null
             )} */}
               {groupMembers.map((member) => (
-                <div
-                  className="display-membersNotAdminInner settings"
-                  key={member.id}
-                >
+                <div className=" settings" key={member.id}>
                   <label className="mediumText">{member.name}</label>
                   {member.isAdmin ? (
                     member.id === currentUser.uid ? (

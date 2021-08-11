@@ -4,6 +4,7 @@ import "../styles/ModalGroup.css";
 
 import {
   IoIosClose,
+  IoIosArrowBack,
   IoIosPodium /* IoIosCheckmarkCircle */,
 } from "react-icons/io";
 import {
@@ -30,12 +31,12 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
 
   return (
     <div>
-      <button className="crossButtonStyle">
+      <button className="backButtonStyle">
         <Link to="/">
-          <IoIosClose size={20}></IoIosClose>
+          <IoIosArrowBack size={20}></IoIosArrowBack>
         </Link>
       </button>
-      <div className="inputGroup-container">
+      <div className="inputGroup-containerHeader">
         <label className="groupTextPopup">{group.groupName} </label>
       </div>
       {/* <div className="dateGroup-container">
@@ -70,53 +71,57 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
           ></FiCopy>
         </CopyToClipboard>
       </div>
-      <label id="myLabel" style={{ display: "none" }}>
-        Kode kopiert
-      </label>
-      <div className="navbar">
-        <NavLink
-          exact
-          to={{
-            pathname: "/GroupPage",
-            state: {
-              group: group /* , startDate: startDate, endDate: endDate */,
-            },
-          }}
-        >
-          <IoIosPodium size={40} className="navBarIcon"></IoIosPodium>
-        </NavLink>
-        <NavLink
-          to={{
-            pathname: "/GroupPageList",
-            state: {
-              group: group /* , startDate: startDate, endDate: endDate */,
-            },
-          }}
-        >
-          <BsCheckCircle size={36} className="navBarIcon"></BsCheckCircle>
-        </NavLink>
-        <NavLink
-          to={{
-            pathname: "/GroupPageAdd",
-            state: {
-              group: group /* , startDate: startDate, endDate: endDate */,
-            },
-          }}
-        >
-          <BsPencil size={33} className="navBarIcon"></BsPencil>
-        </NavLink>
-        <NavLink
-          to={{
-            pathname: "/GroupPageSetting",
-            state: {
-              group: group /* , startDate: startDate, endDate: endDate */,
-            },
-          }}
-        >
-          <BsThreeDots size={40} className="navBarIcon"></BsThreeDots>
-        </NavLink>
+      <div className="kode-kopiert">
+        <label id="myLabel" style={{ display: "none" }}>
+          Kode kopiert
+        </label>
       </div>
-      <div className="navbar-line"></div>
+      <div className="navbarStyle">
+        <div className="navbar">
+          <NavLink
+            exact
+            to={{
+              pathname: "/GroupPage",
+              state: {
+                group: group /* , startDate: startDate, endDate: endDate */,
+              },
+            }}
+          >
+            <IoIosPodium size={40} className="navBarIcon"></IoIosPodium>
+          </NavLink>
+          <NavLink
+            to={{
+              pathname: "/GroupPageList",
+              state: {
+                group: group /* , startDate: startDate, endDate: endDate */,
+              },
+            }}
+          >
+            <BsCheckCircle size={36} className="navBarIcon"></BsCheckCircle>
+          </NavLink>
+          <NavLink
+            to={{
+              pathname: "/GroupPageAdd",
+              state: {
+                group: group /* , startDate: startDate, endDate: endDate */,
+              },
+            }}
+          >
+            <BsPencil size={33} className="navBarIcon"></BsPencil>
+          </NavLink>
+          <NavLink
+            to={{
+              pathname: "/GroupPageSetting",
+              state: {
+                group: group /* , startDate: startDate, endDate: endDate */,
+              },
+            }}
+          >
+            <BsThreeDots size={40} className="navBarIcon"></BsThreeDots>
+          </NavLink>
+        </div>
+        <div className="navbar-line"></div>
+      </div>
     </div>
   );
 }

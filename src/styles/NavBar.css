@@ -1,5 +1,5 @@
 .active .navBarIcon {
-  color: white;
+  color: #e94840;
 }
 
 .navBarIcon {
@@ -9,4 +9,27 @@
 #myLabel {
   margin-left: 2%;
   margin-right: 2%;
+}
+
+.kode-kopiert {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: -30px;
+  margin-left: 9%;
+  margin-right: 9%;
+}
+
+.navbarStyle {
+  width: 100%;
+  background-color: white;
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+  border-color: white;
+  padding: 1px;
+}
+
+.closeIcon {
+  color: white;
+  width: 20px;
 }

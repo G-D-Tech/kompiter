@@ -228,7 +228,7 @@ function GroupPageList() {
         {challenges.map((challenge) => (
           <div key={challenge.id}>
             {checkGroupMember(challenge) ? (
-              <div className="display-challengesDone">
+              <button className="display-challengesDone">
                 <div>
                   <div
                     className="imageIsOpen"
@@ -272,11 +272,11 @@ function GroupPageList() {
                     </div>
                   ) : null}
                 </div>
-              </div>
+              </button>
             ) : (
               <div>
                 {challenge.imageProof ? (
-                  <div className="display-challengesUndone">
+                  <button className="display-challengesUndone">
                     <div
                       className="imageIsOpen"
                       onClick={() => {
@@ -293,7 +293,7 @@ function GroupPageList() {
                       </div>
                       <div>
                         <BsCircle
-                          className="unchecked-circle"
+                          className="unChecked-circle"
                           size={30}
                         ></BsCircle>
                       </div>
@@ -325,9 +325,9 @@ function GroupPageList() {
                         </div>
                       </div>
                     ) : null}
-                  </div>
+                  </button>
                 ) : (
-                  <div
+                  <button
                     className="display-challengesUndone"
                     onClick={() => {
                       changeBoolChallenge(challenge);
@@ -339,12 +339,12 @@ function GroupPageList() {
                       </label>
                       <div>
                         <BsCircle
-                          className="unchecked-circle"
+                          className="unChecked-circle"
                           size={35}
                         ></BsCircle>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 )}
               </div>
             )}
@@ -571,8 +571,10 @@ function GroupPageList() {
   }
 
   return (
-    <div className="modalGroup-content">
-      {GroupPageNavBar(group /* , startDate, endDate */)}
+    <div>
+      <div className="modalGroup-content">
+        {GroupPageNavBar(group /* , startDate, endDate */)}
+      </div>
       {group.groupType === "ranking" ? RankingGroup() : CheckBoxGroup()}
     </div>
   );

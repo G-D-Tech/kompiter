@@ -310,8 +310,10 @@ function GroupPageAdd() {
   }
  */
   return (
-    <div className="modalGroup-content">
-      {GroupPageNavBar(group /* , startDate, endDate */)}
+    <div>
+      <div className="modalGroup-content">
+        {GroupPageNavBar(group /* , startDate, endDate */)}
+      </div>
       <div
         onClick={() => {
           currentUserIsAdmin() ? setAddIsOpen(true) : setAddIsOpen(false);
@@ -378,7 +380,7 @@ function GroupPageAdd() {
                 size={40}
               ></IoIosClose>
             </div>
-            <div className="checkButtonStyle">
+            <div>
               {group.groupType === "ranking" ? (
                 <BsCheck
                   onClick={() => {
@@ -391,6 +393,7 @@ function GroupPageAdd() {
                         })
                       : setAddIsOpen(false);
                   }}
+                  className="checkButtonStyle"
                   size={40}
                 ></BsCheck>
               ) : (
@@ -406,6 +409,7 @@ function GroupPageAdd() {
                         })
                       : setAddIsOpen(false);
                   }}
+                  className="checkButtonStyle"
                   size={40}
                 ></BsCheck>
               )}
@@ -431,9 +435,10 @@ function GroupPageAdd() {
                       className="display-challengesSettings"
                       key={challenge.id}
                     >
-                      <div className="settings">
-                        <div className="form-control ">
+                      <div className="settings1">
+                        <div>
                           <input
+                            className=" form-control form-control3"
                             defaultValue={challenge.challengeName}
                             value={rename}
                             onChange={(e) => setRename(e.target.value)}
@@ -442,7 +447,7 @@ function GroupPageAdd() {
 
                         <div>
                           <BsThreeDots
-                            className="unchecked-circle"
+                            className="threeDots"
                             size={40}
                             onClick={() => {
                               updateSettingIsOpen(challenge);
@@ -461,7 +466,7 @@ function GroupPageAdd() {
                         Lagre
                       </div>
 
-                      <div className="settings">
+                      <div className="settings1">
                         <label className="settingsText">Rediger navn</label>
                         <button
                           className="settingChangeButtonStyle"
@@ -472,7 +477,7 @@ function GroupPageAdd() {
                           Rediger
                         </button>
                       </div>
-                      <div className="settings">
+                      <div className="settings1">
                         <label className="settingsText">
                           Slette utfordring
                         </label>
@@ -489,20 +494,20 @@ function GroupPageAdd() {
                       className="display-challengesSettings"
                       key={challenge.id}
                     >
-                      <div className="settings">
+                      <div className="settings1">
                         <label className="uncompletedChallengesText">
                           {challenge.challengeName}
                         </label>
                         <div>
                           <BsThreeDots
-                            className="unchecked-circle"
+                            className="threeDots"
                             size={40}
                             onClick={() => updateSettingIsOpen(challenge)}
                           ></BsThreeDots>
                         </div>
                       </div>
 
-                      <div className="settings">
+                      <div className="settings1">
                         <label className="settingsText">Rediger navn</label>
                         <button
                           className="settingChangeButtonStyle"
@@ -513,7 +518,7 @@ function GroupPageAdd() {
                           Rediger
                         </button>
                       </div>
-                      <div className="settings">
+                      <div className="settings1">
                         <label className="settingsText">
                           Slette utfordring
                         </label>
@@ -537,7 +542,7 @@ function GroupPageAdd() {
                     </label>
                     <div>
                       <BsThreeDots
-                        className="unchecked-circle"
+                        className="threeDots"
                         size={40}
                       ></BsThreeDots>
                     </div>

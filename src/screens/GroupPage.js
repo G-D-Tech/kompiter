@@ -142,9 +142,10 @@ function GroupPage() {
   }, [group.id]);
 
   return (
-    <div className="modalGroup-content">
-      {GroupPageNavBar(group /* , startDate, endDate */)}
-
+    <div>
+      <div className="modalGroup-content">
+        {GroupPageNavBar(group /* , startDate, endDate */)}
+      </div>
       {groupMembers
         .sort((a, b) => b.score - a.score)
         .map((groupMember, index) => (
@@ -169,8 +170,7 @@ function GroupPage() {
                 </div>
                 {challenges.map((challenge) =>
                   checkGroupMember(challenge, groupMember.id) ? (
-                    <button
-                      className="display-ScoreChallenges"
+                    <div
                       onClick={() =>
                         downloadFromFirebase(challenge, groupMember)
                       }
@@ -187,7 +187,8 @@ function GroupPage() {
                           </div>
                         ) : null}
                       </div>
-                    </button>
+                      <div className="navbar-challengeDoneLine"></div>
+                    </div>
                   ) : null
                 )}
               </button>

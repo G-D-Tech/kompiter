@@ -1,9 +1,5 @@
 .modalGroup-content {
-  padding: 20px;
-  padding-bottom: 70px;
-  margin-top: 20px;
-  background-color: #4d85f2;
-  border-radius: 40px;
+  background-color: #e94840;
 }
 
 .groupTextPopup {
@@ -11,14 +7,12 @@
   font-family: "Roboto", sans-serif;
   color: white;
   font-weight: 700;
-  opacity: 0.9;
 }
 
 .dateTextPopup {
   font-size: 15px;
   font-family: "Roboto", sans-serif;
   color: white;
-  opacity: 0.9;
   font-weight: 700;
 }
 
@@ -31,6 +25,16 @@
 }
 
 .inputGroup-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 15px;
+  margin-left: 9%;
+  margin-right: 40%;
+  margin-bottom: 40px;
+}
+
+.inputGroup-containerHeader {
   display: flex;
   justify-content: left;
   align-items: center;
@@ -50,18 +54,21 @@
 
 .crossButtonStyle {
   color: white;
-  background-color: #e94e4e;
-  border-color: #e94e4e;
-  border-radius: 50px;
+  background-color: #e94840;
+  border-color: #e94840;
+  border-radius: 60px;
   text-align: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
+  margin-left: 20px;
 }
 
-.crossButtonStyle:active {
-  background: #fc9e9e;
-  box-shadow: inset 0px 0px 5px #fc9e9e;
+.backButtonStyle {
+  color: white;
+  background-color: #e06761;
+  border-color: #e06761;
+  border-radius: 60px;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 .crossPlusButtonStyle {
@@ -69,13 +76,10 @@
   margin-left: 40%;
   margin-right: 40%;
   color: white;
-  background-color: #4d85f2;
-  border-color: #4d85f2;
+  background-color: #2a72f4;
+  border-color: #2a72f4;
   border-radius: 50px;
   text-align: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
 }
 
 .crossPlusButtonStyle:active {
@@ -91,7 +95,6 @@
   color: white;
   background-color: #f77777;
   border-color: white;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   border-radius: 50px;
   text-align: center;
 }
@@ -146,6 +149,14 @@
   margin-bottom: 20px;
   color: white;
 }
+
+.navbar-challengeDoneLine {
+  border-bottom: 1px solid;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 20px;
+  color: #1e2223;
+}
 /* .navbar-line1 {
   color: black;
   border-bottom: 3px solid;
@@ -173,13 +184,14 @@
 
 .display-challengesUndone {
   padding: 15px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 5%;
-  margin-right: 5%;
-  background-color: #f77777;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 2%;
+  width: 96%;
+  background-color: white;
+  border-width: 2px;
+  border-color: #e94840;
   border-radius: 15px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .imageIsOpen {
@@ -201,21 +213,22 @@
 
 .display-challengesDone {
   padding: 15px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 5%;
-  margin-right: 5%;
-  background-color: #75da85;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 96%;
+  background-color: white;
+  margin-left: 2%;
+  border-width: 2px;
+  border-color: #75da85;
   border-radius: 15px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .display-scoreChallenges {
   padding: 15px;
   margin-top: 20px;
-  background-color: #4d85f2;
+  background-color: #e4e6eb;
   border-width: 1px;
-  border-color: white;
+  border-color: #e4e6eb;
   border-radius: 15px;
   width: 96%;
   margin-left: 2%;
@@ -230,14 +243,14 @@
   margin-bottom: 20px;
   width: 96%;
   margin-left: 2%;
-  background-color: #2e54ad;
+  background-color: #e4e6eb;
   border-radius: 15px;
 }
 
 .display-ScoreChallenges {
-  background-color: #4d85f2;
+  background-color: #e4e6eb;
   border-width: 1px;
-  border-color: white;
+  border-color: #e4e6eb;
   border-radius: 15px;
   width: 96%;
   margin-left: 2%;
@@ -255,11 +268,18 @@
   margin-bottom: 20px;
   width: 96%;
   margin-left: 2%;
-  background-color: #2e54ad;
+  background-color: #e4e6eb;
   border-radius: 15px;
 }
 
 .settings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.settings1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -292,7 +312,7 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 } */
 .uncompletedChallengesText {
-  color: white;
+  color: #1e2223;
   margin-left: 5%;
   font-size: 22px;
   font-family: "Roboto", sans-serif;
@@ -300,7 +320,7 @@
 }
 
 .settingsText {
-  color: white;
+  color: #1e2223;
   margin-left: 5%;
   margin-top: 5%;
   font-size: 18px;
@@ -310,7 +330,7 @@
 
 .display-header {
   display: flex;
-  color: white;
+  color: #1e2223;
   margin-right: 15px;
   margin-left: 15px;
   font-size: 20px;
@@ -329,8 +349,7 @@
 .display-score {
   display: flex;
   margin-left: 20px;
-  color: white;
-  /*   opacity: 70%; */
+  color: #1e2223;
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
@@ -339,7 +358,7 @@
 .display-challengeScore {
   display: flex;
   margin-left: 10px;
-  color: white;
+  color: #1e2223;
   font-size: 17px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
@@ -348,23 +367,29 @@
 }
 
 .display-cDone {
-  color: white;
+  color: #1e2223;
   font-size: 17px;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
+  display: flex;
+  justify-content: left;
+  margin-left: 5%;
 }
 
 .display-sendTilVenner {
   display: flex;
   color: white;
-  /*   opacity: 70%; */
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
 }
 
 .unchecked-circle {
-  color: white;
+  color: #3acd94;
+}
+
+.unChecked-circle {
+  color: #e94e4e;
 }
 
 .addBox {
@@ -386,15 +411,12 @@
 }
 
 .checkButtonStyle {
-  color: white;
   background-color: #3acd94;
   border-color: #3acd94;
-  border-radius: 50px;
-  margin-left: 30px;
+  color: white;
+  border-radius: 60px;
   text-align: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
+  margin-left: 20px;
 }
 
 .checkButtonStyle:active {
@@ -406,15 +428,12 @@
   font-family: "Roboto", sans-serif;
   color: white;
   letter-spacing: 1px;
-  background-color: #e94e4e;
-  border-color: #e94e4e;
+  background-color: #e94840;
+  border-color: #e94840;
   border-radius: 12px;
   text-align: center;
   padding: 8px 23px;
   margin-left: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
   font-weight: 700;
 }
 
@@ -431,16 +450,13 @@
   font-family: "Roboto", sans-serif;
   color: white;
   letter-spacing: 1px;
-  background-color: #e94e4e;
-  border-color: #e94e4e;
+  background-color: #e94840;
+  border-color: #e94840;
   border-radius: 12px;
   text-align: center;
   padding: 4px 11px;
   margin-top: 5%;
   margin-left: 20px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
   font-weight: 700;
 }
 .settingDeleteButtonStyle:hover {
@@ -461,11 +477,7 @@
   border-radius: 12px;
   text-align: center;
   padding: 4px 11px;
-  margin-top: 5%;
   margin-left: 20px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
-  cursor: pointer;
   font-weight: 700;
 }
 
@@ -478,15 +490,13 @@
   font-family: "Roboto", sans-serif;
   color: white;
   letter-spacing: 1px;
-  background-color: #4d85f2;
-  border-color: #4d85f2;
+  background-color: #2a72f4;
+  border-color: #2a72f4;
   border-radius: 12px;
   text-align: center;
   padding: 4px 11px;
-  margin-top: 5%;
+
   margin-left: 20px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
-  transition-duration: 0.2s;
   cursor: pointer;
   font-weight: 700;
 }
@@ -516,8 +526,9 @@
   margin-top: 4px;
   width: 60px;
   padding: 3px;
+  margin-left: 3%;
   text-align: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+
   font-weight: 700;
 }
 .renameSaveButtonStyle:active {
@@ -526,7 +537,7 @@
 }
 
 .mediumText {
-  color: white;
+  color: #1e2223;
   margin-left: 5%;
   font-size: 18px;
   font-family: "Roboto", sans-serif;
@@ -534,14 +545,13 @@
 }
 
 .display-membersNotAdminOuter {
-  padding: 5px;
+  padding: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 5%;
-  margin-right: 5%;
-  background-color: #4d85f2;
+  margin-left: 2%;
+  width: 96%;
+  background-color: #e4e6eb;
   border-radius: 15px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .display-membersNotAdminInner {
@@ -550,12 +560,11 @@
   margin-bottom: 20px;
   background-color: #4d85f2;
   border-radius: 15px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .imageProofText {
   display: flex;
-  color: white;
+  color: #1e2223;
   margin-right: 15px;
   margin-left: 15px;
   font-size: 15px;
@@ -573,7 +582,6 @@
   margin-top: 5px;
   text-align: center;
   padding: 4px 12px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   font-weight: 700;
 }
 
@@ -591,7 +599,6 @@
   margin-top: 5px;
   text-align: center;
   padding: 4px 12px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   font-weight: 700;
 }
 
@@ -615,7 +622,6 @@
   margin-top: 5px;
   text-align: center;
   padding: 4px 12px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
   font-weight: 700;
 }
 
@@ -627,4 +633,12 @@
   font-family: "Roboto", sans-serif;
   font-size: 15px;
   color: white;
+}
+
+.threeDots {
+  color: #1e2223;
+}
+
+.form-control3 {
+  margin-left: 5%;
 }
