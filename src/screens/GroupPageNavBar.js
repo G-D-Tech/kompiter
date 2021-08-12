@@ -3,7 +3,7 @@ import "../styles/NavBar.css";
 import "../styles/ModalGroup.css";
 
 import {
-  IoIosClose,
+  /* IoIosClose, */
   IoIosArrowBack,
   IoIosPodium /* IoIosCheckmarkCircle */,
 } from "react-icons/io";
@@ -11,7 +11,7 @@ import {
   /* BsListCheck, */
   BsCheckCircle,
   /* BsListOl, */
-  BsPlus,
+  /* BsPlus, */
   BsThreeDots,
   BsPencil,
 } from "react-icons/bs";

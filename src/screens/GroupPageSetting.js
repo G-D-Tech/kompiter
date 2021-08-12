@@ -35,7 +35,7 @@ function GroupPageSetting() {
         .collection("groupMembers")
         .doc(currentUser.uid)
         .onSnapshot((doc) => {
-          if (doc.data() != undefined) {
+          if (doc.data() !== undefined) {
             setIsAdmin(doc.data().isAdmin);
           }
         });

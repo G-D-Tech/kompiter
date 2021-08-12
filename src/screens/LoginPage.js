@@ -100,7 +100,7 @@ const LoginPage = () => {
             </Link>
           </div>
           <div className="container-center ">
-            <img src="/fullLogoKompit.png" height="50px" />
+            <img src="/fullLogoKompit.png" height="50px" alt="" />
             <section className="container-center">
               <label className="loginTextSmall">
                 Logg inn på din eksisterende konto
@@ -134,14 +134,14 @@ const LoginPage = () => {
               <button className="loginButtonStyle" onClick={handleSignIn}>
                 Logg inn
               </button>
-              <a
+              <label
                 className="termsAndConditions glemtPassordSmall"
                 onClick={() => {
                   resetPassord();
                 }}
               >
                 Glemt passord?
-              </a>
+              </label>
             </section>
 
             {/*             <label className="loginTextSmall">eller logg inn med</label>

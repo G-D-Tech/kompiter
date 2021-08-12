@@ -109,7 +109,7 @@ const SignUpPage = () => {
     }
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     const unsubscribe = firebase
       .firestore()
       .collection("users")
@@ -122,7 +122,7 @@ const SignUpPage = () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, []); */
 
   return (
     <div>
@@ -139,7 +139,7 @@ const SignUpPage = () => {
             </Link>
           </div>
           <div className="container-center">
-            <img src="/fullLogoKompit.png" height="50px" />
+            <img src="/fullLogoKompit.png" height="50px" alt="" />
             <section className="container-center">
               <label className="loginTextSmall">Opprett en ny konto</label>
               <input
@@ -174,12 +174,12 @@ const SignUpPage = () => {
                 </label>
                 <label>
                   En opprettelse av konto innebærer at du godtar{" "}
-                  <a
+                  <label
                     className="termsAndConditions"
                     onClick={() => setModalIsOpen(true)}
                   >
                     følgende vilkår
-                  </a>
+                  </label>
                 </label>
               </div>
               <Modal

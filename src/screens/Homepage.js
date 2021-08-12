@@ -163,29 +163,30 @@ const Homepage = () => {
 
   //Gets groups where current user is part of
   useEffect(() => {
-    const unsubscribe = firebase
-      .firestore()
-      .collection("users")
-      .doc(currentUser.uid)
-      .collection("groupCodes")
-      .onSnapshot((querySnapshot) => {
-        const groupCodes = [];
-        querySnapshot.forEach((doc) => {
-          groupCodes.push(doc.data().groupId);
-        });
-        if (currentUser && groupCodes.length > 0) {
-          firebase
-            .firestore()
-            .collection("groups")
-            .where("id", "in", groupCodes)
-            .onSnapshot((querySnapshot) => {
-              const items = [];
-              querySnapshot.forEach((doc) => {
-                items.push(doc.data());
+    if (currentUser) {
+      const unsubscribe = firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUser.uid)
+        .collection("groupCodes")
+        .onSnapshot((querySnapshot) => {
+          const groupCodes = [];
+          querySnapshot.forEach((doc) => {
+            groupCodes.push(doc.data().groupId);
+          });
+          if (groupCodes.length > 0) {
+            firebase
+              .firestore()
+              .collection("groups")
+              .where("id", "in", groupCodes)
+              .onSnapshot((querySnapshot) => {
+                const items = [];
+                querySnapshot.forEach((doc) => {
+                  items.push(doc.data());
+                });
+                setGroups(items);
               });
-              setGroups(items);
-            });
-        } /* else {
+          } /* else {
           //Har ingen reell funksjon, mulig man kan fjerne den hvis man finner en måte å unmoute på
           firebase
             .firestore()
@@ -201,10 +202,12 @@ const Homepage = () => {
               setGroups(items);
             });
         } */
-      });
-    return () => {
-      unsubscribe();
-    };
+        });
+
+      return () => {
+        unsubscribe();
+      };
+    }
   }, [currentUser]);
 
   //Get current user
@@ -245,7 +248,7 @@ const Homepage = () => {
           )}
         </div>
         <div id="groupHead">
-          <img src="/fullLogoKompit.png" height="50px" />
+          <img src="/fullLogoKompit.png" height="50px" alt="" />
         </div>
 
         <div className="inputCodeStyle">
@@ -321,7 +324,7 @@ const Homepage = () => {
       </div>
       {currentUser ? null : (
         <div className="d-flex justify-content-center imageStyle">
-          <img src="/KompiteFirstImage.png" height="350px" />
+          <img src="/KompiteFirstImage.png" height="350px" alt="" />
         </div>
       )}
       {groups.map((group) => (

@@ -5,7 +5,7 @@ import "../styles/ModalGroup.css";
 import "../styles/groupPageAdd.css";
 
 // Importing the Bootstrap CSS
-import radio from "bootstrap/dist/css/bootstrap.min.css"; //Used to display sortingType
+import "bootstrap/dist/css/bootstrap.min.css"; //Used to display sortingType
 
 import { BsPlus, BsCheck, BsThreeDots } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
@@ -56,6 +56,7 @@ function GroupPageAdd() {
           .collection("results")
           .doc(groupmember.id)
           .set({ id: groupmember.id, challengeResult: "" });
+        return groupMembers;
       });
     }
 
@@ -192,12 +193,6 @@ function GroupPageAdd() {
     challenge.settingIsOpen = false;
   } */
 
-  function updateSettingIsOpen(challenge) {
-    challenge.settingIsOpen = !challenge.settingIsOpen;
-    setModalIsOpen(!modalIsOpen);
-    /* console.log(group.challenges); */
-  }
-
   //Gets all challenges belonging to current group
   useEffect(() => {
     const unsubscribe = firebase
@@ -215,7 +210,7 @@ function GroupPageAdd() {
     return () => {
       unsubscribe();
     };
-  }, [group.id]);
+  }, []);
 
   //For updating total score
   useEffect(() => {
@@ -239,7 +234,7 @@ function GroupPageAdd() {
       .collection("groupMembers")
       .doc(currentUser.uid)
       .onSnapshot((doc) => {
-        if (doc.data() != undefined) {
+        if (doc.data() !== undefined) {
           setIsAdmin(doc.data().isAdmin);
         }
       });
@@ -419,10 +414,10 @@ function GroupPageAdd() {
       ) : null}
       <div>
         {challenges.map((challenge) => (
-          <div>
+          <div key={challenge.id}>
             {/* {challenge.length === 3 ? settingIsOpen(challenge) : null} */}
             {!currentUserIsAdmin() ? (
-              <div className="display-challenges" key={challenge.id}>
+              <div className="display-challenges">
                 <label className="uncompletedChallengesText">
                   {challenge.challengeName}
                 </label>

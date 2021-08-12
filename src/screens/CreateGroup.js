@@ -18,7 +18,6 @@ import { RiArrowDownSFill } from "react-icons/ri";
 import firebase from "../firebase";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import { BsFillInfoCircleFill } from "react-icons/bs";
 
 import "bootstrap/dist/css/bootstrap.min.css"; //Used to display sortingType
 
@@ -32,7 +31,6 @@ const CreateGroup = () => {
   const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
   const [adminInfo, setAdminInfo] = useState(false);
-  const [groupTypeInfoOpen, setGroupTypeInfoOpen] = useState(false);
 
   const [groupType, setGroupType] = useState("checkBox");
 

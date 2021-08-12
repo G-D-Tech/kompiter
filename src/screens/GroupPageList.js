@@ -4,9 +4,9 @@ import "../styles/Homepage.css";
 import "../styles/ModalGroup.css";
 import "../styles/GroupPageList.css";
 import firebase from "../firebase";
-import storage from "../firebase";
+//import storage from "../firebase";
 import GroupPageNavBar from "../screens/GroupPageNavBar";
-import { BsCircle, BsCheckCircle, BsCheck } from "react-icons/bs";
+import { BsCircle, BsCheckCircle } from "react-icons/bs";
 
 function GroupPageList() {
   const location = useLocation();
@@ -19,7 +19,7 @@ function GroupPageList() {
   const [viewImageModalIsOpen, setViewImageModalIsOpen] = useState(false);
   const [imageIsSent, setImageIsSent] = useState(false);
   const [image, setImage] = useState(null);
-  const [imageList, setImageList] = useState();
+  //const [imageList, setImageList] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [fileName, setFileName] = useState();
 
@@ -38,7 +38,7 @@ function GroupPageList() {
         .collection("groupMembers")
         .doc(currentUser.uid)
         .onSnapshot((doc) => {
-          if (doc.data() != undefined) {
+          if (doc.data() !== undefined) {
             setIsAdmin(doc.data().isAdmin);
           }
         });
@@ -116,25 +116,23 @@ function GroupPageList() {
     }
 
     function downloadFromFirebase(challenge) {
-      {
-        closeAllViewImage();
-        viewImageIsOpen(challenge);
-        !imageUrl
-          ? firebase
-              .storage()
-              .ref(`${group.id}/${currentUser.uid}/${challenge.id}`)
-              .getDownloadURL()
-              .then((fireBaseUrl) => {
-                setImageUrl(fireBaseUrl);
-                const data = firebase.storage().refFromURL(fireBaseUrl);
-                //console.log(data);
-                //setImageList(data.name);
-              })
-              .catch((err) => {
-                console.log("hei");
-              })
-          : closeAllViewImage();
-      }
+      closeAllViewImage();
+      viewImageIsOpen(challenge);
+      !imageUrl
+        ? firebase
+            .storage()
+            .ref(`${group.id}/${currentUser.uid}/${challenge.id}`)
+            .getDownloadURL()
+            .then((fireBaseUrl) => {
+              setImageUrl(fireBaseUrl);
+              //const data = firebase.storage().refFromURL(fireBaseUrl);
+              //console.log(data);
+              //setImageList(data.name);
+            })
+            .catch((err) => {
+              console.log("hei");
+            })
+        : closeAllViewImage();
     }
 
     function closeAllViewImage() {
@@ -233,11 +231,9 @@ function GroupPageList() {
                   <div
                     className="imageIsOpen"
                     onClick={() => {
-                      {
-                        challenge.imageProof
-                          ? downloadFromFirebase(challenge)
-                          : changeBoolChallenge(challenge);
-                      }
+                      challenge.imageProof
+                        ? downloadFromFirebase(challenge)
+                        : changeBoolChallenge(challenge);
                     }}
                   >
                     <div>
@@ -258,7 +254,7 @@ function GroupPageList() {
 
                   {challenge.viewImageIsOpen ? (
                     <div className="imageAndButton">
-                      <img src={imageUrl} width="100%" />
+                      <img src={imageUrl} width="100%" alt="" />
                       <div>
                         <button
                           className="imageDeleteButtonStyle"
@@ -357,7 +353,6 @@ function GroupPageList() {
   //For rankingGroups
   function RankingGroup() {
     const [resultsForChallenge, setResultsForChallenge] = useState([]);
-    const [score, setScore] = useState(0);
 
     //Closes the challenge
     function closeOneChallenge(challenge) {
@@ -405,10 +400,12 @@ function GroupPageList() {
             challengeResult: res.challengeResult,
             challengeScore: res.score,
           });
+        return resultsForChallenge;
       });
       setResultsForChallenge([]);
       groupMembers.map((groupmember) => {
         updateTotalScore(groupmember);
+        return groupMembers;
       });
       closeOneChallenge(challenge);
     }
@@ -440,6 +437,7 @@ function GroupPageList() {
                 .doc(groupmember.id)
                 .update({ score: groupmember.score });
             });
+          return challenges;
         });
       }
     }
@@ -470,6 +468,7 @@ function GroupPageList() {
         if (groupmember.id === ress.id) {
           ress.challengeResult = result;
         }
+        return resultsForChallenge;
       });
     }
 
@@ -481,9 +480,9 @@ function GroupPageList() {
       resultsForChallenge.map((ress) => {
         if (groupmember.id === ress.id) {
           ress.score = challenge.score;
-
           challenge.score--;
         }
+        return resultsForChallenge;
       });
     }
 

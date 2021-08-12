@@ -7,39 +7,33 @@ import GroupPageNavBar from "../screens/GroupPageNavBar";
 
 import React, { useEffect, useState } from "react";
 import firebase from "../firebase";
-import { BsCheck } from "react-icons/bs";
-import { getAllByPlaceholderText } from "@testing-library/dom";
 
 function GroupPage() {
   const location = useLocation();
   const { group /* , startDate, endDate */ } = location.state;
   const [groupMembers, setGroupMembers] = useState([]);
   const [challenges, setChallenges] = useState([]);
-  const [totalChallenges, setTotalChallenges] = useState("0");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const firstMapping = true;
   const [viewImageModalIsOpen, setViewImageModalIsOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState();
 
   function downloadFromFirebase(challenge, groupMember) {
-    {
-      closeAllViewImage();
-      viewImageIsOpen(challenge);
-      closeViewIsOpen(groupMember);
-      !imageUrl
-        ? firebase
-            .storage()
-            .ref(`${group.id}/${groupMember.id}/${challenge.id}`)
-            .getDownloadURL()
-            .then((fireBaseUrl) => {
-              setImageUrl(fireBaseUrl);
-              const data = firebase.storage().refFromURL(fireBaseUrl);
-              //console.log(data);
-              //setImageList(data.name);
-            })
-            .catch(console.log("hei"))
-        : closeAllViewImage();
-    }
+    closeAllViewImage();
+    viewImageIsOpen(challenge);
+    closeViewIsOpen(groupMember);
+    !imageUrl
+      ? firebase
+          .storage()
+          .ref(`${group.id}/${groupMember.id}/${challenge.id}`)
+          .getDownloadURL()
+          .then((fireBaseUrl) => {
+            setImageUrl(fireBaseUrl);
+            //const data = firebase.storage().refFromURL(fireBaseUrl);
+            //console.log(data);
+            //setImageList(data.name);
+          })
+          .catch(console.log("Error"))
+      : closeAllViewImage();
   }
 
   function closeAllViewImage() {
@@ -70,14 +64,8 @@ function GroupPage() {
 
   function viewIsOpen(groupMember) {
     groupMember.viewIsOpen = false;
-
-    firstMapping = false;
   }
 
-  function updateViewIsOpen(groupMember) {
-    groupMember.viewIsOpen = !groupMember.viewIsOpen;
-    setModalIsOpen(!modalIsOpen);
-  }
   //Gets current challenges
   useEffect(() => {
     const unsubscribe = firebase
@@ -148,13 +136,12 @@ function GroupPage() {
       </div>
       {groupMembers
         .sort((a, b) => b.score - a.score)
-        .map((groupMember, index) => (
-          <div>
+        .map((groupMember) => (
+          <div key={groupMember.id}>
             {groupMember.length === 3 ? viewIsOpen(groupMember) : null}
             {groupMember.viewIsOpen ? (
               <button
                 className="display-scoreChallenges" //add flex for å ha ved siden av number og navn
-                key={index + 1}
               >
                 <div onClick={() => updateViewIsOpen(groupMember)}>
                   <label className="display-header">
@@ -174,6 +161,7 @@ function GroupPage() {
                       onClick={() =>
                         downloadFromFirebase(challenge, groupMember)
                       }
+                      key={challenge.id}
                     >
                       <div>
                         <label className="display-cDone">
@@ -183,7 +171,7 @@ function GroupPage() {
                       <div>
                         {challenge.viewImageIsOpen && imageUrl ? (
                           <div className="imageAndButton">
-                            <img src={imageUrl} width="100%" />
+                            <img src={imageUrl} width="100%" alt="" />
                           </div>
                         ) : null}
                       </div>
@@ -195,7 +183,6 @@ function GroupPage() {
             ) : (
               <button
                 className="display-scoreChallenges"
-                key={index + 1}
                 onClick={() => updateViewIsOpen(groupMember)}
               >
                 <div>
