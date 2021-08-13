@@ -186,6 +186,7 @@ function GroupPageAdd() {
       .collection("challenges")
       .doc(challenge.id)
       .update({ challengeName: rename });
+      
   }
 
   /* //Runs the first time the challenges is displayed

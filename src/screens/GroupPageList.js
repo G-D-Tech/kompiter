@@ -489,7 +489,7 @@ function GroupPageList() {
     return (
       <div>
         {challenges.map((challenge) => (
-          <div key={challenge.id} className="display-box">
+          <div key={challenge.id} className="display-scoreChallenges">
             {setChallengeScore(challenge)}
             <div className="display-challenges-ranking">
               {/* {challenge.length === 3 ? challengeIsOpen(challenge) : null} */}
@@ -532,7 +532,9 @@ function GroupPageList() {
                       >
                         {addRankForMember(groupmember, challenge)}
 
-                        <label>{groupmember.name}</label>
+                        <label className="display-challengeScore">
+                          {groupmember.name}
+                        </label>
                         <form>
                           <div className="result-form-div">
                             <input
@@ -554,7 +556,7 @@ function GroupPageList() {
                 <div className="d-flex justify-content-center">
                   {console.log(resultsForChallenge)}
                   <button
-                    className="SaveResultButton"
+                    className="imageDeleteButtonStyle"
                     key={challenge.id}
                     onClick={() => setResultInFirestore(challenge)}
                   >

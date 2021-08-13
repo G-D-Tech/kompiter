@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
 
 import Modal from "react-modal";
@@ -31,7 +32,7 @@ const CreateGroup = () => {
   const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
   const [adminInfo, setAdminInfo] = useState(false);
-
+  const [updateVar, setUpdateVar] = useState(false);
   const [groupType, setGroupType] = useState("checkBox");
 
   function showCopiedText() {
@@ -159,27 +160,46 @@ const CreateGroup = () => {
           <div className="GroupNameBox">
             <div className="form-control form-control1">
               {/* <input type="checkbox" id="adminCheckbox"></input> */}
-              <div className="adminDiv">
+              <div className="adminDiv ">
                 <label className="checkboxContainer">
-                  <input type="checkbox" id="adminCheckbox"></input>
+                  <input
+                    type="checkbox"
+                    id="adminCheckbox"
+                    onClick={() => {
+                      setUpdateVar(!updateVar);
+                    }}
+                  ></input>
                   <span className="checkmark"></span>
                 </label>
-                <label
-                  className="textAdmin"
-                  onClick={() => {
-                    setAdminInfo(!adminInfo);
-                  }}
-                >
-                  Administrator
-                </label>
+                <div className="adminInfoBox">
+                  {updateVar ? (
+                    <label
+                      className="textAdmin"
+                      onClick={() => {
+                        setAdminInfo(!adminInfo);
+                      }}
+                    >
+                      Kun deg
+                    </label>
+                  ) : (
+                    <label
+                      className="textAdmin"
+                      onClick={() => {
+                        setAdminInfo(!adminInfo);
+                      }}
+                    >
+                      Alle
+                    </label>
+                  )}
 
-                <RiArrowDownSFill
-                  size={27}
-                  className="iconArrowDown "
-                  onClick={() => {
-                    setAdminInfo(!adminInfo);
-                  }}
-                ></RiArrowDownSFill>
+                  <RiArrowDownSFill
+                    size={27}
+                    className="iconArrowDown "
+                    onClick={() => {
+                      setAdminInfo(!adminInfo);
+                    }}
+                  ></RiArrowDownSFill>
+                </div>
               </div>
             </div>
           </div>
@@ -187,8 +207,9 @@ const CreateGroup = () => {
             <label className="infoAdmin">
               {/* Ved å huke av her vil bare du kunne legge til utfordringer i denne
           gruppa. */}
-              Administrator er den eneste som kan legge til eller slette
-              utfordringer. (Kan legge til flere administrator senere)
+              Ved å huke av, vil kun du legge til og slette utfordringer (Kan
+              legge til flere administrator senere). Ved å IKKE huke av vil alle
+              medlemmer være administrator.
             </label>
           ) : null}
         </form>
@@ -197,7 +218,7 @@ const CreateGroup = () => {
       <div>
         <label className="opprettGruppeSecondHeader">Type gruppe</label>
         <div className="d-flex justify-content-center">
-          <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+          {/* <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
             <ToggleButton
               id="tbg-radio-1"
               value={1}
@@ -212,7 +233,19 @@ const CreateGroup = () => {
             >
               Rankering
             </ToggleButton>
-          </ToggleButtonGroup>
+          </ToggleButtonGroup> */}
+          <button
+            className="hukeAvBox"
+            onClick={() => setGroupType("checkBox")}
+          >
+            Huke av
+          </button>
+          <button
+            className="rankeringBox"
+            onClick={() => setGroupType("ranking")}
+          >
+            Rankering
+          </button>
         </div>
       </div>
 

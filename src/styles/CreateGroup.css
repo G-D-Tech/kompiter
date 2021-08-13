@@ -42,6 +42,12 @@
   margin-bottom: 20px;
 }
 
+.adminBox {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
 .dateBox {
   width: 170px;
 }
@@ -107,8 +113,8 @@
 
 .iconArrowDown {
   color: #4d85f2;
-  margin-top: -5px;
-  margin-right: -10px;
+  margin-top: 2px;
+  margin-left: 10px;
 }
 
 .infoAdmin {
@@ -122,8 +128,12 @@
 .textAdmin {
   font-family: "Roboto", sans-serif;
   font-size: 23px;
-  margin-right: 5%;
-  margin-left: 25%;
+}
+
+.adminInfoBox {
+  display: flex;
+  justify-content: center;
+  margin-left: 30px;
 }
 
 .adminDiv {
@@ -202,4 +212,40 @@ input[type="checkbox"] {
   border-radius: 10px !important;
   font-family: "Roboto", sans-serif;
   font-weight: 300;
+}
+
+.hukeAvBox {
+  width: 30%;
+  color: white;
+  margin-bottom: 20px;
+  background-color: #4d85f2;
+  border-top-left-radius: 5px;
+  border-radius: 1px;
+  border-color: #4d85f2;
+  border-bottom-left-radius: 5px;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.hukeAvBox:active {
+  background-color: #2959b9;
+}
+
+.rankeringBox {
+  width: 30%;
+  color: white;
+  margin-bottom: 20px;
+  background-color: #4d85f2;
+  border-radius: 1px;
+  border-color: #4d85f2;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.rankeringBox:active {
+  background-color: #2959b9;
 }
