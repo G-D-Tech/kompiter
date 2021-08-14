@@ -44,6 +44,17 @@
   left: 10px;
   height: 30px;
   width: 30px;
+  border-radius: 5px;
+  background-color: #eee;
+}
+
+.checkmark1 {
+  position: absolute;
+  justify-content: center;
+  top: 0;
+  left: 10px;
+  height: 30px;
+  width: 30px;
   margin-left: -20px;
   border-radius: 5px;
   background-color: #eee;
