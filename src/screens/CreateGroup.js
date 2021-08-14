@@ -250,11 +250,11 @@ const CreateGroup = () => {
         {groupType ? (
           groupType === "checkBox" ? (
             <div className="d-flex justify-content-center">
-              <img src="/IMG_4846.PNG" width="80%" alt="" />
+              <img src="/IMG_4846.PNG" width="220px" alt="" />
             </div>
           ) : (
             <div className="d-flex justify-content-center">
-              <img src="/IMG_4847.PNG" width="80%" alt="" />
+              <img src="/IMG_4847.PNG" width="220px" alt="" />
             </div>
           )
         ) : null}

@@ -234,6 +234,14 @@ input[type="checkbox"] {
   background-color: #225bc3;
 }
 
+.hukeAvBox:active {
+  background-color: #225bc3;
+}
+
+.hukeAvBox:hover {
+  background-color: #225bc3;
+}
+
 .rankeringBox {
   width: 30%;
   color: white;
@@ -250,5 +258,13 @@ input[type="checkbox"] {
 }
 
 .rankeringBox:focus {
+  background-color: #225bc3;
+}
+
+.rankeringBox:active {
+  background-color: #225bc3;
+}
+
+.rankeringBox:hover {
   background-color: #225bc3;
 }
