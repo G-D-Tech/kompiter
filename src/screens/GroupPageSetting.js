@@ -144,13 +144,12 @@ function GroupPageSetting() {
         {GroupPageNavBar(group /* , startDate, endDate */)}
       </div>
       {isAdmin && !group.everyoneIsAdmin ? (
-        <div
-          className="display-membersNotAdminOuter"
-          onClick={() => setOpenAdmins(!openAdmins)}
-        >
-          <label className="uncompletedChallengesText">
-            Legg til administrator
-          </label>
+        <div className="display-membersNotAdminOuter">
+          <div onClick={() => setOpenAdmins(!openAdmins)}>
+            <label className="uncompletedChallengesText">
+              Legg til administrator
+            </label>
+          </div>
           {openAdmins ? (
             <div>
               {/* {groupMembers.map((member) =>

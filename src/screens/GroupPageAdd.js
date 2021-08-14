@@ -186,7 +186,6 @@ function GroupPageAdd() {
       .collection("challenges")
       .doc(challenge.id)
       .update({ challengeName: rename });
-      
   }
 
   /* //Runs the first time the challenges is displayed
@@ -328,7 +327,7 @@ function GroupPageAdd() {
             placeholder="Skriv inn utfordring..."
           />
           {group.groupType === "ranking" ? (
-            <div className="d-flex flex-column container">
+            <div className="d-flex flex-column container form-controlAdd">
               <label className="sortingText">Ranger score etter:</label>
               <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
                 <ToggleButton

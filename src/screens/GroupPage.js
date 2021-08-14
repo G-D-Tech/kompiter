@@ -149,9 +149,16 @@ function GroupPage() {
                     {/* {index + 1}. */}
                     {groupMember.name}
                   </label>
-                  <label className="display-score">
-                    Score: {groupMember.score} / {challenges.length}
-                  </label>
+                  {group.groupType === "ranking" ? (
+                    <label className="display-score">
+                      Score: {groupMember.score} /
+                      {groupMembers.length * challenges.length}
+                    </label>
+                  ) : (
+                    <label className="display-score">
+                      Score: {groupMember.score} / {challenges.length}
+                    </label>
+                  )}
                   <label className="display-challengeScore">
                     Fullførte utfordringer{" "}
                   </label>

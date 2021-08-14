@@ -33,7 +33,7 @@ function GroupPageNavBar(group /* , startDate, endDate */) {
     <div>
       <button className="backButtonStyle">
         <Link to="/">
-          <IoIosArrowBack size={20}></IoIosArrowBack>
+          <IoIosArrowBack size={22}></IoIosArrowBack>
         </Link>
       </button>
       <div className="inputGroup-containerHeader">
