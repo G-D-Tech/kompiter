@@ -218,34 +218,37 @@ input[type="checkbox"] {
   width: 30%;
   color: white;
   margin-bottom: 20px;
-  background-color: #4d85f2;
-  border-top-left-radius: 5px;
+  background-color: #2a72f4;
+
   border-radius: 1px;
-  border-color: #4d85f2;
+  border-color: #2a72f4;
+  border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  font-size: 15px;
+  font-size: 20px;
+  padding: 2px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
 }
 
-.hukeAvBox:active {
-  background-color: #2959b9;
+.hukeAvBox:focus {
+  background-color: #225bc3;
 }
 
 .rankeringBox {
   width: 30%;
   color: white;
   margin-bottom: 20px;
-  background-color: #4d85f2;
+  background-color: #2a72f4;
   border-radius: 1px;
-  border-color: #4d85f2;
+  padding: 2px;
+  border-color: #2a72f4;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  font-size: 15px;
+  font-size: 20px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
 }
 
-.rankeringBox:active {
-  background-color: #2959b9;
+.rankeringBox:focus {
+  background-color: #225bc3;
 }

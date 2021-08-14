@@ -357,7 +357,7 @@
   display: flex;
   margin-left: 10px;
   color: #1e2223;
-  font-size: 17px;
+  font-size: 18px;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   margin-left: 5%;
@@ -366,9 +366,9 @@
 
 .display-cDone {
   color: #1e2223;
-  font-size: 17px;
+  font-size: 16px;
   font-family: "Roboto", sans-serif;
-  font-weight: 300;
+  font-weight: 700;
   display: flex;
   justify-content: left;
   margin-left: 5%;

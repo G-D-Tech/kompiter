@@ -33,7 +33,7 @@ const CreateGroup = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [adminInfo, setAdminInfo] = useState(false);
   const [updateVar, setUpdateVar] = useState(false);
-  const [groupType, setGroupType] = useState("checkBox");
+  const [groupType, setGroupType] = useState();
 
   function showCopiedText() {
     var x = document.getElementById("myLabel");
@@ -247,6 +247,17 @@ const CreateGroup = () => {
             Rankering
           </button>
         </div>
+        {groupType ? (
+          groupType === "checkBox" ? (
+            <div className="d-flex justify-content-center">
+              <img src="/IMG_4846.PNG" width="80%" alt="" />
+            </div>
+          ) : (
+            <div className="d-flex justify-content-center">
+              <img src="/IMG_4847.PNG" width="80%" alt="" />
+            </div>
+          )
+        ) : null}
       </div>
 
       <div className="button-container">
@@ -259,7 +270,7 @@ const CreateGroup = () => {
           Opprett gruppe
         </button>
       </div>
-      {groupName && currentUser ? (
+      {groupName && groupType ? (
         <Modal
           isOpen={modalIsOpen}
           className="modal-content"
@@ -328,7 +339,9 @@ const CreateGroup = () => {
           ariaHideApp={false}
         >
           <div className="input-container">
-            <label className="textGruppe">Gruppenavn er ikke definert</label>
+            <label className="textGruppe">
+              Gruppenavn eller gruppe type er ikke definert
+            </label>
           </div>
 
           <div className="button-container">

@@ -290,7 +290,7 @@ function GroupPageList() {
                       <div>
                         <BsCircle
                           className="unChecked-circle"
-                          size={30}
+                          size={35}
                         ></BsCircle>
                       </div>
                     </div>
