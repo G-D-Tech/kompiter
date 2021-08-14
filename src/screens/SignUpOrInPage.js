@@ -33,6 +33,9 @@ const SignUpOrInPage = () => {
         </Link>
       </div>
       <div className="container-center">
+        <div className="marginLogo">
+          <img src="/fullLogoKompit.png" height="50px" alt="" />
+        </div>
         <Link to="/LoginPage">
           <button className="LogInButtonStyle">Logg inn</button>
         </Link>
