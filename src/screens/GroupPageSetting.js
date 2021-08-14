@@ -207,12 +207,21 @@ function GroupPageSetting() {
         </div>
       ) : (
         <div className="display-membersNotAdminOuter">
-          <label
-            className="uncompletedChallengesText"
-            onClick={() => setOpenAdmins(!openAdmins)}
-          >
-            Du er ikke administrator
-          </label>
+          {group.everyoneIsAdmin ? (
+            <label
+              className="uncompletedChallengesText"
+              onClick={() => setOpenAdmins(!openAdmins)}
+            >
+              Alle er administrator
+            </label>
+          ) : (
+            <label
+              className="uncompletedChallengesText"
+              onClick={() => setOpenAdmins(!openAdmins)}
+            >
+              Du er ikke administrator
+            </label>
+          )}
         </div>
       )}
       <div className="display-challenges">

@@ -7,6 +7,7 @@ import GroupPageNavBar from "../screens/GroupPageNavBar";
 
 import React, { useEffect, useState } from "react";
 import firebase from "../firebase";
+import { IoIosArrowDown } from "react-icons/io";
 
 function GroupPage() {
   const location = useLocation();
@@ -163,11 +164,18 @@ function GroupPage() {
                       }
                       key={challenge.id}
                     >
-                      <div>
+                      <div className="arrowUtfordring">
                         <label className="display-cDone">
                           {challenge.challengeName}
                         </label>
+                        {challenge.imageProof ? (
+                          <IoIosArrowDown
+                            className="display_arrowDown"
+                            size={20}
+                          />
+                        ) : null}
                       </div>
+
                       <div>
                         {challenge.viewImageIsOpen && imageUrl ? (
                           <div className="imageAndButton">

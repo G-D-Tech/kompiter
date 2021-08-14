@@ -268,3 +268,8 @@ input[type="checkbox"] {
 .rankeringBox:hover {
   background-color: #225bc3;
 }
+
+.arrowUtfordring {
+  display: flex;
+  justify-content: space-between;
+}

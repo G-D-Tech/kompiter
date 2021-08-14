@@ -374,6 +374,10 @@
   margin-left: 5%;
 }
 
+.display_arrowDown {
+  margin-right: 7%;
+}
+
 .display-sendTilVenner {
   display: flex;
   color: white;
@@ -592,7 +596,7 @@
   font-family: "Roboto", sans-serif;
   font-size: 15px;
   color: white;
-  background-color: #f77777;
+  background-color: #e94840;
   border-radius: 12px;
   margin-top: 5px;
   text-align: center;
