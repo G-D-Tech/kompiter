@@ -48,18 +48,6 @@
   background-color: #eee;
 }
 
-.checkmark1 {
-  position: absolute;
-  justify-content: center;
-  top: 0;
-  left: 10px;
-  height: 30px;
-  width: 30px;
-  margin-left: -20px;
-  border-radius: 5px;
-  background-color: #eee;
-}
-
 /* On mouse-over, add a grey background color */
 .checkboxContainer:hover input ~ .checkmark {
   background-color: #ccc;
@@ -93,6 +81,10 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.marginLeft {
+  margin-left: -20px;
 }
 
 .opprettButtonStyle:disabled {

@@ -168,7 +168,7 @@ const SignUpPage = () => {
                 <label className="checkboxContainer">
                   <input type="checkbox" id="termsCheckbox"></input>
                   <span
-                    className="checkmark1"
+                    className="checkmark marginLeft"
                     onClick={() => acceptTerms()}
                   ></span>
                 </label>
