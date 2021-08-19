@@ -217,7 +217,7 @@ const CreateGroup = () => {
       </div>
       <div>
         <label className="opprettGruppeSecondHeader">Type gruppe</label>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center marginTop ">
           {/* <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
             <ToggleButton
               id="tbg-radio-1"
