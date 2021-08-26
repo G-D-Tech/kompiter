@@ -306,7 +306,11 @@ function GroupPageAdd() {
  */
   return (
     <div>
-      <div className="modalGroup-content">
+      <div
+        style={{
+          backgroundImage: `url("/backgroundKompit.jpg")`,
+        }}
+      >
         {GroupPageNavBar(group /* , startDate, endDate */)}
       </div>
       <div
