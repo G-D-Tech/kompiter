@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
-
 import Modal from "react-modal";
 //import DatePicker from "react-datepicker";
 
@@ -31,7 +30,7 @@ const CreateGroup = () => {
   const ref = firebase.firestore();
   const [firstRun, setFirstRun] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
-  const [adminInfo, setAdminInfo] = useState(false);
+  const [adminInfo, setAdminInfo] = useState(true);
   const [updateVar, setUpdateVar] = useState(false);
   const [groupType, setGroupType] = useState();
 
@@ -156,84 +155,18 @@ const CreateGroup = () => {
 
       <div>
         <label className="opprettGruppeSecondHeader">Administrator</label>
-        <form>
-          <div className="GroupNameBox">
-            <div className="form-control form-control1">
-              {/* <input type="checkbox" id="adminCheckbox"></input> */}
-              <div className="adminDiv ">
-                <label className="checkboxContainer">
-                  <input
-                    type="checkbox"
-                    id="adminCheckbox"
-                    onClick={() => {
-                      setUpdateVar(!updateVar);
-                    }}
-                  ></input>
-                  <span className="checkmark"></span>
-                </label>
-                <div className="adminInfoBox">
-                  {updateVar ? (
-                    <label
-                      className="textAdmin"
-                      onClick={() => {
-                        setAdminInfo(!adminInfo);
-                      }}
-                    >
-                      Kun deg
-                    </label>
-                  ) : (
-                    <label
-                      className="textAdmin"
-                      onClick={() => {
-                        setAdminInfo(!adminInfo);
-                      }}
-                    >
-                      Alle
-                    </label>
-                  )}
-
-                  <RiArrowDownSFill
-                    size={27}
-                    className="iconArrowDown "
-                    onClick={() => {
-                      setAdminInfo(!adminInfo);
-                    }}
-                  ></RiArrowDownSFill>
-                </div>
-              </div>
-            </div>
-          </div>
-          {adminInfo ? (
-            <label className="infoAdmin">
-              {/* Ved å huke av her vil bare du kunne legge til utfordringer i denne
-          gruppa. */}
-              Ved å huke av, vil kun du legge til og slette utfordringer (Kan
-              legge til flere administrator senere). Ved å IKKE huke av vil alle
-              medlemmer være administrator.
-            </label>
-          ) : null}
-        </form>
+        <select
+          className="ui search dropdown dropDown"
+          onChange={(e) => setAdminInfo(e.target.value)}
+        >
+          <option value={true}>Alle</option>
+          <option value={false}>Kun deg</option>
+        </select>
         <div className="navbarTopOpprettUnder"></div>
       </div>
       <div>
         <label className="opprettGruppeSecondHeader">Type gruppe</label>
         <div className="d-flex justify-content-center marginTop ">
-          {/* <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-            <ToggleButton
-              id="tbg-radio-1"
-              value={1}
-              onClick={() => setGroupType("checkBox")}
-            >
-              Huke av
-            </ToggleButton>
-            <ToggleButton
-              id="tbg-radio-2"
-              value={2}
-              onClick={() => setGroupType("ranking")}
-            >
-              Rankering
-            </ToggleButton>
-          </ToggleButtonGroup> */}
           <button
             className="hukeAvBox"
             onClick={() => setGroupType("checkBox")}
@@ -270,6 +203,7 @@ const CreateGroup = () => {
           Opprett gruppe
         </button>
       </div>
+      {console.log(adminInfo)}
       {groupName && groupType ? (
         <Modal
           isOpen={modalIsOpen}
@@ -286,13 +220,13 @@ const CreateGroup = () => {
           </label>
           <div className="codeOutput">
             <input
-              className="form-control GroupNameBox"
+              className="form-control GroupNameBox1"
               readOnly={true}
               value={randomNumber}
             />
             <CopyToClipboard text={randomNumber}>
               <FiCopy
-                className="icon-copy"
+                className="icon-copy1"
                 size={30}
                 onClick={() => showCopiedText()}
               ></FiCopy>
@@ -300,11 +234,12 @@ const CreateGroup = () => {
           </div>
 
           <div className="button-container">
+            {console.log(adminInfo)}
             <Link to="/">
               <button
                 className="RedButtonStyle"
                 onClick={() => {
-                  document.getElementById("adminCheckbox").checked
+                  adminInfo === true
                     ? addGroup({
                         groupName: groupName,
                         id: randomNumber,
@@ -312,7 +247,7 @@ const CreateGroup = () => {
                         //endDate: endDate,
                         numberOfGroupMembers: 1,
                         numberOfChallenges: 0,
-                        everyoneIsAdmin: false,
+                        everyoneIsAdmin: true,
                         groupType: groupType,
                       })
                     : addGroup({
@@ -322,7 +257,7 @@ const CreateGroup = () => {
                         //endDate: endDate,
                         numberOfGroupMembers: 1,
                         numberOfChallenges: 0,
-                        everyoneIsAdmin: true,
+                        everyoneIsAdmin: false,
                         groupType: groupType,
                       });
                 }}

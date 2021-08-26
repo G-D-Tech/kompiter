@@ -42,6 +42,10 @@
   margin-bottom: 20px;
 }
 
+.GroupNameBox1 {
+  margin-bottom: 20px;
+}
+
 .adminBox {
   display: flex;
   justify-content: center;
@@ -66,6 +70,14 @@
   justify-content: center;
   margin-bottom: 30px;
 }
+
+.dropDown {
+  width: 80%;
+  padding: 10px;
+  margin-left: 10%;
+  margin-bottom: 20px;
+}
+
 .inputDate-container {
   display: flex;
   flex-direction: row;
