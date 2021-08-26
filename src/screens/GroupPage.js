@@ -132,7 +132,11 @@ function GroupPage() {
 
   return (
     <div>
-      <div className="modalGroup-content">
+      <div
+        style={{
+          backgroundImage: `url("/backgroundKompit.jpg")`,
+        }}
+      >
         {GroupPageNavBar(group /* , startDate, endDate */)}
       </div>
       {groupMembers
