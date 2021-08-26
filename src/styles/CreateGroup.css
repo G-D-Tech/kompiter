@@ -76,6 +76,8 @@
   padding: 10px;
   margin-left: 10%;
   margin-bottom: 20px;
+  font-size: 23px !important;
+  border-radius: 10px !important;
 }
 
 .inputDate-container {
