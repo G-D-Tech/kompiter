@@ -140,11 +140,7 @@ function GroupPageSetting() {
 
   return (
     <div>
-      <div
-        style={{
-          backgroundImage: `url("/backgroundKompit.jpg")`,
-        }}
-      >
+      <div className="modalGroup-content">
         {GroupPageNavBar(group /* , startDate, endDate */)}
       </div>
       {isAdmin && !group.everyoneIsAdmin ? (

@@ -573,11 +573,7 @@ function GroupPageList() {
 
   return (
     <div>
-      <div
-        style={{
-          backgroundImage: `url("/backgroundKompit.jpg")`,
-        }}
-      >
+      <div className="modalGroup-content">
         {GroupPageNavBar(group /* , startDate, endDate */)}
       </div>
       {group.groupType === "ranking" ? RankingGroup() : CheckBoxGroup()}
